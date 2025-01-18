@@ -20,5 +20,5 @@ print()
 listA = ["shin",25, 181.3, "comp"]
 print(f"""name : {listA[0]}, age : {listA[1]}, height : {listA[2]}, major : {list[3]}""") # 불편한 방법 1
 print('name : {}, age : {}, height : {}, major : {}'.format(listA[0],listA[1],listA[2],listA[3])) # 불편한 방법 2
-print('name : {}, age : {}, height : {}, major : {}'.format(*listA)) # *listA 를 통해 간편하게 수행 가능
+print('name : {}, age : {}, height : {}, major : {}'.format(*listA)) # *listA 를 통해 간편하게 수행 가능₩
 print()
