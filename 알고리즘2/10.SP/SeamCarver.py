@@ -129,7 +129,6 @@ def convertToGrayScale(image):
 
 
 if __name__ == "__main__":        
-    '''
     # Unit test for convertToGrayScale()    
     image_color = Image.open(Path(__file__).with_name("heart.jpg")) # Use the location of the current .py file    
     image_gray = convertToGrayScale(image_color)
@@ -184,7 +183,7 @@ if __name__ == "__main__":
     # sc.width() == 5'''
 
     
-    '''# Unit test 2 for vertical seam
+    # Unit test 2 for vertical seam
     image2 = Image.new("RGB", (3,10), "white")
     sc2 = SeamCarver(image2)
     vs2 = sc2.findVerticalSeam()
@@ -210,8 +209,8 @@ if __name__ == "__main__":
     sc3 = SeamCarver(image3)
     vs3 = sc3.findVerticalSeam()
     if int(sc3.energySumOverVerticalSeam(vs3)) == 2000: print("pass")
-    else: print("fail")'''
-    
+    else: print("fail")
+
     
     # Unit test 3: visual inpsection for seam carving
     showBeforeAfterSeamCarving("heart.jpg", 30)    # carving 후에 흰 부분만 삭제되고 하트 부분은 유지되어야 함    
@@ -219,7 +218,7 @@ if __name__ == "__main__":
     showBeforeAfterSeamCarving("piplub.jpg", 30)   # carving 후에 흰 부분만 삭제되고 piplub은 유지되어야 함
 
     
-    '''# Speed test (effective only when you pass the accuracy test)
+    # Speed test (effective only when you pass the accuracy test)
     image3 = Image.open(Path(__file__).with_name("piplub.jpg")) # Use the location of the current .py file
     sc3 = SeamCarver(image3)
     n=20
@@ -228,6 +227,6 @@ if __name__ == "__main__":
     print(f"Finding {n} vertical seams on a 100x100 image took {tVerticalSeam:.10f} sec on average")
     print(f"Creating {n} gray scale images on a 100x100 image took {tGrayScale:.10f} sec on average")    
     if (tVerticalSeam < 12 * tGrayScale): print("pass for speed test")
-    else: print("fail for speed test")'''
+    else: print("fail for speed test")
     
     
