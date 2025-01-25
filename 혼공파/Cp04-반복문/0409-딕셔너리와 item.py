@@ -1,4 +1,5 @@
-# 딕셔너리와 item()
+# 딕셔너리와 item() - 딕셔너리 요소를 "튜플" 형태로 반환
+    # 튜플 - 수정이 불가하단 점을 제외하면, 리스트와 상당히 비슷.
 
 # items() 함수와 반복문 조합
 
@@ -9,13 +10,10 @@ dictE = {
     "keyD" : "valueD",
 }
 
-    # item() 함수 결과 출력
 
-print(dictE.items())
+result = dictE.items()
+print(result)
 print()
 
-    # for 반복문과 items() 함수 조합 사용
-    
 for key, element in dictE.items():
-    print(f"key - {key} : value - {element}")
-print()
+    print(f"key {key} : element {element}")

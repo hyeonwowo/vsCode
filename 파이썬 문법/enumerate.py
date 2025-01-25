@@ -1,4 +1,7 @@
-# enumerate() 함수와 반복문 조합
+# enumerate() 함수와 반복문 조합 - enumerate(lista)는 인덱스와 요소를 같이 반환해준다
+# ex) print(list(enumerate(lista)))
+# ex) for index, element in enumerate(lista):
+#         print(f"{index}{element}")
 
 liste = ["element1", "element2", "element3"]
 
