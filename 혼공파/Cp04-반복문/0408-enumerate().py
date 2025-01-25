@@ -1,4 +1,4 @@
-# enumerate() 함수와 반복문 조합
+# enumerate() 함수와 반복문 조합 - 순서가 있는 자료구조 처리시, 인덱스 넘버와 함께 반환.
 
 liste = ["element1", "element2", "element3"]
 
