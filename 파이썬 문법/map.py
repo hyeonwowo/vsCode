@@ -8,4 +8,16 @@ print(numberList)
 
 result = map(str,numberList)
 print(list(result))
+print()
 
+
+# map(함수, 리스트) : 리스트의 요소를 함수에 넣고 리턴된 값으로, 새로운 리스트 반환
+
+def power(n):
+    return n*n
+
+input_list = [1,2,3,4,5]
+result_list = map(power,input_list)
+
+print(result_list)
+print(list(result_list))

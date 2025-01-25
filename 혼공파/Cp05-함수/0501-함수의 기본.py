@@ -1,4 +1,4 @@
-# 함수의 기본
+# 함수의 기본 (일반(value) - 가변(*value) - 기본(n=x) 해당 순서로 매개변수 할당) 
 
 def print_n_times(value,n):
     for i in range(n):

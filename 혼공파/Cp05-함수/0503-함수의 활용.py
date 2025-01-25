@@ -85,3 +85,20 @@ print("fibo(30) : ",fibo(30))
 print("fibo(40) : ",fibo(40))
 print("fibo(50) : ",fibo(50))
 print()
+
+
+# 리스트 평탄화 재귀함수
+
+def flatten(lista):
+    result = []
+    for element in lista:
+        if isinstance(element, list):
+            result += flatten(element)
+        else:
+            result.append(element)
+    return result
+
+
+lista = [[1,[[2],3]],[4,[5,6]],7,[8,9]]
+print(lista)
+print(flatten(lista))
