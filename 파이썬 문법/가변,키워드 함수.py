@@ -3,7 +3,7 @@
 def func(n, *values):
     for i in range(n): # 반복 횟수
         for value in values: # 출력문
-            print(value)
+            print(value) # print(value,end="") 사용으로 줄바꿈 없이 print 출력 가능.
         print()
 
 func(5,"hello","world","!")

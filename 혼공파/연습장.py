@@ -1,29 +1,72 @@
-# 연습장
+# 함수의 기본
 
-lista = ["a","b","c","d"]
+def print_str1(n, value):
+    for i in range(n):
+        print(value,end="")
 
-# print list a with index + element
+def print_str2(n, *value):
+    for i in range(n):
+        for element in value:
+            print(element,end=" ")
 
-# case 1)
+def print_str3(a=10,b=20,c=30):
+    print("a + ","b + ","c :",a+b+c)
 
-i=0
-for element in lista:
-    print(f"index : {i}, element : {element}")
-    i += 1
+
+print_str1(3,"hello world !")
 print()
-
-# case 2
-
-for i in range(len(lista)):
-    print(f"index : {i}, element : {lista[i]}")
+print_str2(3, "hello","world","!!")
 print()
+print_str3(a=1,b=1,c=1)
+print_str3(c=2,b=2,a=1)
 
-# case 3 : use enumerate()
 
-print(list(enumerate(lista)))
-print()
+# 메모이제이션 피보나치
 
-# case 4 : for & enumerate()
+dicta = {
+    1 : 1,
+    2 : 1
+}
 
-for index, element in enumerate(lista):
-    print(f"index : {index}, element : {element}")
+def fibo(n):
+    if n in dicta:
+        return dicta[n]
+    else:
+        output = fibo(n-1) + fibo(n-2)
+        dicta[n] = output
+        return output
+
+print(fibo(1))
+print(fibo(2))
+print(fibo(3))
+print(fibo(4))
+print(fibo(5))
+print(fibo(6))
+
+# 리스트 평탄화 재귀함수
+
+def flatten(lista):
+    result = []
+    for element in lista:
+        if isinstance(element,list):
+            result += flatten(element)
+        else:
+            result.append(element)
+    return result
+
+
+lista = [[1,[[2],3]],[4,[5,6]],7,[8,9]]
+print(lista)
+print(flatten(lista))
+
+
+# 매개변수로 받은 함수 호출
+
+def fun_value(func):
+    for i in range(10):
+        func()
+
+def print_hello():
+    print("hello world !")
+
+fun_value(print_hello)
