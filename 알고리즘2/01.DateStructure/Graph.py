@@ -1,26 +1,13 @@
 class Graph:
-    def __init__(self, directed=False):
-        """
-        그래프 생성자
-        :param directed: True면 방향 그래프, False면 무방향 그래프
-        """
+    def __init__(self, directed=False): # True면 방향 그래프, False면 무방향 그래프
         self.adjacency_list = {}
         self.directed = directed
 
-    def add_vertex(self, vertex):
-        """
-        그래프에 정점을 추가합니다.
-        :param vertex: 정점 이름
-        """
+    def add_vertex(self, vertex): # vertex 추가
         if vertex not in self.adjacency_list:
             self.adjacency_list[vertex] = []
 
-    def add_edge(self, u, v):
-        """
-        그래프에 간선을 추가합니다.
-        :param u: 시작 정점
-        :param v: 끝 정점
-        """
+    def add_edge(self, u, v): # edge 추가 (u - 시작, v - 끝)
         if u not in self.adjacency_list:
             self.add_vertex(u)
         if v not in self.adjacency_list:
@@ -30,22 +17,13 @@ class Graph:
         if not self.directed:
             self.adjacency_list[v].append(u)
 
-    def remove_edge(self, u, v):
-        """
-        그래프에서 간선을 제거합니다.
-        :param u: 시작 정점
-        :param v: 끝 정점
-        """
+    def remove_edge(self, u, v): # edge 제거 (u - 시작, v - 끝)
         if u in self.adjacency_list and v in self.adjacency_list[u]:
             self.adjacency_list[u].remove(v)
         if not self.directed and v in self.adjacency_list and u in self.adjacency_list[v]:
             self.adjacency_list[v].remove(u)
 
-    def remove_vertex(self, vertex):
-        """
-        그래프에서 정점을 제거합니다.
-        :param vertex: 제거할 정점
-        """
+    def remove_vertex(self, vertex): # vertex 제거
         if vertex in self.adjacency_list:
             del self.adjacency_list[vertex]
 
@@ -53,16 +31,10 @@ class Graph:
             if vertex in self.adjacency_list[v]:
                 self.adjacency_list[v].remove(vertex)
 
-    def get_vertices(self):
-        """
-        그래프의 모든 정점을 반환합니다.
-        """
+    def get_vertices(self): # Graph 모든 vertex 반환
         return list(self.adjacency_list.keys())
 
-    def get_edges(self):
-        """
-        그래프의 모든 간선을 반환합니다.
-        """
+    def get_edges(self): # Graph 모든 edge 반환
         edges = []
         for u in self.adjacency_list:
             for v in self.adjacency_list[u]:
@@ -70,10 +42,7 @@ class Graph:
                     edges.append((u, v))
         return edges
 
-    def display(self):
-        """
-        그래프를 보기 좋게 출력합니다.
-        """
+    def display(self): # 그래프 출력
         for vertex in self.adjacency_list:
             print(f"{vertex} -> {self.adjacency_list[vertex]}")
 
