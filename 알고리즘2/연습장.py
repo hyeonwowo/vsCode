@@ -1,28 +1,25 @@
-class Student:
-    def __init__(self,name,age,major):
+class Player:
+    def __init__(self,name,pos,ovl):
         self.name = name
-        self.age = age
-        self.major = major
-
-    def introduce(self):
-        print("=================")
-        print(f"name {self.name}")
-        print(f"age {self.age}")
-        print(f"major {self.major}")
-        print("=================")
-
-    def changeMajor(self,new_major):
-        print(f"change major : {self.major} -> {new_major}")
-        self.major = new_major
+        self.pos = pos
+        self.ovl = ovl
+    
+    def print_stat(self):
+        print(f"{self.name} {self.pos} {self.ovl}")
+    
+    def update_info(self,pos):
+        print(f"{self.pos} -> {pos}")
+        self.pos = pos
 
 
-student1 = Student("son",31,"LW")
-student2 = Student("kane",30,"ST")
-student3 = Student("kross",34,"MF")
+Son = Player("SON","LW",92)
+Kane = Player("KANE","ST",93)
+Kross = Player("KROSS","MF",90)
 
-student1.introduce()
-student2.introduce()
-student3.introduce()
+Son.print_stat()
+Kane.print_stat()
+Kross.print_stat()
+print()
 
-student2.changeMajor("RW")
-student2.introduce()
+Son.update_info("RW")
+Son.print_stat()

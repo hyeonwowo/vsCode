@@ -22,7 +22,7 @@ class Student:
         :param age: 학생 나이
         :param major: 전공
         """
-        self.name = name
+        self.name = name # 클래스 내에서 사용할 변수들의 이름 자체를 self.xxx 이런 식으로 생각하면 될 듯
         self.age = age
         self.major = major
 
@@ -48,3 +48,30 @@ student2.introduce()
 
     # 전공 변경
 student1.update_major("인공지능")
+print()
+
+class Player:
+    def __init__(self,name,pos,ovl):
+        self.name = name
+        self.pos = pos
+        self.ovl = ovl
+    
+    def print_stat(self):
+        print(f"{self.name} {self.pos} {self.ovl}")
+    
+    def update_info(self,pos):
+        print(f"{self.pos} -> {pos}")
+        self.pos = pos
+
+
+Son = Player("SON","LW",92)
+Kane = Player("KANE","ST",93)
+Kross = Player("KROSS","MF",90)
+
+Son.print_stat()
+Kane.print_stat()
+Kross.print_stat()
+print()
+
+Son.update_info("RW")
+Son.print_stat()
