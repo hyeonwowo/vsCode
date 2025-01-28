@@ -1,6 +1,6 @@
 class Graph:
     def __init__(self, directed=False): # True면 방향 그래프, False면 무방향 그래프
-        self.adjacency_list = {}
+        self.adjacency_list = {} # 딕셔너리 - {'A': ['B'], 'B': ['A']} 이런식으로 저쟝
         self.directed = directed
 
     def add_vertex(self, vertex): # vertex 추가
