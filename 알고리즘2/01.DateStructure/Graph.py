@@ -7,6 +7,14 @@ class Graph:
         if vertex not in self.adjacency_list:
             self.adjacency_list[vertex] = []
 
+    def remove_vertex(self, vertex): # vertex 제거
+        if vertex in self.adjacency_list:
+            del self.adjacency_list[vertex]
+
+        for v in self.adjacency_list:
+            if vertex in self.adjacency_list[v]:
+                self.adjacency_list[v].remove(vertex)
+            
     def add_edge(self, u, v): # edge 추가 (u - 시작, v - 끝)
         if u not in self.adjacency_list:
             self.add_vertex(u)
@@ -22,14 +30,6 @@ class Graph:
             self.adjacency_list[u].remove(v)
         if not self.directed and v in self.adjacency_list and u in self.adjacency_list[v]:
             self.adjacency_list[v].remove(u)
-
-    def remove_vertex(self, vertex): # vertex 제거
-        if vertex in self.adjacency_list:
-            del self.adjacency_list[vertex]
-
-        for v in self.adjacency_list:
-            if vertex in self.adjacency_list[v]:
-                self.adjacency_list[v].remove(vertex)
 
     def get_vertices(self): # Graph 모든 vertex 반환
         return list(self.adjacency_list.keys())
