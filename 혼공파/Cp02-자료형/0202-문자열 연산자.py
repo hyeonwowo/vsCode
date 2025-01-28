@@ -1,5 +1,8 @@
-print("hello " + "world")
+print("hello " + "world") # " + " 사용하여 문자열 연결시 있는 그대로 연결
+print("hello ","world") # " , " 사용하여 문자열 연결시 공백 하나 추가.
+
 print("hello " + "1")
+print("hello ","1")
 print()
 
 print("hello" * 3)
