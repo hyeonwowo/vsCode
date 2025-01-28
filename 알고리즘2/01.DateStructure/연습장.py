@@ -3,7 +3,7 @@ class Graph:
         self.adjacency_list = {}
         self.directed = directed
 
-    def add_vertex(self, vertex):
+    def add_vertex(self, vertex): 
         if vertex not in self.adjacency_list:
             self.adjacency_list[vertex] = []
 

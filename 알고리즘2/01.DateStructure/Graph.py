@@ -4,7 +4,7 @@ class Graph:
         self.directed = directed
 
     def add_vertex(self, vertex): # vertex 추가
-        if vertex not in self.adjacency_list:
+        if vertex not in self.adjacency_list: # vertex는 key 값으로 들어감
             self.adjacency_list[vertex] = []
 
     def add_edge(self, u, v): # edge 추가 (u - 시작, v - 끝)
@@ -14,15 +14,17 @@ class Graph:
             self.add_vertex(v)
 
         self.adjacency_list[u].append(v)
-        if not self.directed:
+        if not self.directed: # 방향그래프가 아닐 때.
             self.adjacency_list[v].append(u)
+
+
             
     def remove_vertex(self, vertex): # vertex 제거
         if vertex in self.adjacency_list:
             del self.adjacency_list[vertex]
 
         for v in self.adjacency_list:
-            if vertex in self.adjacency_list[v]:
+            if vertex in self.adjacency_list[v]: # 각 키를 돌면서 해당하는 키에 있는 value vertex를 제거함.
                 self.adjacency_list[v].remove(vertex)
 
     def remove_edge(self, u, v): # edge 제거 (u - 시작, v - 끝)
