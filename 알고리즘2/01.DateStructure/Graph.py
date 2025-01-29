@@ -22,15 +22,15 @@ class Graph:
             
     def remove_vertex(self, vertex): # vertex 제거
         if vertex in self.adjacency_list:
-            del self.adjacency_list[vertex]
+            del self.adjacency_list[vertex] # 큰 줄기 속 해당하는 vertex 삭제
 
         for v in self.adjacency_list:
-            if vertex in self.adjacency_list[v]: # 각 키를 돌면서 해당하는 키에 있는 value vertex를 제거함.
+            if vertex in self.adjacency_list[v]: # 큰 줄기에 딸려있는 잎들에 있는 해당하는 vertex 삭제
                 self.adjacency_list[v].remove(vertex)
 
     def remove_edge(self, u, v): # edge 제거 (u - 시작, v - 끝)
         if u in self.adjacency_list and v in self.adjacency_list[u]:
-            self.adjacency_list[u].remove(v)
+            self.adjacency_list[u].remove(v) # remove() 함수는 값으로 제거 가능
         if not self.directed and v in self.adjacency_list and u in self.adjacency_list[v]:
             self.adjacency_list[v].remove(u)
 
