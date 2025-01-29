@@ -13,11 +13,12 @@ class Graph:
         if v not in self.adjacency_list:
             self.add_vertex(v)
 
-        self.adjacency_list[u].append(v)
-        if not self.directed: # 방향그래프가 아닐 때.
+        # 방향그래프
+        self.adjacency_list[u].append(v) # 방향그래프이면 여기서 끝.
+
+        # 무방향그래프
+        if not self.directed: # 방향그래프가 아닐 때. 2-3, 3-2 동일 edge를 두번 저장.
             self.adjacency_list[v].append(u)
-
-
             
     def remove_vertex(self, vertex): # vertex 제거
         if vertex in self.adjacency_list:
