@@ -35,10 +35,10 @@ class Graph:
             self.adjacency_list[v].remove(u)
 
     def get_vertices(self): # Graph 모든 vertex 반환
-        return list(self.adjacency_list.keys())
+        return list(self.adjacency_list.keys()) # 배웠던 .keys() 사용
 
     def get_edges(self): # Graph 모든 edge 반환
-        edges = []
+        edges = [] 
         for u in self.adjacency_list:
             for v in self.adjacency_list[u]:
                 if self.directed or (v, u) not in edges:
