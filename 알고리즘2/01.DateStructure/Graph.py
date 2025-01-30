@@ -1,7 +1,7 @@
 class Graph:
     def __init__(self, directed=False): # True면 방향 그래프, False면 무방향 그래프
         self.adjacency_list = {} # 딕셔너리 - {'A': ['B'], 'B': ['A']} 이런식으로 저쟝
-        self.directed = directed
+        self.directed = directed # 방향, 비방향 그래프 설정
 
     def add_vertex(self, vertex): # vertex 추가
         if vertex not in self.adjacency_list: # vertex는 key 값으로 들어감
@@ -47,7 +47,7 @@ class Graph:
 
     def display(self): # 그래프 출력
         for vertex in self.adjacency_list:
-            print(f"{vertex} -> {self.adjacency_list[vertex]}")
+            print(f"{vertex} -> {self.adjacency_list[vertex]}") # {vertex} -> {adjlist[vertex] : 해당하는 key(vertex)의 모든 value 값 [] 형태로 출력}
 
 # 예제 사용법
 g = Graph(directed=False)  # 무방향 그래프 생성
