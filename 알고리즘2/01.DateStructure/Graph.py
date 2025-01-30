@@ -41,8 +41,17 @@ class Graph:
         edges = [] 
         for u in self.adjacency_list:
             for v in self.adjacency_list[u]:
-                if self.directed or (v, u) not in edges:
+
+                # 방향그래프 -> 걸리는 족족 추가, 무방향그래프 -> 중복검사 후 추가
+                if self.directed or (v, u) not in edges: # 방향 그래프라면 (u,v)를 그냥 추가. 무방향 그래프라면 (v,u)가 있는지 확인 후 없으면 (u,v)추가
                     edges.append((u, v))
+                    # self.directed : 
+                    # 방향그래프 일 때, self.directed가 True라면 (u,v)를 바로 추가.
+                    # 방향그래프 일 때, (u,v)와 (v,u)가 서로 다른 간선이므로, 중복 검사를 할 필요 없이 추가.
+
+                    # (v,u) not in edges:
+                    # 무방향그래프 일 때, (v,u)가 이미 존재하는지 확인 (u,v)와 같은 간선이므로 중복 방지
+                    # 무방향그래프 일 때, (v,u)가 존재하지 않는다면, (u,v)를 추가
         return edges
 
     def display(self): # 그래프 출력
