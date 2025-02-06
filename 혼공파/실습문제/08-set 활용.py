@@ -3,3 +3,6 @@
 
 def set_operations(lst1, lst2):
     pass
+
+if __name__=="main":
+    pass

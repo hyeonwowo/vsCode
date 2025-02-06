@@ -4,3 +4,5 @@
 def average_score(scores):
     pass
 
+if __name__=="main":
+    pass

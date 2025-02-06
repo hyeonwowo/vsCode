@@ -17,3 +17,6 @@ class BSTNode:
 
     def inorder_traversal(self):
         pass
+
+if __name__=="main":
+    pass

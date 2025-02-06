@@ -3,3 +3,6 @@
 
 def min_rotation(s1, s2):
     pass
+
+if __name__=="main":
+    pass

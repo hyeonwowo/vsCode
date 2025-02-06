@@ -10,3 +10,5 @@ def find_common_elements(lst1, lst2):
 def count_characters(s):
     pass
 
+if __name__=="main":
+    pass

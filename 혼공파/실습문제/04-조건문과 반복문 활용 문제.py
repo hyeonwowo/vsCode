@@ -9,3 +9,6 @@ def print_even_numbers(n):
 
 def fizz_buzz(n):
     pass
+
+if __name__=="main":
+    pass
