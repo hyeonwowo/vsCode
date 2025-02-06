@@ -13,3 +13,6 @@ class Graph:
 
     def dfs(self, start):
         pass
+
+if __name__=="main":
+    pass

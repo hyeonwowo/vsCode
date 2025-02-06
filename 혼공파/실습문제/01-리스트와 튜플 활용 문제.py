@@ -6,11 +6,14 @@
 # 가장 큰 값과 가장 작은 값을 찾는 함수 find_max_min(lst)
 # 리스트를 내림차순으로 정렬하는 함수 sort_desc(lst)
 
-def sum_and_avg(lst):
+def sum_and_avg(lst): # 숫자 합 평균
     pass
 
-def find_max_min(lst):
+def find_max_min(lst): # 최대값, 최소값
     pass
 
-def sort_desc(lst):
+def sort_desc(lst): # 내림차순 정렬
+    pass
+
+if __name__=="main":
     pass

@@ -3,3 +3,6 @@
 
 def word_count(s):
     pass
+
+if __name__=="main":
+    pass

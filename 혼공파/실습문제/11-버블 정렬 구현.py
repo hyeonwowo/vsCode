@@ -3,3 +3,6 @@
 
 def bubble_sort(lst):
     pass
+
+if __name__=="main":
+    pass

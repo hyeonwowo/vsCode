@@ -3,3 +3,6 @@
 
 def list_to_tuple():
     pass
+
+if __name__=="main":
+    pass

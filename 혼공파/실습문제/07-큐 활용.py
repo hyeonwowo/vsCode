@@ -10,3 +10,6 @@ class RecentValuesQueue:
 
     def get_recent(self):
         pass
+
+if __name__=="main":
+    pass

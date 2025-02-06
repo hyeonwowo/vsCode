@@ -4,3 +4,6 @@
 
 def fibonacci(n):
     pass
+
+if __name__=="main":
+    pass
