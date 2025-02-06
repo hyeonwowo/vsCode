@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="kr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, inital-scale=1.0">
+        <title>readonly-required 태그</title>
+    </head>
+    <body>
+        <form>
+            <fieldset>
+                <legend>DELIVERY INFO</legend>
+                <ul id="shipping">
+                    <li>
+                        <label for="prod">Ordered thing</label>
+                        <input type="text" id="prod" value="merc 3kg" readonly>
+                    </li>
+                    <li>
+                        <label for="user-name">Name</label>
+                        <input type="text" id="user-name" autofocus required>
+                    </li>
+                    <li>
+                        <label for="addr">Addr</label>
+                        <input type="text" id="addr" readonly>
+                    </li>
+                    <li>
+                        <label for="mail">Mail</label>
+                        <input type="email" id="mail">
+                    </li>
+                    <li>
+                        <label for="phone">Tel</label>
+                        <input type="tel" id="phone" placeholder="No hiperlink(ex:01012345678)" required>
+                    </li>
+                    <li>
+                        <label for="d-day">ship pointing</label>
+                        <input type="date" id="d-day"> <small>later then order day</small>
+                    </li>
+                </ul>
+            </fieldset>
+            <div>
+                <input type="submit" value="order">
+                <input type="reset" value="cancel">
+            </div>
+        </form>
+    </body>
+</html>
