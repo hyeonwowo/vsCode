@@ -10,7 +10,7 @@ print(3 * "hello")
 print()
 print("hello\n" * 3)
 
-# 문자열 인덱싱1
+# 문자열 인덱싱1 - 콤마 없이 바로 (콤마 첨부시 리스트로 인식되어서 "hello [0]" 형태로 출력)
 print("hello"[0])
 print("hello"[1])
 print("hello"[2])
