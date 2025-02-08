@@ -12,6 +12,7 @@ print(set1, set2)
 # 기본 연산
 set1 = {1,2,3}
 set1.add(4)
+set1.update([1,2,3,4,1,2,3,4]) # iterable(리스트, 튜플, 문자열, 딕셔너리, 세트) 등의 요소를 집합(set)에 추가. set.update(1,2,3,4) - 이런 형태는 안됨
 set1.remove(2) # 특정 요소 제거, 없으면 오류
 set1.discard(99) # 특정 요소 재거, 없어도 오류 없음
 set1.pop() # 임의의 요소 제거(set은 순서가 없으므로 무작위로 제거됨)
@@ -52,7 +53,7 @@ print(A.isdisjoint({10,20})) # True (공통 요소 없음)
 
 
 
-# set을 활용한 중보 제거
+# set을 활용한 중복 제거
 numbers = [1,2,2,3,4,4,5]
 unique_numbers = list(set(numbers))
 print(unique_numbers)
@@ -78,7 +79,7 @@ print(squared_set)
 
 
 # set을 이용한 빠른 검색
-data = set(["apple","banana", "cherry"])
+data = set(["apple","banana", "cherry","apple","banana", "cherry","apple","banana", "cherry","apple","banana", "cherry",])
 
 print("banana" in data)
 print("Lemon" in data)
