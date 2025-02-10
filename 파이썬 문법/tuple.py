@@ -23,7 +23,7 @@ print(t3)
 # tuple() 함수로 변환
 
 t4 = tuple([1,2,3])
-t5 = tuple("hello")
+t5 = tuple("hello") # 문자열도 되네
 print(t4)
 print(t5)
 

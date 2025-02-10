@@ -6,29 +6,69 @@
 
 class Stack:
     def __init__(self):
-        pass
+        self.stack = []
 
     def push(self, item):
-        pass
+        self.stack.append(item)
 
     def pop(self):
-        pass
+        return self.stack.pop()
+
+    def print(self):
+        print(self.stack)
 
     def is_empty(self):
-        pass
+        if len(self.stack) == 0:
+            return True
+        else:
+            return False
 
 class Queue:
     def __init__(self):
-        pass
+        self.queue = []
 
     def enqueue(self, item):
-        pass
+        self.queue.append(item)
 
     def dequeue(self):
-        pass
+        return self.queue.pop(0)
+
+    def print(self):
+        print(self.queue)
 
     def is_empty(self):
-        pass
+        if len(self.queue) == 0:
+            return True
+        else:
+            return False
 
-if __name__=="main":
-    pass
+if __name__=="__main__":
+    myStack = Stack()
+
+    myStack.push(1)
+    myStack.print()
+    myStack.push(2)
+    myStack.print()
+    myStack.push(3)
+    myStack.print()
+
+    print(myStack.pop())
+    myStack.print()
+    print(myStack.is_empty())
+
+    print()
+
+    myQueue = Queue()
+
+    myQueue.enqueue(1)
+    myQueue.print()
+    myQueue.enqueue(2)
+    myQueue.print()
+    myQueue.enqueue(3)
+    myQueue.print()
+
+    print(myQueue.dequeue())
+    myQueue.print()
+    print(myQueue.dequeue())
+    myQueue.print()
+

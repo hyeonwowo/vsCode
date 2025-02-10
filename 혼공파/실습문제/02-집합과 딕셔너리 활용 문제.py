@@ -5,12 +5,21 @@
 # 문자열을 입력받아, 각 문자가 몇 번 나왔는지 딕셔너리를 이용해 세는 함수 count_characters(s)를 작성하세요.
 
 def find_common_elements(lst1, lst2):
-    resultSet = {}
-    resultSet
-    return resultSet
+    listA = lst1 + lst2
+    unique_set = list(set(listA))
+    return unique_set
 
 def count_characters(s):
-    pass
+    dictA = {}
+    
+    for i in range(len(s)): # for char in s: - 개선된 코드
+        if s[i] not in dictA: # if char not in dictA
+            dictA[s[i]] = 1
+        else:
+            dictA[s[i]] += 1
+
+    return dictA
+    
 
 if __name__=="__main__":
     lista = [1,2,3,4,5,6,7,8,9]
@@ -22,3 +31,4 @@ if __name__=="__main__":
     str3 = "aaaaaaaaaaaaa"
 
     print(find_common_elements(lista, listb))
+    print(count_characters(str1))

@@ -15,17 +15,17 @@ print(lista)
 print()
 
     # 리스트 "중간"에 요소 추가
-lista.insert(0,00)
+lista.insert(0,00) # 0 번째에 00
 print(lista)
-lista.insert(1,11)
+lista.insert(1,11) # 1 번째에 11
 print(lista)
-lista.insert(2,22)
+lista.insert(2,22) # 2 번째에 22
 print(lista)
-lista.insert(3,33)
+lista.insert(3,33) # 3 번째에 33
 print(lista)
-lista.insert(4,44)
+lista.insert(4,44) # 4 번째에 44
 print(lista)
-lista.insert(5,55)
+lista.insert(5,55) # 5 번째에 55
 print(lista)
 print()
 
