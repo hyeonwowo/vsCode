@@ -40,10 +40,10 @@ def infix_to_postfix(expression):
             output.append(char)
 
         elif char in precedence:  # 연산자라면
-            while stack and stack[-1] != '(' and precedence.get(stack[-1], 0) >= precedence[char]:
+            while stack and stack[-1] != '(' and precedence.get(stack[-1], 0) >= precedence[char]: # 깔려있는게 *, / 이고 들어오려는게 +, - 이면, pop() 후 단계진행
                 output.append(stack.pop())  # 스택에서 pop 후 output에 추가
             stack.append(char)  # 현재 연산자를 스택에 push
-
+# +) precedence.get(stack[-1], 0)가 사용된 이유 : stack[-1](현재 스택의 맨 위 연산자)이 딕셔너리에 존재하면, 해당 연산자의 우선순위를 가져옴. 만약 stack[-1]이 precedence에 없다면 기본값 0을 반환하여 KeyError 방지.
         elif char == '(':
             stack.append(char)
 
