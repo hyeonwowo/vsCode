@@ -1,22 +1,32 @@
 N = 10
 
 ids = [i for i in range(N)]
+size = [1 for i in range(N)]   # size[i]: size of tree rooted at i
 
 def root(i):
-    while ids[i] != i:
-        i = ids[i]
-    return i
+    if ids[i] == i:
+        return i
+    else:
+        ids[i] = root(ids[i])  # recurcion 사용
+        return ids[i]
 
-def connected(p,q):
+def connected(p, q):
     return root(p) == root(q)
 
-def union(p,q):
-    if connected(p,q):
-        return None
+def union(p, q):    
+    root_p, root_q = root(p), root(q)
+    if root_p == root_q: 
+        return
+    elif size[root_p] > size[root_q]:
+        ids[root_q] = root_p
+        size[root_p] += size[root_q]
     else:
-        root_p, root_q = root(p), root(q)
         ids[root_p] = root_q
+        size[root_q] += size[root_p]
 
+'''
+Unit Test
+'''
 if __name__ == "__main__":
     union(6,5)
     print("union(6,5)",ids)
