@@ -12,7 +12,7 @@ liste = ["element1", "element2", "element3"]
     # 2 번째 요소는 C
 
 
-# case(1)
+# case(1) - 번거로움..
 
 i = 0
 for item in liste:
@@ -20,7 +20,7 @@ for item in liste:
     i += 1
 print()
 
-# case(2)
+# case(2) - 번거로움..
 
 for i in range(len(liste)):
     print(f"{i} 번째 요소는 {liste[i]}")
@@ -34,6 +34,6 @@ print()
 print(list(enumerate(liste)))
 print()
 
-for i, value in enumerate(liste):
+for i, value in enumerate(liste): # i - 인덱스넘버, value - list[i]
     print(f"{i} 번째 요소는 {value}")
 print()

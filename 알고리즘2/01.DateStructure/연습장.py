@@ -1,54 +1,56 @@
 class Graph:
-    def __init__(self, directed=False):
-        self.adjlist={}
+    def __init__(self, directed = False):
+        self.adjlist = {}
         self.directed = directed
-    def add_vertex(self, vertex):
-        if vertex not in self.adjlist:
-            self.adjlist[vertex] = []
-    def add_edge(self,u,v):
-        if u not in self.adjlist:
-            self.add_vertex(u)
+    def add_vertex(self, element):
+        if element not in self.adjlist:
+            self.adjlist[element] = []
+    def add_edge(self, v, w):
         if v not in self.adjlist:
             self.add_vertex(v)
-        
-        # Directed Graph
-        self.adjlist[u].append(v)
+        if w not in self.adjlist:
+            self.add_vertex(w)
 
-        # Undirected Graph
+        # directed Graph
+        self.adjlist[v].append(w)
+
+        # undirected Graph
         if not self.directed:
-            self.adjlist[v].append(u)
+            self.adjlist[w].append(v)
 
-    def remove_vertex(self, vertex):
-        if vertex in self.adjlist:
-            del self.adjlist[vertex]
-        
+    def remove_vertex(self, element):
+        if element in self.adjlist:
+            del self.adjlist[element]
+
         for v in self.adjlist:
-            if vertex in self.adjlist[v]:
-                self.adjlist[v].remove(vertex)
-
-    def remove_edge(self,u,v):
-        if u in self.adjlist and v in self.adjlist[u]:
-            self.adjlist[u].remove(v)
-        
-        if not self.directed and v in self.adjlist and u in self.adjlist[v]:
+            if element in self.adjlist[v]:
+                self.adjlist[v].remove(element)
+    
+    def remove_edge(self,v,u):
+        if v in self.adjlist and u in self.adjlist[v]:
             self.adjlist[v].remove(u)
+        if not self.directed and u in self.adjlist and v in self.adjlist[u]:
+            self.adjlist[u].remove(v)
 
     def get_vertices(self):
         return list(self.adjlist.keys())
     
     def get_edges(self):
-        edges = []
-        for u in self.adjlist:
-            for v in self.adjlist[u]:
-                if self.directed or (v,u) not in edges:
-                    self.edges.append(u,v)
+        edges = set()
+        for v in self.adjlist:
+            for u in self.adjlist[v]:
+                if self.directed:
+                    edges.add((v, u))  # 유향 그래프에서는 방향 유지
+                else:
+                    edges.add(tuple(sorted((v, u))))  # 무향 그래프에서는 정렬하여 추가
+        return list(edges)
 
+    
     def display(self):
         for vertex in self.adjlist:
             print(f"{vertex} -> {self.adjlist[vertex]}")
 
-# 예제 사용법
-g = Graph(directed=False)  # 무방향 그래프 생성
+g = Graph(directed=False)
 g.add_vertex("A")
 g.add_vertex("B")
 g.add_edge("A", "B")

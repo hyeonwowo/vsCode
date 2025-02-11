@@ -79,8 +79,7 @@ lista.pop(0) # 첫번째 요소 제거
 print(lista)
 
 
-# del 키워드 응용
-
+# del 키워드 응용 : 인덱스로 처리
 listA = [1,2,3,4,5,6,7,8,9]
 del listA[3:6] # 3~5까지 제거
 
@@ -90,21 +89,22 @@ del listA[:3] # 0부터 2까지 제거
 
 
 
-# 값으로 제거하기 : remove()
-
+# remove() : 값으로 제거하기
 listc = [1,2,3,4]
 listc.remove(1)
 
 listd = [1,2,1,3]
 listd.remove(1) # 이런 경우 앞쪽의 1 하나만 지워지고, 두번째 1 은 지워지지 않음 -> for, while 사용
 
-# 모두 제거하기 : clear()
 
+
+# 모두 제거하기 : clear()
 listc.clear()
 
 
-# 리스트 정렬하기 : sort()
 
+
+# 리스트 정렬하기 : sort()
 liste = [3,6,8,2,9,1,5,3,7]
 liste.sort() # 오름차순 정렬
 print(liste)
@@ -114,8 +114,10 @@ listf.sort(reverse = True) # 내림차순 정렬
 print(listf)
 print()
 
-# 리스트 내부에 값이 있는지 확인 : in / not in 연산자.
 
+
+
+# 리스트 내부에 값이 있는지 확인 : in / not in 연산자.
 lista = [5,4,2,7,1]
 
 print(5 in lista)
