@@ -7,6 +7,9 @@ def shuffleSort(a):
     for _ in range(len(a)): # _ 는 반복 변수이지만 값을 사용하지 않겠다는 의미 : for i in range(len(a)) 라고 써도 되지만, i 가 코드에서 사용되지 않으므로 _ 로 표시하여 의미적으로 "이 변수를 신경쓰지 않는다"라는 의도 전달
         r.append(random.random()) # 0~1 사이의 랜덤 실수를 생성하여 추가
     
+
+    r = [random.random() for _ in range(len(a))] # 이런 방식으로 r 을 선언해도 됨
+
     # zip(a,r)을 이용하여 (원소, 랜덤값)쌍을 만들고, 랜덤값을 기준으로 정렬
     return [i for i, _ in sorted(zip(a,r), key=lambda x:x[1])] 
 
