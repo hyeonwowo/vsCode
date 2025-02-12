@@ -53,7 +53,7 @@ def simulate(n, t):  # n*n 격자, t의 시뮬레이션 횟수
             row, col = divmod(site, n) # 몫, 나머지 연산을 통해 row, col 동시에 구함.
             if grid[row][col]:  # 이미 열린 사이트면 스킵
                 continue
-            grid[row][col] = True
+            grid[row][col] = True 
             opened_sites += 1
             index = site + 1  # 1-based index 사용
 

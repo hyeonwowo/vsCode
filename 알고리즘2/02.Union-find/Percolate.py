@@ -11,6 +11,7 @@ def simulate(n, t):  # n*n 격자, t의 시뮬레이션 횟수
         size = [1] * (n * n + 2)  # 각 집합의 크기 추적
         grid = [[False] * n for _ in range(n)]  # 사이트 열림 상태
 
+        # ids가 for문 내부에 선언돼있어서, UF도 반복문 내부에 선언..
         def root(i):
             while i != ids[i]:
                 ids[i] = ids[ids[i]]  # 경로 압축 (Path Compression)
@@ -52,7 +53,7 @@ def simulate(n, t):  # n*n 격자, t의 시뮬레이션 횟수
             row, col = divmod(site, n)
             if grid[row][col]:  # 이미 열린 사이트면 스킵
                 continue
-            grid[row][col] = True
+            grid[row][col] = True # 닫힌곳이라면 True로 업데이트
             opened_sites += 1
             index = site + 1  # 1-based index 사용
 
