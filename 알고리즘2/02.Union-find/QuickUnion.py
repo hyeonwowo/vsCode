@@ -5,7 +5,8 @@ for idx in range(N):
     ids.append(idx)
 
 def root(i):
-    while i != ids[i]: i = ids[i]
+    while i != ids[i]: 
+        i = ids[i]
     return i
 
 def connected(p, q):

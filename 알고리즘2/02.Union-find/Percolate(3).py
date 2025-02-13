@@ -4,19 +4,19 @@ import random
 import timeit
 
 def simulate(n, t):  # n*n 격자, t의 시뮬레이션 횟수
-    results = []  # 각 실험에서 percolation이 발생하는 비율 저장
+    result = []
 
     for _ in range(t):
-        ids = [i for i in range(n*n+2)]  # Union-Find 배열 (0: 가상의 top, n*n+1: 가상의 bottom)
-        size = [1 for i in range(n*n+2)]  # 각 집합의 크기 추적
-        grid = [[False] * n for _ in range(n)]  # 사이트 열림 상태
+        ids = [i for i in range(n*n+2)]
+        size = [1 for i in range(n*n+2)]
+        grid = [[False]*n for _ in range(n)]
 
         def root(i):
-            while i != ids[i]:
-                ids[i] = ids[ids[i]]  # 경로 압축 (Path Compression)
+            while ids[i] != i:
+                ids[i] = ids[ids[i]]  # 🚀 경로 압축 추가
                 i = ids[i]
             return i
-        
+
         def connected(p, q):
             return root(p) == root(q)
 
@@ -31,52 +31,43 @@ def simulate(n, t):  # n*n 격자, t의 시뮬레이션 횟수
                 ids[root_q] = root_p
                 size[root_p] += size[root_q]
 
-        # 상단 가상 노드와 하단 가상 노드를 0, n*n+1에 배정
-        virtual_top = 0
-        virtual_bottom = n * n + 1
+        top = 0  # 🚀 top을 마지막 노드로 변경
+        bottom = n * n + 1  # 🚀 bottom을 마지막 +1 노드로 변경
 
-        # 상단 행을 가상 top에 연결
         for i in range(n):
-            union(virtual_top, i + 1)
+            union(top, i+1)  # 🚀 i+1 → i로 변경
+        for i in range(n*n - n, n*n):
+            union(bottom, i+1)  # 🚀 i+1 → i로 변경
 
-        # 하단 행을 가상 bottom에 연결
-        for i in range(n*n - n, n*n):  # 올바른 bottom 연결
-            union(virtual_bottom, i+1)
+        open_sites = 0
+        rand_list = random.sample(range(n * n), n * n)  # 🚀 0부터 n*n-1까지 선택
 
+        for point in rand_list:
+            row, col = divmod(point, n)  # 🚀 point를 0부터 사용
 
-        # 무작위로 사이트를 열기 시작
-        opened_sites = 0
-        indices = list(range(n * n)) 
-        random.shuffle(indices) # 0 ~ 24
-
-        for site in indices: # site는 0부터 시작하므로
-            row, col = divmod(site, n) # 몫, 나머지 연산을 통해 row, col 동시에 구함.
-            if grid[row][col]:  # 이미 열린 사이트면 스킵
+            if grid[row][col]:
                 continue
-            grid[row][col] = True 
-            opened_sites += 1
-            index = site + 1  # 1-based index 사용
+            grid[row][col] = True
+            open_sites += 1
+            index = point + 1
 
-            # 인접한 열린 사이트와 연결
-            if row > 0 and grid[row-1][col]:  # 위쪽 연결
-                union(index, index - n)
-            if row < n-1 and grid[row+1][col]:  # 아래쪽 연결
-                union(index, index + n)
-            if col > 0 and grid[row][col-1]:  # 왼쪽 연결
-                union(index, index - 1)
-            if col < n-1 and grid[row][col+1]:  # 오른쪽 연결
-                union(index, index + 1)
+            if row > 0 and grid[row-1][col]:
+                union(index, index-n)
+            if row < n-1 and grid[row+1][col]:
+                union(index, index+n)
+            if col > 0 and grid[row][col-1]:
+                union(index, index-1)
+            if col < n-1 and grid[row][col+1]:
+                union(index, index+1)
 
-
-
-            # percolation 발생 여부 확인
-            if connected(virtual_top, virtual_bottom):
-                results.append(opened_sites / (n * n))
+            if connected(top, bottom):
+                result.append(open_sites/(n*n))
                 break
 
-    mean_result = statistics.mean(results)
-    std_dev = statistics.stdev(results) if len(results) > 1 else 0
+    mean_result = statistics.mean(result)
+    std_dev = statistics.stdev(result) if len(result) > 1 else 0
     return mean_result, std_dev
+
 
 
 '''
