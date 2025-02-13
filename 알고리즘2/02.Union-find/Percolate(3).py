@@ -12,44 +12,43 @@ def simulate(n, t):  # n*n 격자, t의 시뮬레이션 횟수
         grid = [[False]*n for _ in range(n)]
 
         def root(i):
-            while ids[i] != i:
-                ids[i] = ids[ids[i]]  # 🚀 경로 압축 추가
+            while i != ids[i]:
+                ids[i] = ids[ids[i]]
                 i = ids[i]
             return i
-
-        def connected(p, q):
+        def connected(p,q):
             return root(p) == root(q)
-
-        def union(p, q):
-            root_p, root_q = root(p), root(q)
-            if root_p == root_q:
-                return
-            if size[root_p] < size[root_q]:
-                ids[root_p] = root_q
-                size[root_q] += size[root_p]
+        def union(p,q):
+            if connected(p,q): return 
             else:
-                ids[root_q] = root_p
-                size[root_p] += size[root_q]
-
-        top = 0  # 🚀 top을 마지막 노드로 변경
-        bottom = n * n + 1  # 🚀 bottom을 마지막 +1 노드로 변경
+                root_p, root_q = root(p),root(q)
+                if size[root_p] < size[root_q]:
+                    ids[root_p] = root_q
+                    size[root_q] += size[root_p]
+                else:
+                    ids[root_q] = root_p
+                    size[root_p] += size[root_q]
+                
+    
+        top = 0
+        bottom = n*n+1
 
         for i in range(n):
-            union(top, i+1)  # 🚀 i+1 → i로 변경
-        for i in range(n*n - n, n*n):
-            union(bottom, i+1)  # 🚀 i+1 → i로 변경
+            union(top, i+1)
+        for i in range(n*n-n, n*n):
+            union(bottom, i+1)
 
-        open_sites = 0
-        rand_list = random.sample(range(n * n), n * n)  # 🚀 0부터 n*n-1까지 선택
+        open_site = 0
+        rand_list = list(range(n*n))
+        random.shuffle(rand_list)
 
-        for point in rand_list:
-            row, col = divmod(point, n)  # 🚀 point를 0부터 사용
-
+        for element in rand_list:
+            row, col = divmod(element,n)
             if grid[row][col]:
                 continue
             grid[row][col] = True
-            open_sites += 1
-            index = point + 1
+            open_site += 1
+            index = element+1
 
             if row > 0 and grid[row-1][col]:
                 union(index, index-n)
@@ -60,8 +59,9 @@ def simulate(n, t):  # n*n 격자, t의 시뮬레이션 횟수
             if col < n-1 and grid[row][col+1]:
                 union(index, index+1)
 
+
             if connected(top, bottom):
-                result.append(open_sites/(n*n))
+                result.append(open_site/(n*n))
                 break
 
     mean_result = statistics.mean(result)
