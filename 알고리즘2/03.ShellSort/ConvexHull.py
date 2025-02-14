@@ -1,24 +1,42 @@
-import math
 import timeit
 import random
+import math
 
-
-# Given a list of points (x, y)
-#   find the convex hull using Graham's Scan
-# Return a list of points in the convex hull in ccw order
 def grahamScan(points):
-    sorted_point = sorted(points, key=lambda x:(x[1],x[0]))
-    start_point = sorted_point.pop(0)
+    # 1. 시작점 선택 (y 오름차순, x 내림차순)
+    start_point = min(points, key=lambda x: (x[1], -x[0]))
 
-    # 시작점 기준으로 각도순 정렬
-    angle = []
-    for point in points:
-        pass
+    # 2. 각도 계산 함수
+    def calculate_angle(A, B):
+        x1, y1 = A
+        x2, y2 = B
+        angle = math.atan2(y2 - y1, x2 - x1)
+        angle_degree = math.degrees(angle)
+        return (B, angle_degree if angle_degree >= 0 else angle_degree + 360)
 
-def ccw(i, j, k): # 세점이 조건을 만족하는지 : ccw(True) -> 다음점 추가 -> ccw , ccw(False) -> 가운데 점 추가 -> ccw
-    area2 = (j[0] - i[0]) * (k[1] - i[1]) - (j[1] - i[1]) * (k[0] - i[0])
-    if area2 > 0: return True
-    else: return False
+    # 3. ccw 판단 함수 (반시계 방향이면 1, 시계 방향이면 -1, 직선이면 0)
+    def ccw(i, j, k):
+        area2 = (j[0] - i[0]) * (k[1] - i[1]) - (j[1] - i[1]) * (k[0] - i[0])
+        return 1 if area2 > 0 else -1 if area2 < 0 else 0
+
+    # 4. 시작점을 제외한 점들을 각도 기준으로 정렬
+    angle_rank = [calculate_angle(start_point, point) for point in points if point != start_point]
+    sorted_points = [start_point] + [p[0] for p in sorted(angle_rank, key=lambda x: x[1])]
+
+    # 5. 볼록 껍질 찾기 (스택 사용)
+    hull = []
+    for point in sorted_points:
+        while len(hull) >= 2 and ccw(hull[-2], hull[-1], point) != 1:
+            hull.pop()  # 볼록 껍질을 형성하지 않는 점을 제거
+        hull.append(point)
+
+    # 6. 🔥 마지막 검사: 마지막 점과 출발점을 검사하여 연결부 확인 🔥
+    while len(hull) >= 3 and ccw(hull[-2], hull[-1], hull[0]) != 1:
+        hull.pop()  # 연결부가 올바르지 않으면 마지막 점 제거
+
+    return hull
+
+
 
 def correctnessTest(intput, expected_output, correct):
     output = grahamScan(input)
