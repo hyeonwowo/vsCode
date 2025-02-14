@@ -7,7 +7,41 @@ import random
 #   find the convex hull using Graham's Scan
 # Return a list of points in the convex hull in ccw order
 def grahamScan(points):
-    return points
+    def calculate_angle(A,B): # 시작점과, 나머지점들의 각도를 구해서, 점과 각도를 함께 반환
+        x1,y1 = A
+        x2,y2 = B
+
+        angle = math.atan2(y2-y1, x2-x1)
+        angle_degree = math.degrees(angle)
+
+        if angle_degree < 0:
+            angle_degree += 360
+
+        return (B,angle_degree)
+
+    def ccw(i, j, k): # 세점이 조건을 만족하는지 : ccw(True) -> 다음점 추가 -> ccw , ccw(False) -> 가운데 점 추가 -> ccw
+        area2 = (j[0] - i[0]) * (k[1] - i[1]) - (j[1] - i[1]) * (k[0] - i[0])
+        if area2 > 0: return True
+        else: return False 
+
+    start_point = min(points, key=lambda x:(x[1],-x[0]))
+    
+    # 시작점기준 각도 추출 (시작점 제외)
+    angle_rank = [calculate_angle(start_point,point) for point in points if point != start_point]
+
+    # 제외한 시작점을 맨앞에 이어붙이기 + 튜플 형태로 저장된 (좌표, 각) 에서 각 제거
+    sorted_point = [start_point] + [p[0] for p in sorted(angle_rank, key=lambda x:x[1])] # 각도의 오름차순으로 정렬하되, 각도는 버리고 리스트에 좌표만 저장
+    
+    hull = []
+    for point in sorted_point:
+        while len(hull) >= 2 and ccw(hull[-2],hull[-1],point) == False:
+            hull.pop()
+        hull.append(point)
+
+    while len(hull) >= 3 and ccw(hull[-2],hull[-1],hull[0]) == False:
+        hull.pop()
+    
+    return hull
 
 
 def correctnessTest(intput, expected_output, correct):
