@@ -36,5 +36,8 @@ for point, angle in angle_rank:
 print()
 # 각도순으로 정렬
 angle = sorted(angle_rank,key=lambda x:x[1])
-for index, (point,angle) in enumerate(angle):
-    print(index+1,point,":",angle)
+print(angle)
+
+sorted_list = list(map(lambda x:x[0],angle))
+sorted_points = list(map(lambda x: x[0], sorted(angle, key=lambda x: x[1], reverse=True)))
+print(sorted_points)

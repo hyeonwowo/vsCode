@@ -22,29 +22,35 @@ def grahamScan(points):
     def ccw(i, j, k): # 세점이 조건을 만족하는지 : ccw(True) -> 다음점 추가 -> ccw , ccw(False) -> 가운데 점 추가 -> ccw
         area2 = (j[0] - i[0]) * (k[1] - i[1]) - (j[1] - i[1]) * (k[0] - i[0])
         if area2 > 0: return True
-        else: return False
+        else: return False 
 
+    ############################################################################################
 
-    sorted_point = sorted(points, key=lambda x:(x[1],-x[0]))
-    start_point = sorted_point.pop(0) # pop(0)시 시작점은 버려지고, 나머지점들만 리스트 내부에 내포
+    start_point = min(points, key=lambda x:(x[1],-x[0]))
+    angle_rank = [calculate_angle(start_point,point) for point in points if point != start_point]
+    sorted_point = [start_point] + [p[0] for p in sorted(angle_rank, key=lambda x:x[1])]
 
-    # 시작점 기준으로 각도순 정렬
-    angle_rank = []
+    hull = []
     for point in sorted_point:
-        angle_rank.append(calculate_angle(start_point,point)) # 좌표와, 순서가 튜플 형태로 저장 -> 순서 기준으로 정렬
-    angle = sorted(angle_rank, key=lambda x:x[1])
+        while len(hull) >= 2 and ccw(hull[-2],hull[-1],point) != True:
+            hull.pop()
+        hull.append(point)
+    
+    while len(hull) >= 3 and ccw(hull[-2],hull[-1],hull[0]) != True:
+        hull.pop()
 
-    i = 0
-    result_list = [start_point,angle[0],angle[1]]
-    while ccw(angle[-2],angle[-1],start_point) != True:
-        if ccw(angle[i],angle[i+1],angle[i+2]):
-            result_list.append(angle[i+3])
-            i += 1
-        else:
-            result_list.pop(-2)
-        
-    return result_list
+    return hull
 
+    ############################################################################################
+
+
+# 잘 못다뤘던 문법.
+
+# 1) min(points, key=lambda x:(x[1],-x[0])) - 이렇게 안하고, 정렬해서 굳이 pop(0)을 해서 연산시간을 늘렸음.
+# 2) angle_rank = [calculate_angle(start_point,point) for point in points if point != start_point] - 간결하게 각도를 추출하는 법을 몰랐음
+# 3) sorted_point = [start_point] + [p[0] for p in sorted(angle_rank, key=lambda x:x[1])] - 시작 포인트를 추가하고, 각도를 제외한 좌표만 넣는 방법을 몰랐음
+# 4) hull = [] - STACK 자료구조를 사용할 생각을 하지 못함
+# 5) 너무 어렵게 생각하는 거 같다. 쉽게 쉽게 생각하자
 
 def correctnessTest(intput, expected_output, correct):
     output = grahamScan(input)

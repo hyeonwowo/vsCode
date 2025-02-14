@@ -20,8 +20,8 @@ def grahamScan(points):
         return 1 if area2 > 0 else -1 if area2 < 0 else 0
 
     # 4. 시작점을 제외한 점들을 각도 기준으로 정렬
-    angle_rank = [calculate_angle(start_point, point) for point in points if point != start_point]
-    sorted_points = [start_point] + [p[0] for p in sorted(angle_rank, key=lambda x: x[1])]
+    angle_rank = [calculate_angle(start_point, point) for point in points if point != start_point] # 각도 구하기
+    sorted_points = [start_point] + [p[0] for p in sorted(angle_rank, key=lambda x: x[1])] # 각도 기준 정렬, 각도 버리고 좌표만 + 시작좌표 포함
 
     # 5. 볼록 껍질 찾기 (스택 사용)
     hull = []
