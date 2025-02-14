@@ -7,7 +7,18 @@ import random
 #   find the convex hull using Graham's Scan
 # Return a list of points in the convex hull in ccw order
 def grahamScan(points):
-    pass
+    sorted_point = sorted(points, key=lambda x:(x[1],x[0]))
+    start_point = sorted_point.pop(0)
+
+    # 시작점 기준으로 각도순 정렬
+    angle = []
+    for point in points:
+        pass
+
+def ccw(i, j, k): # 세점이 조건을 만족하는지 : ccw(True) -> 다음점 추가 -> ccw , ccw(False) -> 가운데 점 추가 -> ccw
+    area2 = (j[0] - i[0]) * (k[1] - i[1]) - (j[1] - i[1]) * (k[0] - i[0])
+    if area2 > 0: return True
+    else: return False
 
 def correctnessTest(intput, expected_output, correct):
     output = grahamScan(input)
