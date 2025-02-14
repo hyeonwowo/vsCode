@@ -7,8 +7,7 @@ import random
 #   find the convex hull using Graham's Scan
 # Return a list of points in the convex hull in ccw order
 def grahamScan(points):
-    return points
-
+    pass
 
 def correctnessTest(intput, expected_output, correct):
     output = grahamScan(input)

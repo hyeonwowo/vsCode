@@ -13,6 +13,10 @@ sorted_words = sorted(words, key=lambda x:len(x))
 print(sorted_words)
 print()
 
+# y축 기준으로 먼저 정렬 후, x축 기준으로 정렬
+point = [(5, 3), (6, 1), (1, 2), (2, 3), (1, 1), (4, 1), (3, 1)]
+sorted_point = sorted(point,key=lambda x:(x[1],x[0]))
+print(sorted_point)
 
 # 실습 1 : 순서 기준 정렬
 nums = [(1,3),(2,2),(3,1)]

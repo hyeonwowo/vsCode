@@ -1,25 +1,7 @@
-class Player:
-    def __init__(self,name,pos,ovl):
-        self.name = name
-        self.pos = pos
-        self.ovl = ovl
-    
-    def print_stat(self):
-        print(f"{self.name} {self.pos} {self.ovl}")
-    
-    def update_info(self,pos):
-        print(f"{self.pos} -> {pos}")
-        self.pos = pos
+import random
 
+point = [(5, 3), (6, 1), (1, 2), (2, 3), (1, 1), (4, 1), (3, 1)]
 
-Son = Player("SON","LW",92)
-Kane = Player("KANE","ST",93)
-Kross = Player("KROSS","MF",90)
-
-Son.print_stat()
-Kane.print_stat()
-Kross.print_stat()
-print()
-
-Son.update_info("RW")
-Son.print_stat()
+# y축 기준 정렬 후 x축 기준 정렬
+sorted_point = sorted(point,key=lambda x:(x[1],x[0]))
+print(sorted_point)
