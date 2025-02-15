@@ -65,6 +65,14 @@ dictB["grade"] = 7.5
 print(dictB)
 print()
 
+dicta = {
+    "fru":["apple","banana","cherry"],
+    "vet":["onion","string onion","mel"]
+}
+
+print(dicta)
+dicta["fru"][0] = "red apple"
+print(dicta)
 
 # 딕셔너리 요소 제거
 
