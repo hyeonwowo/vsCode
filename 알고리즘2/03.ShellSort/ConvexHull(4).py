@@ -25,14 +25,12 @@ def grahamScan(points):
         else: return False 
 
     start_point = min(points, key=lambda x:(x[1],-x[0]))
-
-    angle_rank = [calculate_angle(start_point,point) for point in points if point != start_point]
-
-    sorted_point = [start_point] + [p[0] for p in sorted(angle_rank, key=lambda x:x[1])]
+    sorted_point = [calculate_angle(start_point,point) for point in points if point != start_point]
+    sorted_angle = [start_point] + [p[0] for p in sorted(sorted_point, key=lambda x:x[1])]    
 
     hull = []
-    for point in sorted_point:
-        while len(hull) >= 2 and ccw(hull[-2],hull[-1],point) == False:
+    for point in sorted_angle:
+        while len(hull) >= 2 and ccw(hull[-2],hull[-1],point) == False: # 점 세개가 모인 순간 ccw 검사 수행
             hull.pop()
         hull.append(point)
 
@@ -40,8 +38,6 @@ def grahamScan(points):
         hull.pop()
 
     return hull
-    
-
 
 def correctnessTest(intput, expected_output, correct):
     output = grahamScan(input)
