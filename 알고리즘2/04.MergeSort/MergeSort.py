@@ -1,6 +1,4 @@
-# Merge a[lo ~ mid] with a[mid+1 ~ hi], using the extra space aux[]
 def merge(a, aux, lo, mid, hi):
-    # Copy elements in a[] to the auxiliary array aux[]
     for k in range(lo, hi+1):
         aux[k] = a[k]
     
@@ -13,7 +11,6 @@ def merge(a, aux, lo, mid, hi):
 
     return a
 
-# Halve a[lo ~ hi], sort each of the halves, and merge them, using the extra space aux[]
 def divideNMerge(a, aux, lo, hi):
     if (hi <= lo): return a
     mid = (lo + hi) // 2
@@ -23,7 +20,6 @@ def divideNMerge(a, aux, lo, hi):
     return a
 
 def mergeSort(a):
-    # Create the auxiliary array once and re-use for all subsequent merges
     aux = [None] * len(a)
 
     divideNMerge(a, aux, 0, len(a)-1)
