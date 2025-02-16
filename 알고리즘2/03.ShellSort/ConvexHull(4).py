@@ -24,6 +24,22 @@ def grahamScan(points):
         if area2 > 0: return True
         else: return False 
 
+    start_point = min(points, key=lambda x:(x[1],-x[0]))
+
+    angle_rank = [calculate_angle(start_point,point) for point in points if point != start_point]
+
+    sorted_point = [start_point] + [p[0] for p in sorted(angle_rank, key=lambda x:x[1])]
+
+    hull = []
+    for point in sorted_point:
+        while len(hull) >= 2 and ccw(hull[-2],hull[-1],point) == False:
+            hull.pop()
+        hull.append(point)
+
+    while len(hull) >= 3 and ccw(hull[-2],hull[-1],hull[0]) == False:
+        hull.pop()
+
+    return hull
     
 
 
