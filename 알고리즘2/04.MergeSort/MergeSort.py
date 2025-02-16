@@ -14,7 +14,7 @@ def merge(a, aux, lo, mid, hi):
             a[k], j = aux[j], j+1            
 
     return a
-#################################
+
 def divideNMerge(a, aux, lo, hi):
     if (hi <= lo): 
         return a
