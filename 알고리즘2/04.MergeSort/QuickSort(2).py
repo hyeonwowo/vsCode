@@ -1,10 +1,8 @@
 import random
 
-# Partition a[lo~hi] using a[lo] as the partitioning (pivot) item
 def partition(a, lo, hi):  
-    return j    # Return the index of item in place    
+    return j
 
-# Partition a[lo~hi] and then continue to partition each half recursively
 def divideNPartition(a, lo, hi):
     pass
 
