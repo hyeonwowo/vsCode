@@ -1,6 +1,4 @@
-# Merge a[lo ~ mid] with a[mid+1 ~ hi], using the extra space aux[]
-def merge(a, aux, lo, mid, hi):
-    # Copy elements in a[] to the auxiliary array aux[]
+def merge(a, aux, lo, mid, hi): # 해당 코드는 동일
     for k in range(lo, hi+1):
         aux[k] = a[k]
     
@@ -13,9 +11,15 @@ def merge(a, aux, lo, mid, hi):
 
     return a
 
-# def divideNMerge(a,aux,lo,hi) 과정이 생략
+# def divideNMerge(a,aux,lo,hi) 과정은 생략
 
-def mergeSort(a):
+# def mergeSort(a): # 기존 mergeSort(a)
+#     aux = [None] * len(a)
+
+#     divideNMerge(a, aux, 0, len(a)-1) # indexing 처리를 위한 len(a)-1
+#     return a
+
+def mergeSort(a): # BottomUp mergeSort(a)
     # Create the auxiliary array once and re-use for all subsequent merges
     aux = [None] * len(a)
 
