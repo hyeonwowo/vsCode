@@ -1,28 +1,12 @@
 import random
 
 def partition(a, lo, hi):
-    i,j = lo+1, hi
-
-    while True:
-        while i<=hi and a[i] < a[lo]: i = i+1
-        while j>=lo+1 and a[j] > a[lo]: j = j-1
-
-        if(j <= i): break
-        a[i],a[j] = a[j],a[i]
-        i += 1
-        j -= 1  
-    a[lo],a[j] = a[j],a[lo]
     return j
 
 def divideNPartition(a, lo, hi):
-    if hi<=lo: return 
-    j=partition(a,lo,hi)
-    divideNPartition(a,lo,j-1)
-    divideNPartition(a,j+1,hi)
+    pass
 
 def quickSort(a):
-    random.shuffle(a)
-    divideNPartition(a,0,len(a)-1)
     return a
 
 if __name__ == "__main__":
