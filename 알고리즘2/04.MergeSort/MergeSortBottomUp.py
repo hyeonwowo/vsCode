@@ -13,6 +13,8 @@ def merge(a, aux, lo, mid, hi):
 
     return a
 
+# def divideNMerge(a,aux,lo,hi) 과정이 생략
+
 def mergeSort(a):
     # Create the auxiliary array once and re-use for all subsequent merges
     aux = [None] * len(a)
@@ -20,7 +22,7 @@ def mergeSort(a):
     sz = 1
     while sz < len(a):
         for lo in range(0, len(a)-sz, sz*2):
-            merge(a, aux, lo, lo+sz-1, min(lo+sz+sz-1, len(a)-1))            
+            merge(a, aux, lo, lo+sz-1, min(lo+sz+sz-1, len(a)-1)) # merge 호출     
         sz += sz  # Multiply by 2
 
     return a
