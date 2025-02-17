@@ -15,8 +15,8 @@ def merge(a, aux, lo, mid, hi):
 
     return a
 
-def divideNMerge(a, aux, lo, hi):
-    if (hi <= lo): 
+def divideNMerge(a, aux, lo, hi): # 쪼개는 과정
+    if (hi <= lo): # [0 1 2 3 4 5 6 7 8 9] -> [0][1][2][3][4][5][6][7][8][9] 
         return a
     mid = (lo + hi) // 2
     divideNMerge(a, aux, lo, mid)
@@ -27,7 +27,7 @@ def divideNMerge(a, aux, lo, hi):
 def mergeSort(a):
     aux = [None] * len(a)
 
-    divideNMerge(a, aux, 0, len(a)-1)
+    divideNMerge(a, aux, 0, len(a)-1) # indexing 처리를 위한 len(a)-1
     return a
 
 if __name__ == "__main__":
