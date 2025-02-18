@@ -19,15 +19,14 @@ def merge(a, aux, lo, mid, hi): # 해당 코드는 동일
 #     divideNMerge(a, aux, 0, len(a)-1) # indexing 처리를 위한 len(a)-1
 #     return a
 
-def mergeSort(a): # BottomUp mergeSort(a)
-    # Create the auxiliary array once and re-use for all subsequent merges
+def mergeSort(a):
     aux = [None] * len(a)
 
-    sz = 1
+    sz = 1 # sz는 1로 시작하며 현재 병합할 서브배열의 크기를 의미
     while sz < len(a):
         for lo in range(0, len(a)-sz, sz*2):
-            merge(a, aux, lo, lo+sz-1, min(lo+sz+sz-1, len(a)-1)) # merge 호출     
-        sz += sz  # Multiply by 2
+            merge(a, aux, lo, lo+sz-1, min(lo+sz+sz-1, len(a)-1)) # merge 호출 : merge(a, aux, lo, mid, hi)
+        sz += sz  # 병합할 서브 배열은 두배 크기로 증가
 
     return a
 
