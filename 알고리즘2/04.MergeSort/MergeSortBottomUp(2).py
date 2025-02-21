@@ -13,10 +13,11 @@ def merge(a, aux, lo, mid, hi):
 
 def mergeSort(a):
     aux = [None] * len(a)
+
     sz = 1
     while sz < len(a):
-        for lo in range(0,len(a)-sz, sz*2):
-            merge(a,aux,lo,lo+sz-1, min(lo+sz+sz-1,len(a)-1))
+        for lo in range(0,len(a)-sz,sz*2):
+            merge(a,aux,lo,lo+sz-1,min(lo+sz+sz))
         sz += sz
     return a
 
