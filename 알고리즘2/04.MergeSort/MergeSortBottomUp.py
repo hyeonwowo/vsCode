@@ -27,7 +27,7 @@ def mergeSort(a):
         for lo in range(0, len(a)-sz, sz*2): # 만약 10의 크기라면, 0-2-4-6-8 : 10까지 갈 필요가 없으니 len(a)-sz로 8까지 가도록 코드 작성
             merge(a, aux, lo, lo+sz-1, min(lo+sz+sz-1, len(a)-1)) # merge 호출 : merge(a, aux, lo, mid, hi)
         sz += sz  # 병합할 서브 배열은 두배 크기로 증가
-
+ 
     return a
 
 if __name__ == "__main__":

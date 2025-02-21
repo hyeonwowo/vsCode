@@ -17,7 +17,7 @@ def mergeSort(a):
     sz = 1
     while sz < len(a):
         for lo in range(0,len(a)-sz,sz*2):
-            merge(a,aux,lo,lo+sz-1,min(lo+sz+sz))
+            merge(a,aux,lo,lo+sz-1,min(lo+sz+sz-1, len(a)-1)) # lo, mid, hi : lo, lo+sz-1, min(lo+sz+sz-1, len(a)-1)
         sz += sz
     return a
 
