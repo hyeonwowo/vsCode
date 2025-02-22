@@ -1,21 +1,21 @@
-dicta = {
-    "과일":["사과","바나나","레몬"],
-    "채소":["파","양파","치커리"]   
-}
+students = [
+    {"name":"benzema","number":9,"grade":9.2},
+    {"name":"ronaldo","number":7,"grade":9.4},
+    {"name":"bale","number":11,"grade":8.7}
+]
 
-print(dicta["과일"])
-print(dicta["채소"])
+# 출력방법 1) - 한줄로 출력
+print(students)
 print()
 
-print(dicta["과일"][0])
-print(dicta["과일"][1])
-print(dicta["과일"][2])
-print(dicta["채소"][0])
-print(dicta["채소"][1])
-print(dicta["채소"][2])
-print()
+# 출력방법 2) - 여러줄로 출력
+def print_element(a):
+    for element in a:
+        print(element)
+    print()
 
 
-print(dicta["과일"][0:])
-print(dicta["채소"][:len(dicta)+1])
-print()
+# 이름 기준 오름차순 정렬 (단일 조건 정렬)
+result = sorted(students,key=lambda x:x["name"]) # 정렬한 데이터를 새롭게 받아줘야한다.
+
+print_element(result)
