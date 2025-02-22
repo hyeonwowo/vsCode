@@ -20,8 +20,8 @@ for student in result:
 print()
 
 
-# 이름 -> 학년 기준 오름차순 정렬 (다중 조건 정렬)
-print("# 이름 -> 학년 기준 오름차순 정렬 (다중 조건 정렬)")
+# 이름 -> 학년 기준 오름차순 정렬 (다중 조건 정렬)  
+print("# 이름 -> 학년 기준 오름차순 정렬 (다중 조건 정렬) ")
 result = sorted(students, key=lambda x: (x["이름"], x["학년"]))
 for student in result:
     print(student)
