@@ -1,27 +1,36 @@
-# insertion - stable
-# selection - unstable
-
 students = [
-    {"이름": "Furia", "학년": 1, "성적": "A", "전화번호": "766-093-9873", "주소": "101 Brown"},
-    {"이름": "Kanaga", "학년": 3, "성적": "B", "전화번호": "898-122-9643", "주소": "22 Brown"},
-    {"이름": "Rohde", "학년": 2, "성적": "A", "전화번호": "232-343-5555", "주소": "343 Forbes"},
-    {"이름": "Gazsi", "학년": 4, "성적": "B", "전화번호": "766-093-9873", "주소": "101 Brown"},
-    {"이름": "Chen", "학년": 3, "성적": "A", "전화번호": "991-878-4944", "주소": "308 Blair"},
-    {"이름": "Fox", "학년": 3, "성적": "A", "전화번호": "884-232-5341", "주소": "11 Dickinson"},
-    {"이름": "Andrews", "학년": 3, "성적": "A", "전화번호": "664-480-0023", "주소": "097 Little"},
-    {"이름": "Battle", "학년": 4, "성적": "C", "전화번호": "874-088-1212", "주소": "121 Whiteman"},
+    {"name":"benzema","number":9,"grade":9.2},
+    {"name":"ronaldo","number":7,"grade":9.4},
+    {"name":"bale","number":16,"grade":7.2},
+    {"name":"bale","number":11,"grade":8.7},
 ]
 
-# 이름 기준 오름차순 정렬 (단일 조건 정렬)
-print("# 이름 기준 오름차순 정렬 (단일 조건 정렬)")
-result = sorted(students, key=lambda x: x["이름"])
-for student in result:
-    print(student)
+# 출력방법 1) - 한줄로 출력
+print(students)
 print()
 
+# 출력방법 2) - 여러줄로 출력
+def print_element(a):
+    for element in a:
+        print(element)
+    print()
 
-# 이름 -> 학년 기준 오름차순 정렬 (다중 조건 정렬)  
-print("# 이름 -> 학년 기준 오름차순 정렬 (다중 조건 정렬) ")
-result = sorted(students, key=lambda x: (x["이름"], x["학년"]))
-for student in result:
-    print(student)
+
+# 이름 기준 오름차순 정렬 (단일 조건 정렬)
+result = sorted(students,key=lambda x:x["name"]) # 정렬한 데이터를 새롭게 받아줘야한다.
+print_element(result)
+print_element(students) # 기존 데이터는 sorted를 해도 변함 없음
+
+
+# 이름 -> 번호 순으로 정렬 (다중 조건 정렬)
+result2 = sorted(students, key=lambda x:(x["name"],x["number"]))
+print_element(result2)
+
+
+# sorted 사용시 새로운 데이터로 받아줘야함
+
+lista = [5,4,3,2,1]
+
+print(lista)
+k = sorted(lista) # 이와 같이 k로 받아줘야함
+print(k)
