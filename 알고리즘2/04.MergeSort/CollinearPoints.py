@@ -10,7 +10,7 @@ def collinearPoints(points):
             if other == point:
                 continue
             slope = (other[1]-point[1])/(other[0]-point[0])
-            slope_list.append(slope,point)
+            slope_list.append((slope,point))
         slope_list.sort(key=lambda x:x[1])
         # 연속된 세점이상있으면 마지막점과 기준점을 함께 reuslt에 넣어 반환 (기준점부터 - 마지막점)
 
