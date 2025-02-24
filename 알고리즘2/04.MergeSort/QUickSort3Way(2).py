@@ -2,8 +2,22 @@ import random
 
 # Partition a[lo~hi] into 3-sections and then continue to partition each half recursively
 def partition3Way(a, lo, hi):
-    pass
+    if hi <= lo: return
+    v = a[lo]
+    lt,gt = lo,hi
+    i = lo
+    while i <= gt:
+        if a[i] < v:
+            a[lt],a[i] = a[i],a[lt]
+            lt, i = lt+1, i+1
+        elif a[i]>v:
+            a[gt],a[i] = a[i],a[gt]
+            gt = gt-1
+        else: i = i+1
+    print(a)
 
+    partition3Way(a,lo,lt-1)
+    partition3Way(a,gt+1,hi)
 def quickSort3Way(a):
     return a
 
