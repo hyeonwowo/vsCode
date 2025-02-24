@@ -27,8 +27,7 @@ result2 = sorted(students, key=lambda x:(x["name"],x["number"]))
 print_element(result2)
 
 
-# sorted 사용시 새로운 데이터로 받아줘야함
-
+# +) sorted 사용시 새로운 데이터로 받아줘야함
 lista = [5,4,3,2,1]
 
 print(lista)

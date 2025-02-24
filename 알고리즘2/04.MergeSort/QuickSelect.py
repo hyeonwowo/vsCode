@@ -22,7 +22,7 @@ def quickSelect(a, k):
 
     lo, hi = 0, len(a)-1
     while (lo < hi):
-        j = partition(a, lo, hi)
+        j = partition(a, lo, hi) # 여기서 선택 정렬 호출.
         if j < k: lo = j+1
         elif k < j: hi = j-1
         else: return a[k]
