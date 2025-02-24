@@ -4,15 +4,18 @@ import random
 
 def collinearPoints(points):
     result = []
-    for point in points: # 기준점 선정
-        slope_list = []
+    for point in points:
+        slopes = []
         for other in points:
             if other == point:
                 continue
-            slope = (other[1]-point[1])/(other[0]-point[0])
-            slope_list.append((slope,point))
-        slope_list.sort(key=lambda x:x[1])
-        # 연속된 세점이상있으면 마지막점과 기준점을 함께 reuslt에 넣어 반환 (기준점부터 - 마지막점)
+            
+            if other[0]-point[0] == 0:
+                slope = float('inf')
+            else:
+                slope = (other[1] - point[1]) / (other[0] - point[0])
+            slopes.append((slope,other))
+        slopes.sort(key=lambda x:(x[0],-x[1],-x[2]))
 
     return None
 

@@ -10,8 +10,9 @@ for point in points:
         if other[0]-point[0] == 0:
             slope = float('inf')
         else:
-            slope = (other[1] - point[1]) / (other[0] - point[0]) 
+            slope = (other[1] - point[1]) / (other[0] - point[0])
         slopes.append((slope,other))
     result.append((point, slopes))
          
-print(result)
+for base, slopes in result:
+    print(f"기준점 {base}: {slopes}")
