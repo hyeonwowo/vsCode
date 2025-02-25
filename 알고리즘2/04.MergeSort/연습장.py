@@ -1,18 +1,13 @@
-points = [(0,0),(1,2),(2,2),(3,7),(4,10),(5,0)]
-result = []
+# 연속하는 요소가 3개 이상인 인덱스의 처음과 끝 출력
+def find_consecutive_ranges(lst,min_length=3):
+    if not lst:
+        return []
+    
+    point = 0
+    count = 1
 
-for point in points:
-    slopes = []
-    for other in points:
-        if other == point:
-            continue
+    for i in range(len(lst)):
         
-        if other[0]-point[0] == 0:
-            slope = float('inf')
-        else:
-            slope = (other[1] - point[1]) / (other[0] - point[0])
-        slopes.append((slope,other))
-    result.append((point, slopes))
-         
-for base, slopes in result:
-    print(f"기준점 {base}: {slopes}")
+
+lista = [1,2,3,3,3,4,5,5,5,5,5,6,7,8]
+
