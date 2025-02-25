@@ -17,7 +17,9 @@ def collinearPoints(points):
             slopes.append((slope,other))
         slopes.sort(key=lambda x:(x[0],-x[1],-x[2]))
 
-    return None
+    print(slopes)
+
+    #return None
 
 
 def correctnessTest(input, expected_output, correct):
