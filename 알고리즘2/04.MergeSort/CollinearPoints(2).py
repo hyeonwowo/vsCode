@@ -6,9 +6,9 @@ def collinearPoints(points):
     result = set()
     for point in points:
         slopes = []
-        for other in point:
+        for other in points:
             if other != point:
-                if other[0] == point[0]:
+                if (other[0] == point[0]):
                     slope = float('inf')
                 else:
                     slope = (other[1]-point[1])/(other[0]-point[0])
@@ -24,15 +24,16 @@ def collinearPoints(points):
                 count += 1
             else:
                 if count >= min_count:
-                    collinear_group = sorted([point] + slopes[j][1] for j in range(start,i))
-                    result.add(collinear_group[0][0],collinear_group[0][1],collinear_group[-1][0],collinear_group[-1][1])
+                    collinear_group = sorted([point] + [slopes[j][1] for j in range(start,i)])
+                    result.add((collinear_group[0][0],collinear_group[0][1],collinear_group[-1][0],collinear_group[-1][1]))
                 start = i
                 count = 1
+
         if count >= min_count:
             collinear_group = sorted([point]+[slopes[j][1] for j in range(start,len(slopes))])
-            result.add(collinear_group[0][0],collinear_group[0][1],collinear_group[-1][0],collinear_group[-1][1])
+            result.add((collinear_group[0][0],collinear_group[0][1],collinear_group[-1][0],collinear_group[-1][1]))
                 
-    return result
+    return sorted(result)
 
 
 def correctnessTest(input, expected_output, correct):
