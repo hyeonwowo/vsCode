@@ -14,7 +14,7 @@ def collinearPoints(points):
             slopes.append((slope, other))
         
         # 기울기 정렬: (기울기, x 좌표 큰 순서, y 좌표 큰 순서)
-        slopes.sort(key=lambda x: (x[0], -x[1][0], -x[1][1]))
+        slopes.sort(key=lambda x: (x[0], x[1][0], x[1][1]))
 
         # 연속된 점 찾기
     count = 1

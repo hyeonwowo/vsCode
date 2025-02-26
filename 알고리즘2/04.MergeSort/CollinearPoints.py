@@ -26,7 +26,7 @@ def collinearPoints(points):
                 count += 1
             else:
                 if count >= min_count:
-                    collinear_group = sorted([slopes[j][1] for j in range(start, i)] + [point])
+                    collinear_group = sorted([slopes[j][1] for j in range(start, i)] + [point]) # j : 리스트 "컴프리핸션" 내에서 선언된
                     result.add((collinear_group[0][0], collinear_group[0][1], collinear_group[-1][0], collinear_group[-1][1]))
                 start = i
                 count = 1
@@ -37,8 +37,6 @@ def collinearPoints(points):
             result.add((collinear_group[0][0], collinear_group[0][1], collinear_group[-1][0], collinear_group[-1][1]))
 
     return sorted(result)  # 정렬하여 결과 반환
-
-
 
 def correctnessTest(input, expected_output, correct):
     output = collinearPoints(input)
