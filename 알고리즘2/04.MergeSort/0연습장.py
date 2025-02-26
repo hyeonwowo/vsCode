@@ -7,8 +7,6 @@ def collinearPoints(points):
     for point in points:
         slopes = []
         for other in points:
-            if other == point:
-                continue
             
             if other[0]-point[0] == 0:
                 slope = float('inf')
