@@ -13,7 +13,7 @@ def collinearPoints(points):
                 else:
                     slope = (other[1] - point[1]) / (other[0] - point[0]) # 기울기 구하는 공식 (y증가량 / x증가량)
                 slopes.append((slope, other)) # 기울기와 점을 튜플 형태로 추가 [(기울기,(x,y)),(기울기,(x,y)),(기울기,(x,y)),(기울기,(x,y)),(기울기,(x,y))]
-        
+                # .append() : 리스트에 요소 추가
         # 기울기 기준 정렬 (x좌표 오름차순, y좌표 오름차순 추가)
         slopes.sort(key=lambda x: (x[0], x[1][0], x[1][1])) # 정렬 - (기울기, x좌표, y좌표) 순서
 
@@ -29,6 +29,7 @@ def collinearPoints(points):
                 if count >= min_count: # collinear_group : 같은 기울기를 가진 연속한 3개 이상의 점을, 기울기를 제외하고 점의 크기순으로 정렬 후 collinear_group에 저장 : 이때 [3,5,8,12]가 한번에 저장되는게 아닌, collinear_group 리스트에 3,5 저장 -> result에 추가[3,5], 8,12을 collinear_group에 저장 -> result에 추가[3,5,8,12]
                     collinear_group = sorted([point] + [slopes[j][1] for j in range(start, i)]) # "j" : 리스트 "컴프리핸션" 내에서 선언됨. 기울기 제외 좌표를 저장. +[point] : 시작점을 포함해서 정렬 후 collinear_group에 저장
                     result.add((collinear_group[0][0], collinear_group[0][1], collinear_group[-1][0], collinear_group[-1][1])) # 시작점x, 시작점y, 끝점x, 끝점y result에 저장
+                    # .add() : set에 요소 추가
                 start = i
                 count = 1
 
