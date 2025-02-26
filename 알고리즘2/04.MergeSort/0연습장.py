@@ -1,32 +1,5 @@
-import math
-import timeit
-import random
+set1 = set()
 
-def collinearPoints(points):
-    result = []
-    for point in points:
-        slopes = []
-        for other in points:
-            
-            if other[0]-point[0] == 0:
-                slope = float('inf')
-            else:
-                slope = (other[1] - point[1]) / (other[0] - point[0])
-            slopes.append((slope,other))
-        slopes.sort(key=lambda x:(x[0],-x[1][0],-x[1][1]))
-
-    print(slopes)
-
-    #return None
-
-input = [(0,0), (1,1), (3,3), (4,4), (6,6), (7,7), (9,9)]
-collinearPoints(input)
-
-input = [(1,0), (2,0), (3,0), (4,0), (5,0), (6,0), (8,0)]
-collinearPoints(input)
-
-input = [(7,0), (14,0), (22,0), (27,0), (31,0), (42,0)]
-collinearPoints(input)
-
-input = [(0,0), (0,1), (0,2), (0,3), (0,4), (0,5), (0,-2), (0,-53)]
-collinearPoints(input)
+set1.add((1,2))
+set1.add((2,1))
+print(set1)
