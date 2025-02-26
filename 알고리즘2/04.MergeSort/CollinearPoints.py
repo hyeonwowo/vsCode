@@ -4,22 +4,47 @@ import random
 
 def collinearPoints(points):
     result = []
+    
     for point in points:
         slopes = []
         for other in points:
             if other == point:
                 continue
             
-            if other[0]-point[0] == 0:
+            if other[0] - point[0] == 0:
                 slope = float('inf')
             else:
                 slope = (other[1] - point[1]) / (other[0] - point[0])
-            slopes.append((slope,other))
-        slopes.sort(key=lambda x:(x[0],-x[1],-x[2]))
+            slopes.append((slope, other))
+        
+        # 기울기 정렬: (기울기, x 좌표 큰 순서, y 좌표 큰 순서)
+        slopes.sort(key=lambda x: (x[0], -x[1][0], -x[1][1]))
 
-    print(slopes)
+        # 연속된 점 찾기
+    count = 1
+    start = 0
+    min_count = 3
 
-    #return None
+    for i in range(1, len(slopes)+1):
+        if slopes[i][0] == slopes[i - 1][0]:
+            count += 1
+        else:
+            if count >= min_count:
+                result.append((
+                    slopes[start][1][0], slopes[start][1][1],  # 시작점
+                    slopes[i - 1][1][0], slopes[i - 1][1][1]   # 끝점
+                ))
+            start = i
+            count = 1
+
+    # 마지막 그룹 확인
+    if count >= min_count:
+        result.append((
+            slopes[start][1][0], slopes[start][1][1],  # 시작점
+            slopes[len(slopes)-1][1][0], slopes[len(slopes)-1][1][1]  # 끝점
+        ))
+
+    return result
 
 
 def correctnessTest(input, expected_output, correct):
