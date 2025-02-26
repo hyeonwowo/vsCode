@@ -21,20 +21,23 @@ def collinearPoints(points):
         start = 0
         min_count = 3  # 최소 3개 이상
 
+        # 정렬한 기울기값을 토대로 연속하는 점 탐색. ex) [1,1,2,3,3,3,4,5,6,6,6,6,6] -> [3,5,8,12] 연속하는 기울기의 시작, 끝점 반환
         for i in range(1, len(slopes)):
             if slopes[i][0] == slopes[i - 1][0]: # 연속하는 요소가 같을 때
                 count += 1 # 카운트 추가
             else: # 연속하는 요소가 다를 때
-                if count >= min_count:
-                    collinear_group = sorted([point] + [slopes[j][1] for j in range(start, i)]) # j : 리스트 "컴프리핸션" 내에서 선언됨. 기울기 제외 좌표를 저장. +[point] : 시작점을 포함해서 정렬 후 collinear_group에 저장
+                if count >= min_count: # collinear_group : 같은 기울기를 가진 연속한 3개 이상의 점을, 기울기를 제외하고 점의 크기순으로 정렬 후 collinear_group에 저장 : 이때 [3,5,8,12]가 한번에 저장되는게 아닌, collinear_group 리스트에 3,5 저장 -> result에 추가[3,5], 8,12을 collinear_group에 저장 -> result에 추가[3,5,8,12]
+                    collinear_group = sorted([point] + [slopes[j][1] for j in range(start, i)]) # "j" : 리스트 "컴프리핸션" 내에서 선언됨. 기울기 제외 좌표를 저장. +[point] : 시작점을 포함해서 정렬 후 collinear_group에 저장
                     result.add((collinear_group[0][0], collinear_group[0][1], collinear_group[-1][0], collinear_group[-1][1])) # 시작점x, 시작점y, 끝점x, 끝점y result에 저장
                 start = i
                 count = 1
 
         # 마지막 그룹 확인 : 모든 점들의 기울기가 같을 때. for 루프 안에 있는 else구문이 실행되지 않음 -> 오류 발생, 이에대한 처리로 해당 코드 삽입
         if count >= min_count:
-            collinear_group = sorted([slopes[j][1] for j in range(start, len(slopes))] + [point])
+            collinear_group = sorted([point] + [slopes[j][1] for j in range(start, len(slopes))])
             result.add((collinear_group[0][0], collinear_group[0][1], collinear_group[-1][0], collinear_group[-1][1]))
+    
+    # 점 p1,p2,p3,p4,p5가 있을 때, 한 반복에서 (p1 - p2,p3,p4,p5) 수행 후 result에 저장 -> (p2 - p1,p3,p4,p5) 연산 수행 후 result에 저장 --- -> (p5 - p1,p2,p3,p4) 수행후 함수 종료 후 result 반환
 
     return sorted(result)  # 정렬하여 결과 반환
 
