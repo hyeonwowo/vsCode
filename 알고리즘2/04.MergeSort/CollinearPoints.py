@@ -26,12 +26,12 @@ def collinearPoints(points):
                 count += 1
             else:
                 if count >= min_count:
-                    collinear_group = sorted([slopes[j][1] for j in range(start, i)] + [point]) # j : 리스트 "컴프리핸션" 내에서 선언된
-                    result.add((collinear_group[0][0], collinear_group[0][1], collinear_group[-1][0], collinear_group[-1][1]))
+                    collinear_group = sorted([slopes[j][1] for j in range(start, i)] + [point]) # j : 리스트 "컴프리핸션" 내에서 선언됨. 기울기 제외 좌표를 저장. +[point] : 시작점을 포함해서 정렬 후 collinear_group에 저장
+                    result.add((collinear_group[0][0], collinear_group[0][1], collinear_group[-1][0], collinear_group[-1][1])) # 시작점x, 시작점y, 끝점x, 끝점y result에 저장
                 start = i
                 count = 1
 
-        # 마지막 그룹 확인
+        # 마지막 그룹 확인 : 모든 점들의 기울기가 같을 때. for 루프 안에 있는 else구문이 실행되지 않음 -> 오류 발생, 이에대한 처리로 해당 코드 삽입
         if count >= min_count:
             collinear_group = sorted([slopes[j][1] for j in range(start, len(slopes))] + [point])
             result.add((collinear_group[0][0], collinear_group[0][1], collinear_group[-1][0], collinear_group[-1][1]))
