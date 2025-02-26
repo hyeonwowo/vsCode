@@ -5,17 +5,17 @@ import random
 def collinearPoints(points):
     result = set()  # 중복 방지
     for point in points:
-        slopes = []
-        for other in points:
-            if other != point:
-                if other[0] - point[0] == 0:
-                    slope = float('inf')  # 수직선 기울기
+        slopes = [] # 한 점 기준으로, 모든 다른 점들의 기울기를 저장할 리스트
+        for other in points: # 기준점 제외 다른 점들 순회
+            if other != point: # 자기 자신 제외
+                if other[0] - point[0] == 0: # 동일한 x축 위에 있을 시 (새로선)
+                    slope = float('inf')  # 수직선 기울기는 무한대 (새로 - 'inf', 가로 - 0)
                 else:
-                    slope = (other[1] - point[1]) / (other[0] - point[0])
-                slopes.append((slope, other))
+                    slope = (other[1] - point[1]) / (other[0] - point[0]) # 기울기 구하는 공식 (y증가량 / x증가량)
+                slopes.append((slope, other)) # 기울기와 점을 튜플 형태로 추가 [(기울기,(x,y)),(기울기,(x,y)),(기울기,(x,y)),(기울기,(x,y)),(기울기,(x,y))]
         
         # 기울기 기준 정렬 (x좌표 오름차순, y좌표 오름차순 추가)
-        slopes.sort(key=lambda x: (x[0], x[1][0], x[1][1]))
+        slopes.sort(key=lambda x: (x[0], x[1][0], x[1][1])) # 정렬 - (기울기, x좌표, y좌표) 순서
 
         count = 1
         start = 0

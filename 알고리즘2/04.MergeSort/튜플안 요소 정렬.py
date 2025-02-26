@@ -15,7 +15,7 @@ def collinearPoints(points):
             else:
                 slope = (other[1] - point[1]) / (other[0] - point[0])
             slopes.append((slope,other))
-        slopes.sort(key=lambda x:(x[0],-x[1][0],-x[1][1])) 
+        slopes.sort(key=lambda x:(x[0],x[1][0],x[1][1])) 
 # 기존 코드 : slopes.sort(key=lambda x:(x[0],-x[1],-x[2]))
 # 수정 코드 : slopes.sort(key=lambda x:(x[0],-x[1][0],-x[1][1]))
 # 각 데이터는 [(기울기,(x,y)),(기울기,(x,y)),(기울기,(x,y)),(기울기,(x,y)),(기울기,(x,y))] 각각의 인덱스에 접근하고 싶다면 x:(x[0],-x[1],-x[2])) -> x:(x[0],-x[1][0],-x[1][1]) 로 접근해야함
