@@ -22,11 +22,11 @@ def collinearPoints(points):
         min_count = 3  # 최소 3개 이상
 
         for i in range(1, len(slopes)):
-            if slopes[i][0] == slopes[i - 1][0]:
-                count += 1
-            else:
+            if slopes[i][0] == slopes[i - 1][0]: # 연속하는 요소가 같을 때
+                count += 1 # 카운트 추가
+            else: # 연속하는 요소가 다를 때
                 if count >= min_count:
-                    collinear_group = sorted([slopes[j][1] for j in range(start, i)] + [point]) # j : 리스트 "컴프리핸션" 내에서 선언됨. 기울기 제외 좌표를 저장. +[point] : 시작점을 포함해서 정렬 후 collinear_group에 저장
+                    collinear_group = sorted([point] + [slopes[j][1] for j in range(start, i)]) # j : 리스트 "컴프리핸션" 내에서 선언됨. 기울기 제외 좌표를 저장. +[point] : 시작점을 포함해서 정렬 후 collinear_group에 저장
                     result.add((collinear_group[0][0], collinear_group[0][1], collinear_group[-1][0], collinear_group[-1][1])) # 시작점x, 시작점y, 끝점x, 끝점y result에 저장
                 start = i
                 count = 1
