@@ -16,13 +16,13 @@ def print_element(a):
     print()
 
 
-# 이름 기준 오름차순 정렬 (단일 조건 정렬)
+# 이름 기준 오름차순 정렬 (단일 조건 정렬) + sorted()는 새롭게 받아줘야함
 result = sorted(students,key=lambda x:x["name"]) # 정렬한 데이터를 새롭게 받아줘야한다.
 print_element(result)
 print_element(students) # 기존 데이터는 sorted를 해도 변함 없음
 
 
-# 이름 -> 번호 순으로 정렬 (다중 조건 정렬)
+# 이름 -> 번호 순으로 정렬 (다중 조건 정렬) + sorted()는 새롭게 받아줘야함
 result2 = sorted(students, key=lambda x:(x["name"],x["number"]))
 print_element(result2)
 
@@ -33,3 +33,11 @@ lista = [5,4,3,2,1]
 print(lista)
 k = sorted(lista) # 이와 같이 k로 받아줘야함
 print(k)
+
+print()
+
+# +) .sort() 사용시 안 받아줘도 됨
+listb = [5,4,3,2,1]
+print(listb)
+listb.sort()
+print(listb)

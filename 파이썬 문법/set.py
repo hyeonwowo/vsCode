@@ -80,6 +80,7 @@ print(squared_set)
 # set을 이용한 빠른 검색
 data = set(["apple","banana", "cherry","apple","banana", "cherry","apple","banana", "cherry","apple","banana", "cherry",])
 
+print(data) # {'banana', 'apple', 'cherry'} 형태로 단순화
 print("banana" in data)
 print("Lemon" in data)
 

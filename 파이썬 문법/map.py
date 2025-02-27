@@ -6,13 +6,13 @@
 numberList = [1,2,3,4,5]
 print(numberList)
 
-result = map(str,numberList)
-print(list(result))
+result = map(str,numberList) # numberList의 각 요소를 str형태로 변환
+print(result) # OUTPUT : <map object at 0x1027e6be0>
+print(list(result)) # OUTPUT : ['1', '3', '2', '5', '6']
 print()
 
 
 # map(함수, 리스트) : 리스트의 요소를 함수에 넣고 리턴된 값으로, 새로운 리스트 반환
-
 def power(n):
     return n*n
 
