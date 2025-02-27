@@ -1,8 +1,14 @@
-str1 = "hello world h e l l o w o r l d"
+data = [(1,111),(2,222),(3,333)]
 
-tokens = str1.split()
-print(tokens)
+lista = [p[0] for p in data]
+print(lista)
 
-str2 = "h,e,l,l,o,l,o,l,o,l,o,l,o,l,d"
-tokens = str2.split(",")
-print(tokens)
+listaa = [p[1] for p in data]
+
+listb = [i for i,_ in data]
+listc = [i for _,i in data]
+
+print(lista)
+print(listaa)
+print(listb)
+print(listc)
