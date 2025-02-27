@@ -5,8 +5,8 @@
 
 lista = [1,2,3]
 
-    # 리스트 "뒤"에 요소 추가
-lista.append(4) # 1,2,3,4
+    # 리스트 "뒤"에 요소 추가 - .append(element)
+lista.append(4) # 1,2,3,4 + set는 .add()
 print(lista)
 lista.append(5) # 1,2,3,4,5
 print(lista)
@@ -14,7 +14,7 @@ lista.append(6) # 1,2,3,4,5,6
 print(lista)
 print()
 
-    # 리스트 "중간"에 요소 추가
+    # 리스트 "중간"에 요소 추가 - .insert(index, element)
 lista.insert(0,00) # 0 번째에 00
 print(lista)
 lista.insert(1,11) # 1 번째에 11
@@ -30,8 +30,9 @@ print(lista)
 print()
 
 
-# 한번에 여러 요소 출력
 
+
+# 한번에 여러 요소 출력
 lista = [1,2,3]
 lista.extend([4,5,6]) # 1,2,3 + 4,5,6 (맨 뒤에 요소 추가)
 print(lista)
@@ -44,6 +45,7 @@ print(listA + listb)
 listA.extend(listb) # print(listA.extend(listb)) 는 안됨.
 print(listA)
 print()
+
 
 # 인덱스로 제거 : del(), pop()
 
@@ -79,12 +81,14 @@ lista.pop(0) # 첫번째 요소 제거
 print(lista)
 
 
+
 # del 키워드 응용 : 인덱스로 처리
 listA = [1,2,3,4,5,6,7,8,9]
 del listA[3:6] # 3~5까지 제거
 
 del listA[4:] # 4부터 끝까지 제거
 del listA[:3] # 0부터 2까지 제거
+
 
 
 
@@ -98,8 +102,10 @@ listd.remove(1) # 이런 경우 앞쪽의 1 하나만 지워지고, 두번째 1 
 
 
 
+
 # 모두 제거하기 : clear()
 listc.clear()
+
 
 
 
