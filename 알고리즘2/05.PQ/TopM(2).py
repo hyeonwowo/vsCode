@@ -3,11 +3,10 @@ import random
 
 def topM(input, m):
     pq = PriorityQueue()
-    for i in input:
-        pq.put(i)
+    for element in input:
+        pq.put(element)
         if pq.qsize() > m:
             pq.get()
-    
     return [pq.get() for _ in range(m)]
 
 if __name__ == "__main__":    

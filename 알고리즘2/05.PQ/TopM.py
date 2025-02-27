@@ -2,15 +2,15 @@ from queue import PriorityQueue
 import random
 
 def topM(input, m):
-    pq = PriorityQueue()
-    for i in input:
+    pq = PriorityQueue() # pq 생성
+    for i in input: 
         pq.put(i)
-        if pq.qsize() > m:
-            pq.get()
+        if pq.qsize() > m: # size가 m을 넘어가면 그 중 최소값을 제거함으로서 pq의 크기를 m으로 맞춰줌
+            pq.get() # 최소값 반환 - pq의 크기를 m개로 유지하면 최상위 크기의 5개가 남음
     
-    return [pq.get() for _ in range(m)]
+    return [pq.get() for _ in range(m)] # m개가 남아있는 요소 모두 추출 후 리턴
 
-if __name__ == "__main__":    
+if __name__ == "__main__":
     print(topM([4, 2, 6, -100, -24, -6, 2, 26, 42, 77, 89, 0, -44], 4))
     print(topM([4, 2, 6, -100, -24, 77], 3))
     print(topM(['Q', 'G', 'B', 'P', 'F'], 2))
