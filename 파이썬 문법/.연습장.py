@@ -1,14 +1,24 @@
-data = [(1,111),(2,222),(3,333)]
+lista = [1,2,3]
 
-lista = [p[0] for p in data]
+lista.append(4)
+print(lista)
+lista.extend([5,6,7])
 print(lista)
 
-listaa = [p[1] for p in data]
-
-listb = [i for i,_ in data]
-listc = [i for _,i in data]
+lista.insert(0,00)
+lista.insert(0,11)
 
 print(lista)
-print(listaa)
-print(listb)
-print(listc)
+
+del lista[0]
+del lista[0]
+del lista[0]
+del lista[0]
+
+print(lista)
+
+
+lista.remove(3)
+lista.remove(4)
+lista.remove(5)
+print(lista)
