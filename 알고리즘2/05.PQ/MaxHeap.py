@@ -4,19 +4,19 @@ class MaxHeap:
 
     def insert(self, key):
         self.pq.append(key) # 힙에 새 원소 추가
-        idx = len(self.pq)-1 # 삽입된 원소의 인덱스
+        idx = len(self.pq)-1 # 삽입된 원소의 인덱스 : 전체 크기에서 0 인덱스를 쓰지 않음 -> len(self.pq)-1
 
         while idx>1 and self.pq[idx//2] < key: # 부모 노드보다 크면 swap
             self.pq[idx], self.pq[idx//2] = self.pq[idx//2], self.pq[idx]
             idx = idx//2 # 부모 노드 인덱스로 이동
 
     def delMax(self): # 최대값(root)과 마지막 원소를 swap
-        self.pq[1], self.pq[len(self.pq)-1] = self.pq[len(self.pq)-1], self.pq[1] # 최대치와 최소치 스왑 후 -> Pop을 통해 빼내기
+        self.pq[1], self.pq[len(self.pq)-1] = self.pq[len(self.pq)-1], self.pq[1] # 최대치와 최소치 스왑 후 -> Pop을 통해 빼내기 (pop은 맨 마지막 인덱스를 빼기때문에 선 swap후 방출)
         max = self.pq.pop() # 최대값 빼내기
 
         idx = 1 # 루트부터 시작
         while 2*idx <= len(self.pq)-1: # 자식노드가 있을 때
-            idxChild = 2*idx # 왼쪽 자식 노드
+            idxChild = 2*idx # 왼쪽 자식 노드 - 오른쪽 자식 노드가 없을 가능성이 크니까 일단 왼쪽 자식부터 선택
 
             if idxChild<len(self.pq)-1 and self.pq[idxChild] < self.pq[idxChild+1]: # 오른쪽 자식 노드가 존재하고 더 크면 오른쪽 자식 선택
                 idxChild = idxChild+1 # 오른쪽 자식 선택
