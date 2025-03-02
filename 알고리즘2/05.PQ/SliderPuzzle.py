@@ -93,12 +93,12 @@ def solveManhattan(initialBoard):
         return [initialBoard]
 
     frontier = PriorityQueue() # 우선순위 큐 : A* 알고리즘에서 f_score가 가장 낮은 보드 우선 탐색
-    frontier.put((initialBoard.manhattan(), 0, initialBoard))  # (f_score, g_score, Board)
+    frontier.put((0+initialBoard.manhattan(), 0, initialBoard))  # (f_score, g_score, Board)
     came_from = {initialBoard: None} # 탐색 경로 저장 딕셔너리 : 각 보드 상태의 이전 상태 기록
     g_score = {initialBoard: 0} # g_score : 현재까지 이동한 경로
 
     while not frontier.empty():
-        _, current_g, current = frontier.get() # 우선순위 큐에서 f_score가 가장 낮은 상태를 꺼냄
+        _, current_g, current = frontier.get() # 우선순위 큐에서 f_score가 가장 낮은 상태를 꺼냄 : 해당 보드의 _ , g_score, 보드상태 꺼냄 (f는 필요 없으니  _ 처리)
 
         if current.isGoal(): # 목표 상태 도달시 경로 역추적 및 반환
             path = []
@@ -110,6 +110,7 @@ def solveManhattan(initialBoard):
         for neighbor in current.neighbors(): # 현재 상태의 이웃 상태(가능한 이동)들을 확인
             tentative_g_score = current_g + 1 # 이웃으로 이동하므로 g_score 증가
 
+            # g_score 딕셔너리에서 neighbor(2차원적 보드형태)는 키값이고, value는 해당 보드 모양에 매핑되는 gscore값
             if neighbor not in g_score or tentative_g_score < g_score[neighbor]: # 새로운 경로가 기존 경로보다 비용이 낮다면 업데이트
                 g_score[neighbor] = tentative_g_score
                 f_score = tentative_g_score + neighbor.manhattan() # f = g + h
