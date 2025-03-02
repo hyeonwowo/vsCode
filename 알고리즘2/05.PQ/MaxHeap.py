@@ -1,4 +1,4 @@
-class MaxHeap:
+class MaxHeap: # 큰 값일수록 위로
     def __init__(self):
         self.pq = ['']  # pq[0]은 사용하지 않음 (힙의 인덱스를 1부터 시작하도록 설정 - 리스트의 첫번째 요소에 공백 문자열을 삽입함으로서 인덱스 [1] 부터 사용)
 
