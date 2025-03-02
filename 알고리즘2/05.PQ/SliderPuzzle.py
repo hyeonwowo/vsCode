@@ -109,8 +109,8 @@ def solveManhattan(initialBoard):
 
         for neighbor in current_board.neighbors(): # 현재 상태의 이웃 상태(가능한 이동)들을 확인
             # g_score 딕셔너리에서 neighbor(2차원적 보드형태)는 키값이고, value는 해당 보드 모양에 매핑되는 gscore값
+            tentative_g_score = current_g + 1 # 이웃으로 이동하므로 g_score 증가
             if neighbor not in g_score or tentative_g_score < g_score[neighbor]: # 새로운 경로가 기존 경로보다 비용이 낮다면 업데이트
-                tentative_g_score = current_g + 1 # 이웃으로 이동하므로 g_score 증가
                 g_score[neighbor] = tentative_g_score
                 f_score = tentative_g_score + neighbor.manhattan() # f = g + h
                 frontier.put((f_score, tentative_g_score, neighbor)) # 우선순위 큐에 추가

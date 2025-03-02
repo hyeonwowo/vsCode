@@ -135,6 +135,8 @@ def solveManhattan(initialBoard):
                 current_board = came_from[current_board]
             return path[::-1]
             
+        for neighbor in current_board.neighbors():
+            if neighbor not in g_score
 
 
     return None
