@@ -116,9 +116,6 @@ class Board:
 
 def solveManhattan(initialBoard):
     assert(isinstance(initialBoard, Board))
-
-    if initialBoard.isGoal():
-        return [initialBoard]
     return None
     
 
