@@ -119,6 +119,24 @@ def solveManhattan(initialBoard):
 
     if initialBoard.isGoal():
         return [initialBoard]
+    
+    frontier = PriorityQueue()
+    frontier.put((0+initialBoard.manhattan(),0,initialBoard))
+    came_from = {initialBoard:None}
+    g_score = {initialBoard:0}
+
+    while not frontier.empty():
+        _, current_g, current_board = frontier.get()
+
+        if current_board.isGoal():
+            path = []
+            while current_board is not None:
+                path.append(current_board)
+                current_board = came_from[current_board]
+            return path[::-1]
+            
+
+
     return None
     
 
