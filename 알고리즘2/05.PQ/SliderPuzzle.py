@@ -87,36 +87,36 @@ class Board:
 
 
 def solveManhattan(initialBoard):
-    assert isinstance(initialBoard, Board)
+    assert isinstance(initialBoard, Board) # 입력이 보드 형태의 isinstance인지 확인
 
-    if initialBoard.isGoal():
+    if initialBoard.isGoal(): # 이미 목표 상태인 경우, 바로 반환
         return [initialBoard]
 
-    frontier = PriorityQueue()
+    frontier = PriorityQueue() # 우선순위 큐 : A* 알고리즘에서 f_score가 가장 낮은 보드 우선 탐색
     frontier.put((initialBoard.manhattan(), 0, initialBoard))  # (f_score, g_score, Board)
-    came_from = {initialBoard: None}
-    g_score = {initialBoard: 0}
+    came_from = {initialBoard: None} # 탐색 경로 저장 딕셔너리 : 각 보드 상태의 이전 상태 기록
+    g_score = {initialBoard: 0} # g_score : 현재까지 이동한 경로
 
     while not frontier.empty():
-        _, current_g, current = frontier.get()
+        _, current_g, current = frontier.get() # 우선순위 큐에서 f_score가 가장 낮은 상태를 꺼냄
 
-        if current.isGoal():
+        if current.isGoal(): # 목표 상태 도달시 경로 역추적 및 반환
             path = []
             while current is not None:
                 path.append(current)
-                current = came_from[current]
-            return path[::-1]
+                current = came_from[current] # 이전 상태로 이동
+            return path[::-1] # 역순 정렬
 
-        for neighbor in current.neighbors():
-            tentative_g_score = current_g + 1
+        for neighbor in current.neighbors(): # 현재 상태의 이웃 상태(가능한 이동)들을 확인
+            tentative_g_score = current_g + 1 # 이웃으로 이동하므로 g_score 증가
 
-            if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
+            if neighbor not in g_score or tentative_g_score < g_score[neighbor]: # 새로운 경로가 기존 경로보다 비용이 낮다면 업데이트
                 g_score[neighbor] = tentative_g_score
-                f_score = tentative_g_score + neighbor.manhattan()
-                frontier.put((f_score, tentative_g_score, neighbor))
-                came_from[neighbor] = current
+                f_score = tentative_g_score + neighbor.manhattan() # f = g + h
+                frontier.put((f_score, tentative_g_score, neighbor)) # 우선순위 큐에 추가
+                came_from[neighbor] = current # 경로 추적을 위해 이전 상태 저장
 
-    return None  # Unsolvable case
+    return None  # 슬라이드 퍼즐 답이 없을 때
 
 
 def solveNprint(initialBoard, solveFunction=solveManhattan):
