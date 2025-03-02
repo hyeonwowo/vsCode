@@ -4,7 +4,7 @@ class MaxHeap:
 
     def insert(self, key):
         self.pq.append(key) # 힙에 새 원소 추가
-        idx = len(self.pq)-1 # 삽입된 원소의 인덱스 : 전체 크기에서 0 인덱스를 쓰지 않음 -> len(self.pq)-1
+        idx = len(self.pq)-1 # 삽입된 원소의 인덱스 : 마지막 인덱스를 얻기 위함 - 0(x) 1(o) 2(0) 새로 추가된 2는 전체 크기 -1
 
         while idx>1 and self.pq[idx//2] < key: # 부모 노드보다 크면 swap
             self.pq[idx], self.pq[idx//2] = self.pq[idx//2], self.pq[idx]
