@@ -3,71 +3,57 @@ import random
 from queue import PriorityQueue
 
 class Board:
-    def __init__(self, tiles): # Constructor
+    def __init__(self, tiles):  # Constructor
         self.n = len(tiles)
         self.tiles = copy.deepcopy(tiles)
         self.twinBoard = None
-        
+
         # Compute Hamming distance
         self.hammingDistance = 0
         goal = 0
         for rowId, row in enumerate(tiles):
             for colId, t in enumerate(row):
                 goal += 1
-                if t == 0: continue
-                if t != goal: self.hammingDistance += 1
+                if t == 0:
+                    continue
+                if t != goal:
+                    self.hammingDistance += 1
 
         # Compute Manhattan distance
         self.manhattanDistance = 0
         for rowId, row in enumerate(tiles):
             for colId, t in enumerate(row):
-                if t == 0: continue
-                goalRow, goalCol = (t-1) // self.n, (t-1) % self.n
+                if t == 0:
+                    continue
+                goalRow, goalCol = (t - 1) // self.n, (t - 1) % self.n
                 self.manhattanDistance += abs(rowId - goalRow) + abs(colId - goalCol)
 
         # Find the empty tile and store its location in (self.rowZero, self.colZero)
-        self.rowZero, self.colZero = None, None      
+        self.rowZero, self.colZero = None, None
         for rowId, row in enumerate(self.tiles):
             for colId, t in enumerate(row):
-                if t == 0: self.rowZero, self.colZero = rowId, colId 
-        assert(self.rowZero != None and self.colZero != None) 
+                if t == 0:
+                    self.rowZero, self.colZero = rowId, colId
+        assert self.rowZero is not None and self.colZero is not None
 
-    # Create a human-readable string representation
     def __str__(self):
-        strList = []        
-        for row in self.tiles:
-            for t in row:
-                strList.append(f'{t:6d}')
-            strList.append('\n')
-        return ''.join(strList)
+        return '\n'.join([' '.join(f'{t:2d}' for t in row) for row in self.tiles]) + '\n'
 
-    def __repr__(self):  # This function is called when a Board object is printed as part of a list
+    def __repr__(self):
         return self.__str__()
 
-    # Defines behavior for the equality operator, ==
     def __eq__(self, other):
-        if other == None: return False
-        if not isinstance(other, Board): return False
-        
-        if self.n != other.n: return False
-        for rowId, row in enumerate(self.tiles):
-            for colId, t in enumerate(row):
-                if t != other.tiles[rowId][colId]: return False
-        return True
+        return isinstance(other, Board) and self.tiles == other.tiles
 
-    # Defines behavior for the less-than operator, <
-    # This function is required to compare two Boards in a PriorityQueue
+    def __hash__(self):
+        return hash(tuple(tuple(row) for row in self.tiles))
+
     def __lt__(self, other):
-        if self.n < other.n: return True
-        else:
-            for rowId, row in enumerate(self.tiles):
-                for colId, t in enumerate(row):
-                    if t < other.tiles[rowId][colId]: return True
-            return False
+        return self.manhattan() < other.manhattan()
 
     def hamming(self):
         return self.hammingDistance
-    
+
     def manhattan(self):
         return self.manhattanDistance
 
@@ -76,78 +62,93 @@ class Board:
 
     def isGoal(self):
         return self.hammingDistance == 0
-    
+
     def neighbors(self):
-        # Create a neighbor board by switching (row, col) with (rowZero, colZero),
-        #   where (rowZero, colZero) is the location of the empty tile
-        def createNeighbor(tiles, row, col):            
-            tiles[self.rowZero][self.colZero], tiles[row][col] = tiles[row][col], 0  # Switch two tiles
-            neighbor = Board(self.tiles) # Create a neighbor with the switched tiles
-            tiles[self.rowZero][self.colZero], tiles[row][col] = 0, tiles[self.rowZero][self.colZero] # Switch the tiles back to their original positions
-            return neighbor
-
         neighborList = []
-        if self.rowZero > 0: neighborList.append(createNeighbor(self.tiles, self.rowZero-1, self.colZero)) # Push up the empty tile
-        if self.rowZero < self.dimension()-1: neighborList.append(createNeighbor(self.tiles, self.rowZero+1, self.colZero)) # Push down the empty tile
-        if self.colZero > 0: neighborList.append(createNeighbor(self.tiles, self.rowZero, self.colZero-1)) # Push the empty tile to the left
-        if self.colZero < self.dimension()-1: neighborList.append(createNeighbor(self.tiles, self.rowZero, self.colZero+1)) # Push the empty tile to the right
-
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # up, down, left, right
+        for dr, dc in directions:
+            newRow, newCol = self.rowZero + dr, self.colZero + dc
+            if 0 <= newRow < self.n and 0 <= newCol < self.n:
+                newTiles = copy.deepcopy(self.tiles)
+                newTiles[self.rowZero][self.colZero], newTiles[newRow][newCol] = newTiles[newRow][newCol], 0
+                neighborList.append(Board(newTiles))
         return neighborList
 
     def twin(self):
-        if self.twinBoard == None:
-            # Randomly select two tile numbers to swap
-            numbers4Twin = list(range(1,self.dimension()*self.dimension()))
-            random.shuffle(numbers4Twin)
-
-            # Identify (row, col) of the two tiles
-            for rowId, row in enumerate(self.tiles):
-                for colId, t in enumerate(row):
-                    if t==numbers4Twin[0]: row1, col1 = rowId, colId
-                    elif t==numbers4Twin[1]: row2, col2 = rowId, colId
-            
-            # Swap the two tiles to create a twin board
-            self.tiles[row1][col1], self.tiles[row2][col2] = self.tiles[row2][col2], self.tiles[row1][col1]
-            self.twinBoard = Board(self.tiles)
-            self.tiles[row1][col1], self.tiles[row2][col2] = self.tiles[row2][col2], self.tiles[row1][col1] # Swap the two tiles back to their original positions
-
+        if self.twinBoard is None:
+            for row in range(self.n):
+                for col in range(self.n - 1):
+                    if self.tiles[row][col] != 0 and self.tiles[row][col + 1] != 0:
+                        newTiles = copy.deepcopy(self.tiles)
+                        newTiles[row][col], newTiles[row][col + 1] = newTiles[row][col + 1], newTiles[row][col]
+                        self.twinBoard = Board(newTiles)
+                        return self.twinBoard
         return self.twinBoard
 
 
 def solveManhattan(initialBoard):
-    assert(isinstance(initialBoard, Board))
-    return None
-    
+    assert isinstance(initialBoard, Board)
 
-def solveNprint(initialBoard, solveFunction = solveManhattan):
-        solution = solveFunction(initialBoard)
-        if solution != None:
-            print(f"Solvable in {len(solution)-1} moves")
-            for board in solution:
-                print(board)
-        else: print("Unsolvable")
+    if initialBoard.isGoal():
+        return [initialBoard]
+
+    frontier = PriorityQueue()
+    frontier.put((initialBoard.manhattan(), 0, initialBoard))  # (f_score, g_score, Board)
+    came_from = {initialBoard: None}
+    g_score = {initialBoard: 0}
+
+    while not frontier.empty():
+        _, current_g, current = frontier.get()
+
+        if current.isGoal():
+            path = []
+            while current is not None:
+                path.append(current)
+                current = came_from[current]
+            return path[::-1]
+
+        for neighbor in current.neighbors():
+            tentative_g_score = current_g + 1
+
+            if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
+                g_score[neighbor] = tentative_g_score
+                f_score = tentative_g_score + neighbor.manhattan()
+                frontier.put((f_score, tentative_g_score, neighbor))
+                came_from[neighbor] = current
+
+    return None  # Unsolvable case
+
+
+def solveNprint(initialBoard, solveFunction=solveManhattan):
+    solution = solveFunction(initialBoard)
+    if solution is not None:
+        print(f"Solvable in {len(solution) - 1} moves")
+        for board in solution:
+            print(board)
+    else:
+        print("Unsolvable")
 
 
 def correctnessTest(func, input, expected_len, expected_output, correct):
     print(f"{func.__name__}(\n{input})")
-    output = func(input)    
+    output = func(input)
     if output is not None and isinstance(output, list):
-        if  len(output) == expected_len:
-            if expected_output == None: print("Pass")
-            elif expected_output == output: print("Pass")
-            else:    
+        if len(output) == expected_len:
+            if expected_output is None:
+                print("Pass")
+            elif expected_output == output:
+                print("Pass")
+            else:
                 print(f"Fail - the output does not match the expected output")
-                correct = False                
+                correct = False
         else:
             print(f"Fail - length of output {len(output)} is not equal to {expected_len}")
             correct = False
     else:
         print(f"Fail - output is NOT a list")
         correct = False
-    print()    
-
+    print()
     return correct
-
 
 if __name__ == "__main__":
     '''
