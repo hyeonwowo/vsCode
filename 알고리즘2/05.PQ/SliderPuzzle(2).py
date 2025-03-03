@@ -88,6 +88,31 @@ class Board:
 
 def solveManhattan(initialBoard):
     assert(isinstance(initialBoard, Board))
+    
+    if initialBoard.isGoal():
+        return [initialBoard]
+
+    puzzleData = PriorityQueue()
+    puzzleData.put((initialBoard.manhattan()+0,0,initialBoard))
+    priorBoard = {initialBoard:None}
+    gScore = {initialBoard:0}
+
+    while not puzzleData.empty():
+        _, g_score,current_board = puzzleData.get()
+        if current_board.isGoal():
+            puth = []
+            while priorBoard != None:
+                puth.append(current_board)
+                current_board = priorBoard[current_board]
+            return puth[::-1]
+    
+        for neighbor in current_board.neighbors():
+            tentative_g_score = g_score + 1
+            if tentative_g_score < gScore[neighbor] or neighbor not in gScore:
+                priorBoard[neighbor] = current_board
+                gScore[neighbor] = tentative_g_score
+                f_score = neighbor.neighbors() + tentative_g_score
+                puzzleData.put((f_score,tentative_g_score,neighbor))
 
     return None
 
