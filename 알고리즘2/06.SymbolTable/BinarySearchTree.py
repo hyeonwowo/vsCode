@@ -3,7 +3,7 @@ class BST:
         def __init__(self, key, val): # key, value = 노드번호, 값
             self.key, self.val = key, val # 노드 번호, 값 초기화
             self.left = self.right = None # 첫 노드 생성시
-            self.count = 1 # 
+            self.count = 1 # 해당 노드를 루트로 하는 서브트리의 노드 개수 저장
 
     def __init__(self): # Constructor
         self.root = None
@@ -166,6 +166,7 @@ if __name__ == "__main__":
     print(bst.size())
     print("min", bst.min())
     print("max", bst.max())
+    print()
 
     bst.put("a",1)
     bst.put("c",2)
@@ -173,6 +174,7 @@ if __name__ == "__main__":
     bst.put("b",4)
     bst.put("c",5)
     print(bst.size())
+    print()
 
     print(bst.get("a"))
     print(bst.get("b"))
@@ -181,6 +183,7 @@ if __name__ == "__main__":
     print(bst.get("e"))
     print(bst.floor("a"))
     print(bst.floor("b"))   
+    print()
 
     print("ceiling") 
     print(bst.ceiling("a"))
@@ -189,9 +192,11 @@ if __name__ == "__main__":
     print(bst.ceiling("d"))
     print(bst.ceiling("e"))
     print(bst.ceiling("f"))
+    print()
 
     print("min", bst.min())
     print("max", bst.max())
+    print()
 
     print("rank")
     print(bst.rank("a"))
@@ -200,6 +205,7 @@ if __name__ == "__main__":
     print(bst.rank("d"))
     print(bst.rank("e"))
     print(bst.rank("f"))
+    print()
 
     print("select")
     print(bst.select(-1))
@@ -210,6 +216,7 @@ if __name__ == "__main__":
     print(bst.select(4))
     print(bst.select(5))
     print(bst.select(6))
+    print()
 
     print("inorder traversal")
     bst2 = BST()
@@ -221,24 +228,31 @@ if __name__ == "__main__":
     bst2.put("C",6)
     bst2.put("H",7)
     bst2.put("M",8)
+    print()
+
     for k in bst2.inorder():
         print(k)
     print(bst2.rank("H"))
     print(bst2.select(4))
+    print()
 
     print("delete")
     bst2.delete("C")
     print(bst2.inorder())   
-    
+    print()
+
     bst2.delete("E")
     print(bst2.inorder())   
+    print()
 
     bst2.delete("Y")
     print(bst2.inorder())   
+    print()
 
     bst2.delete("S")
     print(bst2.inorder())   
-
+    print()
+    
     bst2.delete("F") # Delete a key not in BST, so BST remains the same
     print(bst2.inorder())   
 
