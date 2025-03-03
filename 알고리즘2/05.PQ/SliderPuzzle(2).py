@@ -101,17 +101,17 @@ def solveManhattan(initialBoard):
         _, g_score,current_board = puzzleData.get()
         if current_board.isGoal():
             puth = []
-            while priorBoard != None:
+            while current_board is not None:
                 puth.append(current_board)
                 current_board = priorBoard[current_board]
             return puth[::-1]
     
         for neighbor in current_board.neighbors():
             tentative_g_score = g_score + 1
-            if tentative_g_score < gScore[neighbor] or neighbor not in gScore:
+            if neighbor not in gScore or tentative_g_score < gScore[neighbor]:
                 priorBoard[neighbor] = current_board
                 gScore[neighbor] = tentative_g_score
-                f_score = neighbor.neighbors() + tentative_g_score
+                f_score = neighbor.manhattan() + tentative_g_score
                 puzzleData.put((f_score,tentative_g_score,neighbor))
 
     return None
