@@ -89,32 +89,6 @@ class Board:
 def solveManhattan(initialBoard):
     assert(isinstance(initialBoard, Board))
 
-    if initialBoard.isGoal():
-        return [initialBoard]
-    
-    frontier = PriorityQueue()
-    frontier.put((0+initialBoard.manhattan(),0,initialBoard))
-    came_from = {initialBoard: None}
-    g_score = {initialBoard: 0}
-
-    while not frontier.empty():
-        _, current_g, current_board = frontier.get()
-
-        if current_board.isGoal():
-            path = []
-            while current_board is not None:
-                path.append(current_board)
-                current_board = came_from[current_board]
-            return path[::-1]
-            
-        for neighbor in current_board.neighbors(): 
-            tentative_g_score = current_g + 1
-            if neighbor not in g_score or tentative_g_score < g_score[neighbor]:
-                g_score[neighbor] = tentative_g_score
-                f_score = tentative_g_score + neighbor.manhattan()
-                frontier.put((f_score, tentative_g_score, neighbor))
-                came_from[neighbor] = current_board
-
     return None
 
 
