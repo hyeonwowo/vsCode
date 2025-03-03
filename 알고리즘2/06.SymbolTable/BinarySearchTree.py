@@ -10,7 +10,7 @@ class BST:
     
     def get(self, key): # key값에 따른 value 얻어오기
         x = self.root # 루트 노드
-        while x != None: # 최하층 노드까지 내려가기
+        while x != None: # 노드가 없으면, return None
             if key < x.key: # 탐색하려는 키가, 현재 키보다 작으면
                 x = x.left # 왼쪽 노드로
             elif key > x.key: # 탐색하려는 키가, 현재 키보다 크면
@@ -252,7 +252,7 @@ if __name__ == "__main__":
     bst2.delete("S")
     print(bst2.inorder())   
     print()
-    
+
     bst2.delete("F") # Delete a key not in BST, so BST remains the same
     print(bst2.inorder())   
 
