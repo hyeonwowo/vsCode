@@ -26,7 +26,39 @@ class BST:
             if x == None:
                 return self.Node(key,val)
             if key < x.key:
-                x.left 
+                x.left = putOnNode(x.left,key,val)
+            elif key > x.key:
+                x.right = putOnNode(x.right, key, val)
+            else:
+                x.val = val
+            x.count = self.sizeOnNode(x.left) + 1 +self.sizeOnNode(x.right)
+            return x
+        self.root = putOnNode(self.root, key,val)
+    
+    def min(self):
+        if self.root == None:
+            return None
+        else:
+            x = self.root
+            while x.left != None:
+                x= x.left
+            return x.key
+    
+    def max(self):
+        if self.root == None:
+            return None
+        else:
+            x = self.root
+            while x.right != None:
+                x = x.right
+            return x.key
+
+    def floor(self,key):
+        def floorOnNode(x,key):
+            if x == None:
+                return None
+            if key == x.key:
+                return x
 
 if __name__ == "__main__":   
     bst = BST() 

@@ -23,7 +23,7 @@ class LLRB:
     def contains(self, key):
         return self.get(key) != None
 
-    @staticmethod    
+    @staticmethod
     def isRed(x):
             if x == None: return False
             return x.red

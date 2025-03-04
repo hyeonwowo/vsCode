@@ -66,10 +66,10 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
                 return None
             if key == x.key: 
                 return x
-            elif key < x.key: # 맨 처음의 좌측 이동시에만 작동하는 트리거
+            elif key < x.key:
                 return floorOnNode(x.left, key)
 
-            t = floorOnNode(x.right, key) # 그 뒤로 쭉쭉쭉 우측으로 이동
+            t = floorOnNode(x.right, key)
             if t != None: 
                 return t
             else: 
@@ -84,8 +84,8 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
     def ceiling(self, key): # 주어진 키도다 크거나 같은 트리 내부 최소값 탐색 - 우1, 좌n
         def ceilingOnNode(x, key): 
             if x == None: 
-                return None # 해당 노드 도달시 (가장 최하층 노드이기 때문에, 아래레벨은 None)
-            if key == x.key: # 
+                return None
+            if key == x.key:
                 return x
             elif x.key < key: 
                 return ceilingOnNode(x.right, key)
@@ -96,6 +96,7 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
             else: 
                 return x
             
+        # 함수 시작
         x = ceilingOnNode(self.root, key)
         if x == None: 
             return None
@@ -106,10 +107,10 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
         if x == None: 
             return 0
         else: 
-            return x.count
+            return x.count # 각 노드마다 x.count가 저장되어있음.
 
     def size(self): # 트리 전체 노드 개수 반환
-        return self.sizeOnNode(self.root)    
+        return self.sizeOnNode(self.root) # 해당 노드 기준으로 모든 자식노드 수 반환
 
     def rank(self, key): # key 보다 작은 노드 개수 반환
         def rankOnNode(x, key): # rank(key) on the subtree rooted at x
