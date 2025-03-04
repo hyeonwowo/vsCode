@@ -1,8 +1,10 @@
 class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
     class Node:
         def __init__(self, key, val): # key, value = 노드번호, 값
-            self.key, self.val = key, val # 노드 번호, 값 초기화
-            self.left = self.right = None # 첫 노드 생성시
+            self.key = key # 노드 번호, 값 초기화
+            self.val = val
+            self.left = None # 첫 노드 생성시
+            self.right = None 
             self.count = 1 # 해당 노드를 루트로 하는 서브트리의 노드 개수 저장
 
     def __init__(self): # 초기화 - 루트노드 생성
@@ -19,14 +21,21 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
                 return x.val  # 현재 노드 value값 반환
         return None # The key was NOT found
 
+# *** 중요 ***
+# putOnNode(x.left, key, val)를 호출하는 이유:
+# 왼쪽 서브트리로 내려가면서 탐색 및 삽입을 재귀적으로 수행하기 위해.
+
+# x.left = putOnNode(x.left, key, val)로 값을 다시 저장하는 이유:
+# 새롭게 삽입된 노드(혹은 수정된 서브트리)를 현재 노드와 연결하기 위해.
+
     def put(self, key, val): # 새로운 키 삽입
         def putOnNode(x, key, val): # 순환호출 사용
             if x == None: # 도달한 자리에 아무것도 없으면, 그 자리에 삽입
                 return self.Node(key, val) # 노드 삽입
             if key < x.key: # 새로운 키가, 현재 노드 위치 키보다 작으면
-                x.left = putOnNode(x.left, key, val) # 좌측으로 이동(순환호출 사용)
+                x.left = putOnNode(x.left, key, val) # *** 중요 ***
             elif key > x.key: # 새로운 키가, 현재 노드 위치 키보다 크면
-                x.right = putOnNode(x.right, key, val) # 우측으로 이동(순환호출 사용)
+                x.right = putOnNode(x.right, key, val) # 우측노드로 이동해서 순환호출 사용
             else: 
                 x.val = val # 새로운키 == 현재키, value값 업데이트
             x.count = self.sizeOnNode(x.left) + 1 + self.sizeOnNode(x.right) # x기준 자식노드의 총합 (좌측자식들 + 자기자신 + 우측자식들)
@@ -52,7 +61,7 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
             return x.key
 
     def floor(self, key): # 주어진 키보다 작거나 같은 최대값 탐색 - 좌1, 우n
-        def floorOnNode(x, key):
+        def floorOnNode(x, key): # 순환함수
             if x == None: 
                 return None
             if key == x.key: 
@@ -65,6 +74,7 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
                 return t
             else: 
                 return x
+            
         x = floorOnNode(self.root, key)
         if x == None: 
             return None
@@ -72,10 +82,10 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
             return x.key
 
     def ceiling(self, key): # 주어진 키도다 크거나 같은 최소값 탐색 - 우1, 좌n
-        def ceilingOnNode(x, key):
+        def ceilingOnNode(x, key): 
             if x == None: 
-                return None
-            if key == x.key: 
+                return None # 해당 노드 도달시 (가장 최하층 노드이기 때문에, 아래레벨은 None)
+            if key == x.key: # 
                 return x
             elif x.key < key: 
                 return ceilingOnNode(x.right, key)
@@ -85,6 +95,7 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
                 return t
             else: 
                 return x
+            
         x = ceilingOnNode(self.root, key)
         if x == None: 
             return None
@@ -161,7 +172,7 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
             return x
         self.root = deleteOnNode(self.root, key)
 
-if __name__ == "__main__":   
+if __name__ == "__main__":  
     bst = BST() 
     print(bst.size())
     print("min", bst.min())
