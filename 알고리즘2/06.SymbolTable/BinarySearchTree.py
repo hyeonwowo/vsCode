@@ -1,11 +1,11 @@
-class BST:
+class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
     class Node:
         def __init__(self, key, val): # key, value = 노드번호, 값
             self.key, self.val = key, val # 노드 번호, 값 초기화
             self.left = self.right = None # 첫 노드 생성시
             self.count = 1 # 해당 노드를 루트로 하는 서브트리의 노드 개수 저장
 
-    def __init__(self): # Constructor
+    def __init__(self): # 초기화 - 루트노드 생성
         self.root = None
     
     def get(self, key): # key값에 따른 value 얻어오기
