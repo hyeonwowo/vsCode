@@ -60,16 +60,16 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
                 x = x.right
             return x.key
 
-    def floor(self, key): # 주어진 키보다 작거나 같은 최대값 탐색 - 좌1, 우n
+    def floor(self, key): # 주어진 키보다 작거나 같은 트리 내부 최대값 탐색 - 좌1, 우n
         def floorOnNode(x, key): # 순환함수
             if x == None: 
                 return None
             if key == x.key: 
                 return x
-            elif key < x.key: 
+            elif key < x.key: # 맨 처음의 좌측 이동시에만 작동하는 트리거
                 return floorOnNode(x.left, key)
 
-            t = floorOnNode(x.right, key)
+            t = floorOnNode(x.right, key) # 그 뒤로 쭉쭉쭉 우측으로 이동
             if t != None: 
                 return t
             else: 
@@ -81,7 +81,7 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
         else: 
             return x.key
 
-    def ceiling(self, key): # 주어진 키도다 크거나 같은 최소값 탐색 - 우1, 좌n
+    def ceiling(self, key): # 주어진 키도다 크거나 같은 트리 내부 최소값 탐색 - 우1, 좌n
         def ceilingOnNode(x, key): 
             if x == None: 
                 return None # 해당 노드 도달시 (가장 최하층 노드이기 때문에, 아래레벨은 None)
@@ -179,14 +179,16 @@ if __name__ == "__main__":
     print("max", bst.max())
     print()
 
+    print("put")
     bst.put("a",1)
     bst.put("c",2)
     bst.put("e",3)
     bst.put("b",4)
-    bst.put("c",5)
-    print(bst.size())
+    bst.put("c",5) # 같은 키가 들어오면 업데이트
+    print(bst.size()) # size는 그래서 4
     print()
 
+    print("get")
     print(bst.get("a"))
     print(bst.get("b"))
     print(bst.get("c"))
