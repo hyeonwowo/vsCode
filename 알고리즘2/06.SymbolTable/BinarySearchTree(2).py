@@ -1,4 +1,82 @@
+class BST:
+    class Node:
+        def __init__(self, key, val):
+            self.key, self.val = key, val
+            self.left = self.right = None
+            self.count = 1
+    
+    def __init__(self):
+        self.root = None
+    
+    def get(self, key):
+        x = self.root
+        while x != None:
+            if key > x.key: x = x.right
+            elif key < x.key: x = x.left
+            else: return x.val
+        return None
+    
+    def put(self, key ,val):
+        def putOnNode(x,key,val):
+            if x == None: return self.Node(key, val)
+            if key < x.key: x.left = putOnNode(x.left, key, val)
+            elif key > x.key: x.right = putOnNode(x.right, key, val)
+            else: x.val = val
+            x.count = self.sizeOnNode(x.left) + 1 + self.sizeOnNode(x.right)
+            return x
+        self.root = putOnNode(self.root, key, val)
 
+    def min(self):
+        if self.root == None: return None
+        else:
+            x = self.root
+            while x != None:
+                x = x.left
+            return x.key
+    
+    def max(self):
+        if self.root == None: return None
+        else: 
+            x = self.root
+            while x != None:
+                x = x.right
+            return x.key
+        
+    def floor(self, key):
+        def floorOnNode(x,key):
+            if x == None:
+                return None
+            if key == x.key:
+                return x
+            elif key < x.key:
+                return floorOnNode(x.left, key)
+            
+            t = floorOnNode(x.right, key)
+            if t != None: return t
+            else: return x
+        x = floorOnNode(self.root, key)
+        if x == None: return None
+        else: return x.key
+
+    def ceiling(self, key):
+        def ceilingOnNode(x, key):
+            if x == None: return None
+            if key == x.key: return x
+            elif x.key < key: return ceilingOnNode(x.right, key)
+
+            t = ceilingOnNode(x.left, key)
+            if t != None: return t
+            else: return x
+
+        x = ceilingOnNode(self.root, key)
+        if x == None: return None
+        else: return x.key
+
+    def sizeOnNode(self,x):
+        if x == None: return 0
+        else: return x.count
+
+    
 
 if __name__ == "__main__":   
     bst = BST() 

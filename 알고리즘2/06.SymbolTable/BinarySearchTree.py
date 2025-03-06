@@ -3,8 +3,7 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
         def __init__(self, key, val): # key, value = 노드번호, 값
             self.key = key # 노드 번호, 값 초기화
             self.val = val
-            self.left = None # 첫 노드 생성시
-            self.right = None 
+            self.left = self.right = None # 첫 노드 생성시
             self.count = 1 # 해당 노드를 루트로 하는 서브트리의 노드 개수 저장
 
     def __init__(self): # 초기화 - 루트노드 생성
@@ -30,8 +29,10 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
 
     def put(self, key, val): # 새로운 키 삽입
         def putOnNode(x, key, val): # 순환호출 사용
+            # 해당 위치에 새로운 노드 삽입
             if x == None: # 도달한 자리에 아무것도 없으면, 그 자리에 삽입
                 return self.Node(key, val) # 노드 삽입
+            # 위치 탐색 과정
             if key < x.key: # 새로운 키가, 현재 노드 위치 키보다 작으면
                 x.left = putOnNode(x.left, key, val) # *** 중요 ***
             elif key > x.key: # 새로운 키가, 현재 노드 위치 키보다 크면
@@ -42,7 +43,7 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
             return x
         self.root = putOnNode(self.root, key, val)
 
-    def min(self): # 최소키값 - 맨 왼쪽
+    def min(self): # 최소"키"값 - 맨 왼쪽
         if self.root == None: 
             return None
         else:
@@ -73,7 +74,7 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
             if t != None: 
                 return t # 현위치 노드의 우측 서브 트리에서 가장 큰 노드 (서브트리에서 최우측 노드)
             else: # t == None
-                return x
+                return x # 자기 자신보다 더 큰 노드가 없을 때, 자기 자신 반환
             
         x = floorOnNode(self.root, key)
         if x == None: 
