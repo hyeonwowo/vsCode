@@ -140,9 +140,9 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
         def inorderOnNode(x, q):
             if x == None: # 종료조건
                 return
-            inorderOnNode(x.left, q) # 재귀 호출 : inorderOnNode, 상태변화 : x.left
-            q.append(x.key)
-            inorderOnNode(x.right, q)
+            inorderOnNode(x.left, q) # 재귀 호출 : 왼쪽 서브트리, 상태변화 : x.left
+            q.append(x.key) # 현재 노드 처리 : 상태변화
+            inorderOnNode(x.right, q) # 재귀 호출 : 오른쪽 서브트리, 상태변화 : x.right
         q = []
         inorderOnNode(self.root, q)
         return q
