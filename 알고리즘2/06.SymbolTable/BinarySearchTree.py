@@ -71,14 +71,14 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
 
             t = floorOnNode(x.right, key)
             if t != None: 
-                return t # 현위치 노드의 우측 서브 트리에서 가장 큰 노드
+                return t # 현위치 노드의 우측 서브 트리에서 가장 큰 노드 (서브트리에서 최우측 노드)
             else: # t == None
-                return x # 현위치 노드
+                return x
             
         x = floorOnNode(self.root, key)
         if x == None: 
             return None
-        else: 
+        else: # x != None
             return x.key
 
     def ceiling(self, key): # 주어진 키도다 크거나 같은 트리 내부 최소값 탐색 - 우1, 좌n
@@ -118,7 +118,7 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
                 return 0
             if key < x.key: 
                 return rankOnNode(x.left, key)
-            elif key > x.key: 
+            elif key > x.key: # key보다 현재 노드가 작다면, 현재노드를 포함한 서브트리 모두의 전체 노드는, key보다 작음
                 return self.sizeOnNode(x.left) + 1 + rankOnNode(x.right, key) # 왼쪽 서브트리 + 자기자신 + 오른쪽 서브트리
             else: 
                 return self.sizeOnNode(x.left) # key == x.key
