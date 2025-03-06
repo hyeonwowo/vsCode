@@ -120,17 +120,17 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
                 return rankOnNode(x.left, key)
             elif key > x.key: # key보다 현재 노드가 작다면, 현재노드를 포함한 서브트리 모두의 전체 노드는, key보다 작음
                 return self.sizeOnNode(x.left) + 1 + rankOnNode(x.right, key) # 왼쪽 서브트리 + 자기자신 + 오른쪽 서브트리
-            else: 
-                return self.sizeOnNode(x.left) # key == x.key
+            else: # key == x.key
+                return self.sizeOnNode(x.left) 
         return rankOnNode(self.root, key)
 
-    def select(self, idx): # 트리에서 idx번째로 작은 원소를 찾음
+    def select(self, idx): # 트리에서 idx번째로 작은 원소를 찾음 : 트리를 "오름차순 정렬된 배열"처럼 사용하여, k번째 작은 원소를 찾을 수 있도록 설계
         def selectOnNode(x, idx): # idx-th element on the subtree rooted at x
             if x == None: # 재귀함수의 종료조건
                 return None # idx-th element does not exist
-            if idx < self.sizeOnNode(x.left): 
+            if idx < self.sizeOnNode(x.left): # idx가 현재 노드의 왼쪽 서브트리 크기보다 작다면 : idx번째 원소는 왼쪽 서브트리 안에 있음 -> 왼쪽으로 이동
                 return selectOnNode(x.left, idx)
-            elif idx > self.sizeOnNode(x.left): 
+            elif idx > self.sizeOnNode(x.left): # idx가 현재 노드의 왼쪽 서브트리 크기보다 크다면 : 왼쪽 서브트리 크기(sizeOnNode(x.left)+1)을 빼고, 오른쪽 서브트리에서 탐색
                 return selectOnNode(x.right, idx - self.sizeOnNode(x.left) - 1)
             else: 
                 return x.key # idx == self.sizeOnNode(x.left)
@@ -138,9 +138,9 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
 
     def inorder(self): # 트리를 중위순회하여 정렬된 리스트 반환        
         def inorderOnNode(x, q):
-            if x == None: 
+            if x == None: # 종료조건
                 return
-            inorderOnNode(x.left, q)
+            inorderOnNode(x.left, q) # 재귀 호출 : inorderOnNode, 상태변화 : x.left
             q.append(x.key)
             inorderOnNode(x.right, q)
         q = []
