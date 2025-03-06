@@ -120,7 +120,7 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
             if key < x.key: 
                 return rankOnNode(x.left, key)
             elif key > x.key: # key보다 현재 노드가 작다면, 현재노드를 포함한 서브트리 모두의 전체 노드는, key보다 작음
-                return self.sizeOnNode(x.left) + 1 + rankOnNode(x.right, key) # 왼쪽 서브트리 + 자기자신 + 오른쪽 서브트리
+                return self.sizeOnNode(x.left) + 1 + rankOnNode(x.right, key) # 왼쪽 서브트리 + 자기자신 + 오른쪽 서브트리(오른쪽 서브트리엔 key보다 큰 값이 있을 수 있으므로, rankOnNode(x.right, key) 호출)
             else: # key == x.key
                 return self.sizeOnNode(x.left) 
         return rankOnNode(self.root, key)

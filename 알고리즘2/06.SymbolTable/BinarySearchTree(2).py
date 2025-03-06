@@ -76,8 +76,13 @@ class BST:
         if x == None: return 0
         else: return x.count
 
-    
+    def size(self):
+        return self.sizeOnNode(self.root)
 
+    def rank(self,key):
+        def rankOnNode(x,key):
+            if x == None: return 0
+            if key < x.key: return rankOnNode(x.left, key)
 if __name__ == "__main__":   
     bst = BST() 
     print(bst.size())
