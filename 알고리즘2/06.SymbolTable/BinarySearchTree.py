@@ -71,9 +71,9 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
 
             t = floorOnNode(x.right, key)
             if t != None: 
-                return t
+                return t # 현위치 노드의 우측 서브 트리에서 가장 큰 노드
             else: 
-                return x
+                return x # 현위치 노드
             
         x = floorOnNode(self.root, key)
         if x == None: 
