@@ -1,9 +1,8 @@
 class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
     class Node:
         def __init__(self, key, val): # key, value = 노드번호, 값
-            self.key = key # 노드 번호, 값 초기화
-            self.val = val
-            self.left = self.right = None # 첫 노드 생성시
+            self.key, self.val = key, val # 노드 번호, 값 초기화
+            self.left = self.right = None # 첫 노드 생성시 : ㅇ = ㅇ = ㅇ 모두 같은 값으로 초기화 가능
             self.count = 1 # 해당 노드를 루트로 하는 서브트리의 노드 개수 저장
 
     def __init__(self): # 초기화 - 루트노드 생성
@@ -37,7 +36,7 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
                 x.left = putOnNode(x.left, key, val) # *** 중요 ***
             elif key > x.key: # 새로운 키가, 현재 노드 위치 키보다 크면
                 x.right = putOnNode(x.right, key, val) # 우측노드로 이동해서 순환호출 사용
-            else: 
+            else: # 키 중복시
                 x.val = val # 새로운키 == 현재키, value값 업데이트
             x.count = self.sizeOnNode(x.left) + 1 + self.sizeOnNode(x.right) # x기준 자식노드의 총합 (좌측자식들 + 자기자신 + 우측자식들)
             return x
