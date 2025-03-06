@@ -114,19 +114,19 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
 
     def rank(self, key): # key 보다 작은 노드 개수 반환
         def rankOnNode(x, key): # rank(key) on the subtree rooted at x
-            if x == None: 
+            if x == None: # 재귀함수의 종료조건
                 return 0
             if key < x.key: 
                 return rankOnNode(x.left, key)
             elif key > x.key: 
-                return self.sizeOnNode(x.left) + 1 + rankOnNode(x.right, key)
+                return self.sizeOnNode(x.left) + 1 + rankOnNode(x.right, key) # 왼쪽 서브트리 + 자기자신 + 오른쪽 서브트리
             else: 
                 return self.sizeOnNode(x.left) # key == x.key
         return rankOnNode(self.root, key)
 
     def select(self, idx): # 트리에서 idx번째로 작은 원소를 찾음
         def selectOnNode(x, idx): # idx-th element on the subtree rooted at x
-            if x == None: 
+            if x == None: # 재귀함수의 종료조건
                 return None # idx-th element does not exist
             if idx < self.sizeOnNode(x.left): 
                 return selectOnNode(x.left, idx)
