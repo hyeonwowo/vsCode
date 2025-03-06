@@ -153,30 +153,30 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
     # 2) 삭제할 노드가 한개의 자식을 가짐 -> 자식 노드와 교체
     # 3) 삭제할 노드가 두개의 자식을 가짐 -> 오른쪽 서브트리의 최소값을 찾아서 대체
     def delete(self, key): # 주어진 key를 삭제
-        def minOnNode(x): # Find node with minimum key from the subtree rooted at x
+        def minOnNode(x): # 오른쪽 서브트리에서 가장 작은 노드를 찾는 함수 -> 왼쪽으로 쭉쭉쭉 -> 해당 서브트리에서 최소값
             if x == None: 
                 return None
             else:            
                 while x.left != None:
                     x = x.left
             return x
-        def deleteOnNode(x, key):
-            if x == None: 
+        def deleteOnNode(x, key): # 삭제 연산 수행
+            if x == None: # 트리에 key가 없을 경우
                 return None
-            if key < x.key: x.left = deleteOnNode(x.left, key)
-            elif key > x.key: x.right = deleteOnNode(x.right, key)
-            else:
-                if x.right == None: 
+            if key < x.key: x.left = deleteOnNode(x.left, key) # key가 현재 노드보다 작으면 왼쪽으로 이동
+            elif key > x.key: x.right = deleteOnNode(x.right, key) # key가 현재 노드보다 크면 오른쪽으로 이동
+            else: # key가 현재 노드의 값과 일치하면 삭제 수행
+                if x.right == None: # 삭제할 노드의 한쪽 자식이 None이면, 남은 자식을 부모 노드와 연결하여 대체
                     return x.left
-                if x.left == None: 
+                if x.left == None: #                        "
                     return x.right
-                t = x
+                t = x # 삭제할 노드가 자식이 둘 있는 경우
                 x = minOnNode(t.right)
-                x.right = deleteOnNode(t.right, x.key)
-                x.left = t.left
-            x.count = self.sizeOnNode(x.left) + 1 + self.sizeOnNode(x.right)
+                x.right = deleteOnNode(t.right, x.key) # 오른쪽 서브트리에서 최소값을 찾아 x와 교체
+                x.left = t.left # 삭제한 노드의 왼쪽 서브트리는 유지하며, 오른쪽 서브트리에서 최소값을 삭제
+            x.count = self.sizeOnNode(x.left) + 1 + self.sizeOnNode(x.right) # 삭제 후 현재 노드의 서브트리 크기(count)를 업데이트
             return x
-        self.root = deleteOnNode(self.root, key)
+        self.root = deleteOnNode(self.root, key) # 삭제후 새로운 루트 노드를 반영
 
 if __name__ == "__main__":  
     bst = BST() 
