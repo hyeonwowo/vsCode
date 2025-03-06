@@ -83,6 +83,38 @@ class BST:
         def rankOnNode(x,key):
             if x == None: return 0
             if key < x.key: return rankOnNode(x.left, key)
+            elif key > x.key: return self.sizeOnNode(x.left) + 1 + rankOnNode(x.right, key)
+            else: return self.sizeOnNode(x.left)
+        return rankOnNode(self.root, key)
+
+    def select(self,idx):
+        def selectOnNode(x, idx):
+            if x == None:
+                return None
+            if idx < self.sizeOnNode(x.left):
+                return selectOnNode(x.left, idx)
+            elif idx > self.sizeOnNode(x.left):
+                return selectOnNode(x.right, idx - self.sizeOnNode(x.left))
+            else: return x.key
+        return selectOnNode(self.root, idx)
+    
+    def inorder(self):
+        def inorderOnNode(x,q):
+            if x == None:
+                return 
+            inorderOnNode(x.left, q)
+            q.append(x.key)
+            inorderOnNode(x.right, q)
+        q = []
+        inorderOnNode(self.root, q)
+        return q
+    
+    def delete(self, key):
+        def minOnNode(x):
+            if x == None:
+                return None
+            else: w
+
 if __name__ == "__main__":   
     bst = BST() 
     print(bst.size())
