@@ -63,16 +63,16 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
     def floor(self, key): # 주어진 키보다 작거나 같은 트리 내부 최대값 탐색 - 좌1, 우n
         def floorOnNode(x, key): # 순환함수
             if x == None: 
-                return None
+                return None # t = floorOnNode(x.right, key) : 리턴값 1
             if key == x.key: 
-                return x
+                return x # t = floorOnNode(x.right, key) : 리턴값 2
             elif key < x.key:
-                return floorOnNode(x.left, key)
+                return floorOnNode(x.left, key) # t = floorOnNode(x.right, key) : 리턴값 3
 
             t = floorOnNode(x.right, key)
             if t != None: 
                 return t # 현위치 노드의 우측 서브 트리에서 가장 큰 노드
-            else: 
+            else: # t == None
                 return x # 현위치 노드
             
         x = floorOnNode(self.root, key)
