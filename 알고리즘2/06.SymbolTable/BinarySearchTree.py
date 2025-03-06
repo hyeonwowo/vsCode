@@ -136,6 +136,7 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
                 return x.key # idx == self.sizeOnNode(x.left)
         return selectOnNode(self.root, idx)        
 
+    # 재귀호출의 세가지 조건 : 종료조건, 재귀호출, 상태변화
     def inorder(self): # 트리를 중위순회하여 정렬된 리스트 반환        
         def inorderOnNode(x, q):
             if x == None: # 종료조건
@@ -147,6 +148,10 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
         inorderOnNode(self.root, q)
         return q
 
+    # 트리에서 노드 삭제시 고려할 세가지 경우
+    # 1) 삭제할 노드가 리프 노드 (자식이 없음) -> 그냥 삭제하면 됨
+    # 2) 삭제할 노드가 한개의 자식을 가짐 -> 자식 노드와 교체
+    # 3) 삭제할 노드가 두개의 자식을 가짐 -> 오른쪽 서브트리의 최소값을 찾아서 대체
     def delete(self, key): # 주어진 key를 삭제
         def minOnNode(x): # Find node with minimum key from the subtree rooted at x
             if x == None: 
