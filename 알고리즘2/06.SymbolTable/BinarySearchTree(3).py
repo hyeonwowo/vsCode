@@ -56,9 +56,19 @@ class BST:
                 sub = floorOnNode(x.right, key)
                 if sub == None: return x
                 else: return sub
+        x = floorOnNode(x.root, key)
+        if x == None: return None
+        else: return x.key
         
-    def ceiling():
-        pass
+    def ceiling(self, key): # key보다 큰것중에 가장 작은 값
+        def ceilingOnNode(x,key):
+            if x == None: return None
+            if key == x.key: return x
+            elif key > x.key: return ceilingOnNode(x.right, key)
+            else:
+                sub = ceilingOnNode(x.left, key)
+                if x == None: return x
+                else: return sub
     def size():
         pass
     def rank():
