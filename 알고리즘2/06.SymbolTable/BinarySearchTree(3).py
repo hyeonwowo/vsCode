@@ -53,13 +53,9 @@ class BST:
             if key == x.key: return x
             elif key < x.key: return floorOnNode(x.left, key)
             else:
-                t = floorOnNode(x.right,key)
-                if t != None: return t
-                else: return x
-
-        x = floorOnNode(self.root, key)
-        if x == None: return None
-        else: return x.key
+                sub = floorOnNode(x.right, key)
+                if sub == None: return x
+                else: return sub
         
     def ceiling():
         pass

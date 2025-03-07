@@ -72,7 +72,7 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
                 t = floorOnNode(x.right, key)
                 if t != None: # case2) 리턴값
                     return t # 서브트리에서 찾은 최대값
-                else: # case1) 리턴값
+                else: # t == None # case1) 리턴값
                     return x # 자기 자신보다 더 큰 노드가 없을 때, 자기 자신 반환
             
         x = floorOnNode(self.root, key)
