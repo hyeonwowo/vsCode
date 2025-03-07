@@ -1,138 +1,51 @@
 class BST:
     class Node:
         def __init__(self, key, val):
-            self.key, self.val = key, val
+            self.key, self.val = key ,val
             self.left = self.right = None
             self.count = 1
-    
     def __init__(self):
         self.root = None
     
     def get(self, key):
         x = self.root
         while x != None:
-            if key > x.key: x = x.right
-            elif key < x.key: x = x.left
-            else: return x.val
+            if key < x.key:
+                x = x.left
+            elif key > x.key:
+                x = x.right
+            else:
+                return x.val
         return None
-    
-    def put(self, key ,val):
-        def putOnNode(x,key,val):
+
+    def put(self, key, val):
+        def putOnNode(x, key, val):
             if x == None: return self.Node(key, val)
             if key < x.key: x.left = putOnNode(x.left, key, val)
-            elif key > x.key: x.right = putOnNode(x.right, key, val)
+            elif key > x.key: x.rignt = putOnNode(x.right, key, val)
             else: x.val = val
-            x.count = self.sizeOnNode(x.left) + 1 + self.sizeOnNode(x.right)
             return x
-        self.root = putOnNode(self.root, key, val)
 
-    def min(self):
-        if self.root == None: return None
-        else:
-            x = self.root
-            while x.left != None:
-                x = x.left
-            return x.key
+    def min():
+
+    def max():
+
+    def floor():
+
+    def ceiling():
+
+    def sizeOnNode():
+
+    def size():
     
-    def max(self):
-        if self.root == None: return None
-        else: 
-            x = self.root
-            while x.right != None:
-                x = x.right
-            return x.key
-        
-    def floor(self, key):
-        def floorOnNode(x,key):
-            if x == None:
-                return None
-            if key == x.key:
-                return x
-            elif key < x.key:
-                return floorOnNode(x.left, key)
-            
-            t = floorOnNode(x.right, key)
-            if t != None: return t
-            else: return x
-        x = floorOnNode(self.root, key)
-        if x == None: return None
-        else: return x.key
+    def rank():
 
-    def ceiling(self, key):
-        def ceilingOnNode(x, key):
-            if x == None: return None
-            if key == x.key: return x
-            elif x.key < key: return ceilingOnNode(x.right, key)
+    def select():
 
-            t = ceilingOnNode(x.left, key)
-            if t != None: return t
-            else: return x
+    def inorder():
 
-        x = ceilingOnNode(self.root, key)
-        if x == None: return None
-        else: return x.key
+    def delete():
 
-    def sizeOnNode(self,x):
-        if x == None: return 0
-        else: return x.count
-
-    def size(self):
-        return self.sizeOnNode(self.root)
-
-    def rank(self,key):
-        def rankOnNode(x,key):
-            if x == None: return 0
-            if key < x.key: return rankOnNode(x.left, key)
-            elif key > x.key: return self.sizeOnNode(x.left) + 1 + rankOnNode(x.right, key)
-            else: return self.sizeOnNode(x.left)
-        return rankOnNode(self.root, key)
-
-    def select(self,idx):
-        def selectOnNode(x, idx):
-            if x == None:
-                return None
-            if idx < self.sizeOnNode(x.left):
-                return selectOnNode(x.left, idx)
-            elif idx > self.sizeOnNode(x.left):
-                return selectOnNode(x.right, idx - self.sizeOnNode(x.left))
-            else: return x.key
-        return selectOnNode(self.root, idx)
-    
-    def inorder(self):
-        def inorderOnNode(x,q):
-            if x == None:
-                return 
-            inorderOnNode(x.left, q)
-            q.append(x.key)
-            inorderOnNode(x.right, q)
-        q = []
-        inorderOnNode(self.root, q)
-        return q
-    
-    def delete(self, key):
-        def minOnNode(x):
-            if x == None:
-                return None
-            else: 
-                while x.left != None:
-                    x = x.left
-            return x
-        def deleteOnNode(x,key):
-            if x == None: return None
-            if key < x.key: x.left = deleteOnNode(x.left, key)
-            elif key > x.key: x.right = deleteOnNode(x.right, key)
-            else:
-                if x.right == None:
-                    return x.left
-                if x.left == None:
-                    return x.right
-                t = x
-                x = minOnNode(t.right)
-                x.right = deleteOnNode(t.right, x.key)
-                x.left = t.left
-            x.count = self.sizeOnNode(x.left) + 1 + self.sizeOnNode(x.right)
-            return x
-        self.root = deleteOnNode(self.root, key)
 
 
 if __name__ == "__main__":   

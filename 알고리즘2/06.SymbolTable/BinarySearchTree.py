@@ -39,7 +39,7 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
             else: # 키 중복시
                 x.val = val # 새로운키 == 현재키, value값 업데이트
             x.count = self.sizeOnNode(x.left) + 1 + self.sizeOnNode(x.right) # x기준 자식노드의 총합 (좌측자식들 + 자기자신 + 우측자식들)
-            return x
+            return x # return x를 해주는 이유 : 재귀적으로 변경된 노드를 부모 노드에 올바르게 연결
         self.root = putOnNode(self.root, key, val)
 
     def min(self): # 최소"키"값 - 맨 왼쪽
