@@ -48,7 +48,7 @@ class BST:
             return x.key
 
     def floor(self, key):
-        def floorOnNode(x, key):
+        def floorOnNode(x,key):
             if x == None: return None
             if key == x.key: return x
             elif key < x.key: return floorOnNode(x.left, key)

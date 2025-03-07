@@ -70,10 +70,10 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
                 return floorOnNode(x.left, key) # t = floorOnNode(x.right, key) : 리턴값 3
             else: # key > x.key : 트리거 발동 - 트리거가 발동된 키를 기준으로 해당 키보다 큰 키가 있으면, 그 키에서 다시 트리거 발동, 해당 키보다 큰 키가 없으면 트리거 발동없이 해당키 리턴
                 t = floorOnNode(x.right, key)
-                if t != None: # case2) 리턴값
-                    return t # 서브트리에서 찾은 최대값
-                else: # t == None # case1) 리턴값
-                    return x # 자기 자신보다 더 큰 노드가 없을 때, 자기 자신 반환
+                if t == None: # t == None # case1) 리턴값
+                        return x # 자기 자신보다 더 큰 노드가 없을 때, 자기 자신 반환
+                else: # case2) 리턴값
+                        return t # 서브트리에서 찾은 최대값
             
         x = floorOnNode(self.root, key)
         if x == None: 
