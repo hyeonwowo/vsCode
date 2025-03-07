@@ -18,34 +18,61 @@ class BST:
                 return x.val
         return None
 
+    def sizeOnNode(self, x):
+        if x == None: return 0
+        else: return x.count
+
     def put(self, key, val):
         def putOnNode(x, key, val):
-            if x == None: return self.Node(key, val)
-            if key < x.key: x.left = putOnNode(x.left, key, val)
-            elif key > x.key: x.rignt = putOnNode(x.right, key, val)
+            if x == None: return self.Node(key ,val)
+            elif key < x.key: x.left = putOnNode(x.left, key, val)
+            elif key > x.key: x.right = putOnNode(x.right, key ,val)
             else: x.val = val
-            return x
+            x.count = self.sizeOnNode(x.left) + 1 + self.sizeOnNode(x.right)
+        self.root = putOnNode(self.root, key ,val)
 
-    def min():
+    def min(self):
+        if self.root == None: return None
+        else: 
+            x = self.root
+            while x != None:
+                x = x.left
+            return x.key
+        
+    def max(self):
+        if self.root == None: return None
+        else:
+            x = x.root
+            while x != None:
+                x = x.right
+            return x.key
 
-    def max():
+    def floor(self, key):
+        def floorOnNode(x, key):
+            if x == None: return None
+            if key == x.key: return x
+            elif key < x.key: return floorOnNode(x.left, key)
+            else:
+                t = floorOnNode(x.right, key)
+                if t != None: return t
+                else: return x
 
-    def floor():
-
+        x = floorOnNode(self.root, key)
+        if x == None: return None
+        else: return x.key
+        
     def ceiling():
-
-    def sizeOnNode():
-
+        pass
     def size():
-    
+        pass
     def rank():
-
+        pass
     def select():
-
+        pass
     def inorder():
-
+        pass
     def delete():
-
+        pass
 
 
 if __name__ == "__main__":   

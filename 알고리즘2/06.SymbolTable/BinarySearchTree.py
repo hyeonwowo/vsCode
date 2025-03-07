@@ -68,12 +68,12 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
                 return x # t = floorOnNode(x.right, key) : 리턴값 2
             elif key < x.key:
                 return floorOnNode(x.left, key) # t = floorOnNode(x.right, key) : 리턴값 3
-
-            t = floorOnNode(x.right, key)
-            if t != None: 
-                return t # 현위치 노드의 우측 서브 트리에서 가장 큰 노드 (서브트리에서 최우측 노드)
-            else: # t == None
-                return x # 자기 자신보다 더 큰 노드가 없을 때, 자기 자신 반환
+            else: # 트리거 발동
+                t = floorOnNode(x.right, key)
+                if t != None: 
+                    return t # 현위치 노드의 우측 서브 트리에서 가장 큰 노드 (서브트리에서 최우측 노드)
+                else: # t == None
+                    return x # 자기 자신보다 더 큰 노드가 없을 때, 자기 자신 반환
             
         x = floorOnNode(self.root, key)
         if x == None: 
@@ -89,13 +89,12 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
                 return x
             elif x.key < key: 
                 return ceilingOnNode(x.right, key)
-
-            t = ceilingOnNode(x.left, key)
-            if t != None: 
-                return t
-            else: 
-                return x
-            
+            else:
+                t = ceilingOnNode(x.left, key)
+                if t != None: 
+                    return t
+                else: 
+                    return x
         # 함수 시작
         x = ceilingOnNode(self.root, key)
         if x == None: 
