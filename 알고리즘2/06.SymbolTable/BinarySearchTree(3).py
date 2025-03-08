@@ -69,10 +69,16 @@ class BST:
                 sub = ceilingOnNode(x.left, key)
                 if x == None: return x
                 else: return sub
-    def size():
-        pass
-    def rank():
-        pass
+    def size(self):
+        return self.sizeOnNode(self.root)
+    def rank(self, key):
+        def rankOnNode(x, key):
+            if x == None: return 0
+            if key < x.key: return rankOnNode(x.left, key)
+            elif key > x.key: return self.sizeOnNode(x.left) + 1 + rankOnNode(x.right, key)
+            else: return self.sizeOnNode(x.left)
+        return rankOnNode(self.root, key)
+    
     def select():
         pass
     def inorder():
