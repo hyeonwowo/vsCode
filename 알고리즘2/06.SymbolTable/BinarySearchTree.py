@@ -72,7 +72,7 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
                 return floorOnNode(x.left, key) # t = floorOnNode(x.right, key) : 리턴값 3
             
             else: # key > x.key : 트리거 발동 - 트리거가 발동된 키를 기준으로 해당 키보다 큰 키가 있으면, 그 키에서 다시 트리거 발동, 해당 키보다 큰 키가 없으면 트리거 발동없이 해당키 리턴
-                t = floorOnNode(x.right, key)
+                t = floorOnNode(x.right, key) # 서브트리의 탐색 결과를 반환해줌 (t가 받아줌)
                 if t == None: # case1) 리턴값 : 파고들다가 조건 만족시 리턴해주는 역할
                         return x # 자기 자신보다 더 큰 노드가 없을 때, 자기 자신 반환
                 else: # t != None # 파고드는 역할
