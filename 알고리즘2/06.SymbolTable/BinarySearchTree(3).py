@@ -97,8 +97,26 @@ class BST:
         inorderOnNode(self.root, q)
         return q
 
-    def delete():
-        pass
+    def delete(self, key):
+        def minOnNode(x, key):
+            if x == None: return None
+            else: 
+                while x != None:
+                    x = x.left
+                return x
+        def deleteOnNode(x, key):
+            if key < x.key: x.left = deleteOnNode(x.left)
+            elif key > x.key: x.right = deleteOnNode(x.right)
+            else:
+                if x.right == None: return x.left
+                if x.left == None: return x.right
+                t = x
+                x = minOnNode(t.right)
+                x.right = deleteOnNode(t.right, x.key)
+                x.left = t.left
+            x.count = self.sizeOnNode(x.left) + 1 + self.sizeOnNode(x.right)
+            return x
+        self.root = deleteOnNode(self.root, key)
 
 
 if __name__ == "__main__":   
