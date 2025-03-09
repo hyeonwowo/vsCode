@@ -165,14 +165,16 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
         def deleteOnNode(x, key): # 삭제 연산 수행
             if x == None: # 트리에 key가 없을 경우
                 return None
-            if key < x.key: x.left = deleteOnNode(x.left, key) # key가 현재 노드보다 작으면 왼쪽으로 이동
-            elif key > x.key: x.right = deleteOnNode(x.right, key) # key가 현재 노드보다 크면 오른쪽으로 이동
+            if key < x.key: x.left = deleteOnNode(x.left, key) # key가 현재 노드보다 작으면 왼쪽으로 이동. (삭제할 노드를 찾아가는 연산)
+            elif key > x.key: x.right = deleteOnNode(x.right, key) # key가 현재 노드보다 크면 오른쪽으로 이동. (삭제할 노드를 찾아가는 연산)
             else: # key가 현재 노드의 값과 일치하면 삭제 수행
+                # 삭제할 노드의 자식이 하나인 경우
                 if x.right == None: # 삭제할 노드의 한쪽 자식이 None이면, 남은 자식을 부모 노드와 연결하여 대체
                     return x.left
                 if x.left == None: #                        "
                     return x.right
-                t = x # 삭제할 노드가 자식이 둘 있는 경우
+                # 삭제할 노드가 자식이 둘 있는 경우
+                t = x 
                 x = minOnNode(t.right)
                 x.right = deleteOnNode(t.right, x.key) # 오른쪽 서브트리에서 최소값을 찾아 x와 교체
                 x.left = t.left # 삭제한 노드의 왼쪽 서브트리는 유지하며, 오른쪽 서브트리에서 최소값을 삭제

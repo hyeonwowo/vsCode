@@ -90,12 +90,13 @@ class BST:
     def inorder(self):
         def inorderOnNode(x, q):
             if x == None: return
-            inorderOnNode(x.left,q)
+            inorderOnNode(x.left, q)
             q.append(x.key)
-            inorderOnNode(x.right,q)
+            inorderOnNode(x.right, q)
         q = []
         inorderOnNode(self.root, q)
         return q
+
     def delete():
         pass
 
