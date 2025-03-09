@@ -130,10 +130,10 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
         def selectOnNode(x, idx): # idx-th element on the subtree rooted at x
             if x == None: # 재귀함수의 종료조건
                 return None # idx-th element does not exist
-            if idx < self.sizeOnNode(x.left): # idx가 현재 노드의 왼쪽 서브트리 크기보다 작다면 : idx번째 원소는 왼쪽 서브트리 안에 있음 -> 왼쪽으로 이동
+            if idx < self.sizeOnNode(x.left): # idx가 현재 노드의 "왼쪽 서브트리 크기보다 작다면" : idx번째 원소는 왼쪽 서브트리 안에 있음 -> 왼쪽으로 이동
                 return selectOnNode(x.left, idx)
-            elif idx > self.sizeOnNode(x.left): # idx가 현재 노드의 왼쪽 서브트리 크기보다 크다면 : 왼쪽 서브트리 크기(sizeOnNode(x.left)+1)을 빼고, 오른쪽 서브트리에서 탐색
-                return selectOnNode(x.right, idx - self.sizeOnNode(x.left) - 1)
+            elif idx > self.sizeOnNode(x.left): # idx가 현재 노드의 "왼쪽 서브트리 크기보다 크다면" : 왼쪽 서브트리 크기(sizeOnNode(x.left)+1)을 빼고, 오른쪽 서브트리에서 탐색
+                return selectOnNode(x.right, idx - self.sizeOnNode(x.left) - 1) # 오른쪽 서브트리 내부에서, idx - 왼쪽 서브트리 - 자기자신을 제외한 크기번째 요소를 찾는거임.
             else: 
                 return x.key # idx == self.sizeOnNode(x.left)
         return selectOnNode(self.root, idx)        

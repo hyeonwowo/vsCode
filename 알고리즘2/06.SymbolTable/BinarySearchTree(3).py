@@ -73,14 +73,20 @@ class BST:
         return self.sizeOnNode(self.root)
     def rank(self, key):
         def rankOnNode(x, key):
-            if x == None: return 0
-            if key < x.key: return rankOnNode(x.left, key)
-            elif key > x.key: return self.sizeOnNode(x.left) + 1 + rankOnNode(x.right, key)
-            else: return self.sizeOnNode(x.left)
+            if x == None: return None
+            if key < x.key: return self.rankOnNode(x.left, key)
+            elif key > x.key: return self.sizeOnNode(x.left, key) + 1 + rankOnNode(x.right, key)
+            else: return self.sizeOnNode(x,key)
         return rankOnNode(self.root, key)
     
-    def select():
-        pass
+    def select(self, idx):
+        def selectOnNode(x, idx):
+            if x == None: return None
+            if idx < self.sizeOnNode(x.left): return selectOnNode(x.left, idx)
+            elif idx > self.sizeOnNode(self.left): return selectOnNode(x.right, idx - self.sizeOnNode(x.left) - 1)
+            else: return x.key
+        return selectOnNode(self.root, idx)
+
     def inorder():
         pass
     def delete():
