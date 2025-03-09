@@ -174,12 +174,12 @@ class BST: # 이진탐색트리 : 자식1 < 부모 < 자식2
                 if x.left == None: #                        "
                     return x.right
                 # 삭제할 노드가 자식이 둘 있는 경우
-                t = x # t : 삭제할 노드
+                t = x # t : 삭제할 노드를 임시로 저장
                 x = minOnNode(t.right) # x : t를 삭제하고 대체할 노드 (우측 서브트리에서 최소값)
-                x.right = deleteOnNode(t.right, x.key) # 오른쪽 서브트리에서 최소값을 찾아 x와 교체
-                x.left = t.left # 삭제한 노드의 왼쪽 서브트리는 유지하며, 오른쪽 서브트리에서 최소값을 삭제
+                x.right = deleteOnNode(t.right, x.key) # 오른쪽 서브트리에서 최소값을 찾아 삭제 x와 교체 (t가 삭제된 위치에 해당 최소값이 들어갈텐데 만약 그대로 존재한다면 중복 발생)
+                x.left = t.left # 삭제한 노드의 왼쪽 서브트리는 유지하며
             x.count = self.sizeOnNode(x.left) + 1 + self.sizeOnNode(x.right) # 삭제 후 현재 노드의 서브트리 크기(count)를 업데이트
-            return x
+            return x # 부모와의 연결 연산
         self.root = deleteOnNode(self.root, key) # 삭제후 새로운 루트 노드를 반영
 
 if __name__ == "__main__":  
