@@ -1,4 +1,4 @@
-class BST:
+class BST: # commit !
     class Node:
         def __init__(self, key, val):
             self.key, self.val = key ,val
