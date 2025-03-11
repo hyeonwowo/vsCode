@@ -2,7 +2,7 @@ from queue import PriorityQueue
 from RedBlackBST import LLRB
 
 
-class Segment: # Segment가 이미 정의돼있음
+class Segment: # Segment가 이미 정의되어있음
     def __init__(self, x1, y1, x2, y2):
         assert(x1==x2 or y1==y2) # Accept either a horizontal or vertical segment  
         assert(not (x1==x2 and y1==y2)) # Two end points cannot be equal              
