@@ -44,22 +44,34 @@ def sweepLine(segments):
     pq = PriorityQueue()
     lb = LLRB()
     
-    horizon = [seg for seg in segments if seg.isHorizontal]
-    vertical = [seg for seg in segments if seg.isVertical]
+    horizon = [seg for seg in segments if seg.isHorizontal()]
+    vertical = [seg for seg in segments if seg.isVertical()]
     
     for seg in segments:
         pq.put((seg.x1,"start",seg))
         pq.put((seg.x2,"end",seg))
         
     q = []
+    
     while not pq.empty():
         x,status,segment = pq.get()
+        
         if status == "start":
             if segment.isHorizontal():
-                lb.put((segment.y1,segment.y1))
+                lb.put(segment.y1,segment.y1)
             elif segment.isVertical():
-                q = lb.rangeSearch(segment.y1, segment.y2)
-        
+                intersection = lb.rangeSearch(segment.y1, segment.y2)
+                
+                for y in intersection:
+                    for h_segment in horizon:
+                        if h_segment.y1 == y:
+                            q.append((h_segment, segment))
+                            break
+
+        elif status == "end":
+            if segment.isHorizontal():
+                lb.delete(segment.y1)
+    return q        
 
 
 def correctnessTest(func, input, expected_output, correct):
