@@ -27,7 +27,7 @@ def sortPoint(segment_list):
     sorted_segments = []
     while not pq.empty():
         _, segment = pq.get()
-        sorted_segments.append((segment.x1, segment.y1, segment.x2, segment.y2))
+        sorted_segments.append(segment)
 
     print(sorted_segments)
 

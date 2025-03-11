@@ -42,9 +42,23 @@ return value: list of Segment pairs that intersect
 '''
 def sweepLine(segments):
     pq = PriorityQueue()
-
+    lb = LLRB()
+    
     for element in segments:
-        pq.put(element.x1,element)
+        pq.put((element.x1,"start", element))
+        pq.put((element.x2,"end",element))
+    
+    q = []
+    while not pq.empty():
+        x, status, element = pq.get()
+        
+        if status == "start":
+            if element.isHorizontal():
+                pass
+            elif element.isVertical():
+                pass
+            
+        elif status == "end":
     
     
 
