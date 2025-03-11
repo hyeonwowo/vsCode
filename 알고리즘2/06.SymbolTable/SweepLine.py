@@ -96,9 +96,3 @@ if __name__ == "__main__":
                        (Segment(4,7,9,7), Segment(8,6,8,10)), (Segment(11,2,17,2), Segment(12,1,12,5)),\
                         (Segment(10,4,13,4), Segment(12,1,12,5)), (Segment(14,6.5,16,6.5), Segment(15,5.5,15,7.5))]
     correct = correctnessTest(sweepLine, input, expected_output, correct)
-
-    
-    
-    
-    
-    
