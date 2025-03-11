@@ -42,23 +42,39 @@ return value: list of Segment pairs that intersect
 '''
 def sweepLine(segments):
     pq = PriorityQueue()
-    lb = LLRB()
-    
-    for element in segments:
-        pq.put((element.x1,"start", element))
-        pq.put((element.x2,"end",element))
-    
-    q = []
+    lb = LLRB()  # 균형 이진 탐색 트리
+
+    horizontal_segments = [seg for seg in segments if seg.isHorizontal()]
+    vertical_segments = [seg for seg in segments if seg.isVertical()]
+
+    for segment in segments:
+        pq.put((segment.x1, "start", segment))
+        pq.put((segment.x2, "end", segment))
+
+    intersections = []
+
     while not pq.empty():
-        x, status, element = pq.get()
-        
-        if status == "start":
-            if element.isHorizontal():
-                pass
-            elif element.isVertical():
-                pass
-            
-        elif status == "end":
+        x, event_type, segment = pq.get()
+
+        if event_type == "start":
+            if segment.isHorizontal():
+                lb.put(segment.y1, segment.y1)  # LLRB에 y 값만 저장
+            elif segment.isVertical():
+                intersecting_ys = lb.rangeSearch(segment.y1, segment.y2)  # 수평선 y 값 리스트 반환
+
+                for y in intersecting_ys:
+                    # `y` 값과 일치하는 실제 수평 Segment 찾기
+                    for h_segment in horizontal_segments:
+                        if h_segment.y1 == y:
+                            intersections.append((h_segment, segment))
+                            break  # 해당 y 값에 대한 첫 번째 세그먼트만 필요
+
+        elif event_type == "end":
+            if segment.isHorizontal():
+                lb.delete(segment.y1)  # y 값만 삭제
+
+    return intersections
+
     
     
 

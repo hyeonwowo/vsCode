@@ -41,7 +41,25 @@ segments: list of Segment objects
 return value: list of Segment pairs that intersect
 '''
 def sweepLine(segments):
-    pass
+    pq = PriorityQueue()
+    lb = LLRB()
+    
+    horizon = [seg for seg in segments if seg.isHorizontal]
+    vertical = [seg for seg in segments if seg.isVertical]
+    
+    for seg in segments:
+        pq.put((seg.x1,"start",seg))
+        pq.put((seg.x2,"end",seg))
+        
+    q = []
+    while not pq.empty():
+        x,status,segment = pq.get()
+        if status == "start":
+            if segment.isHorizontal():
+                lb.put((segment.y1,segment.y1))
+            elif segment.isVertical():
+                q = lb.rangeSearch(segment.y1, segment.y2)
+        
 
 
 def correctnessTest(func, input, expected_output, correct):
