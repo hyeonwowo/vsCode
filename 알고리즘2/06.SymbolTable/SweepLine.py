@@ -15,10 +15,10 @@ class Segment: # Segment가 이미 정의되어있음
             if x1 < x2: self.x1, self.y1, self.x2, self.y2 = x1, y1, x2, y2
             else: self.x1, self.y1, self.x2, self.y2 = x2, y1, x1, y2
     
-    def isHorizontal(self):
+    def isHorizontal(self): # 수평여부 확인
         return self.y1 == self.y2
 
-    def isVertical(self):
+    def isVertical(self): # 수직여부 확인
         return self.x1 == self.x2
 
     # Create a human-readable string representation
@@ -41,7 +41,10 @@ segments: list of Segment objects
 return value: list of Segment pairs that intersect
 '''
 def sweepLine(segments):
-    pass
+    pq = PriorityQueue()
+
+    for element in segments:
+        pq.put(element)
 
 
 def correctnessTest(func, input, expected_output, correct):
