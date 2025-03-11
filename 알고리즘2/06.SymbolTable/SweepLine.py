@@ -44,7 +44,9 @@ def sweepLine(segments):
     pq = PriorityQueue()
 
     for element in segments:
-        pq.put(element)
+        pq.put(element.x1,element)
+    
+    
 
 
 def correctnessTest(func, input, expected_output, correct):
