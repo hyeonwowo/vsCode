@@ -58,7 +58,7 @@ def sweepLine(segments):
 
         if event_type == "start":
             if segment.isHorizontal():
-                lb.put(segment.y1, segment.y1)  # LLRB에 y 값만 저장
+                lb.put(segment.y1, segment.y1)  # key, value 구조를 갖고 있기 때문. key - 정렬의 기준이 되는 값, 여기선 y1을 기준으로 정렬해야함. value - 저장할 값, 여기선 y1 자체를 저장
             elif segment.isVertical():
                 intersecting_ys = lb.rangeSearch(segment.y1, segment.y2)  # 수평선 y 값 리스트 반환
 
@@ -71,7 +71,7 @@ def sweepLine(segments):
 
         elif event_type == "end":
             if segment.isHorizontal():
-                lb.delete(segment.y1)  # y 값만 삭제
+                lb.delete(segment.y2)  # y 값만 삭제
 
     return intersections
 
