@@ -234,7 +234,6 @@ class LLRB:
         return q
 
 if __name__ == "__main__":   
-    '''
     bst = LLRB() 
     print(bst.size())
     print("min", bst.min())
@@ -285,7 +284,6 @@ if __name__ == "__main__":
     print(bst.select(5))
     print(bst.select(6))
 
-    '''
     print("inorder traversal")
     bst2 = LLRB()
     bst2.put("S",1)
@@ -311,7 +309,6 @@ if __name__ == "__main__":
     print("range count", bst2.rangeCount("J", "R"))
     print("range search", bst2.rangeSearch("J", "R"))
 
-    '''
     print("delete Z")
     bst2.delete("Z")
     print("level order", bst2.levelorder())
@@ -343,4 +340,3 @@ if __name__ == "__main__":
     bst2.delete("X") # This element does not exist in the LLRB, so it will not delete any element
     print("level order", bst2.levelorder())
     print("inorder",bst2.inorder())
-    '''
