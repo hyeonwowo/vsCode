@@ -16,7 +16,7 @@ class Graph:
         queue = deque([start])  # 큐에 시작 노드 추가
 
         while queue:
-            node = queue.popleft()  # 큐에서 노드 꺼내기
+            node = queue.popleft()  # 큐에서 노드 꺼내기 : 큐 내부 좌측 element
             if node not in visited:
                 visited.append(node)  # 방문 처리
                 queue.extend(self.adj[node])  # 인접한 노드들을 큐에 추가

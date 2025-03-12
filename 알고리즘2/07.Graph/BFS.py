@@ -14,7 +14,7 @@ class Graph:
         queue = [start]  # 리스트를 큐처럼 사용
 
         while queue:
-            node = queue.pop(0)  # 리스트의 첫 번째 원소를 꺼냄 (O(N))
+            node = queue.pop(0)  # 리스트의 첫 번째 원소를 꺼냄 (O(N)) - pop 연산은 좀 느림 - deque 사용
             if node not in visited:
                 visited.append(node)  # 방문 처리
                 queue.extend(self.adj[node])  # 인접 노드들을 큐에 추가
