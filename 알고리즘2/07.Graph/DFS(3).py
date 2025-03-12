@@ -1,26 +1,24 @@
 class Graph:
-    def __init__(self, V):
+    def __init__(self,V):
         self.V = V
         self.E = 0
         self.adj = [[] for _ in range(V)]
-
+        
     def put(self, v, w):
         self.adj[v].append(w)
         self.adj[w].append(v)
         self.E += 1
-
+    
     def DFS(self, v):
-        visited = []  # 탐색한 노드를 저장하는 집합
+        visited = []
         def recur(node):
-            if node not in visited:  # 방문하지 않은 노드만 탐색
+            if node not in visited:
                 visited.append(node)
-                for neighbor in self.adj[node]:
-                    recur(neighbor)
-
+                for adj in self.adj[node]:
+                    recur(adj)
         recur(v)
-        return visited  # set을 list로 변환하여 반환
-
-# 그래프 생성
+        return visited
+    
 g = Graph(6)
 g.put(0, 1)
 g.put(1, 2)
