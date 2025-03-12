@@ -119,10 +119,12 @@ if __name__ == "__main__":
     g.addEdge(11, 12)
 
     print(g)
+    print()
     
     print(g.adj[0], g.degree(0))    
     print(g.adj[5], g.degree(5))
     print(g.adj[9], g.degree(9))
+    print()
     
     dfs = DFS(g,0)
     print(dfs.visited, dfs.fromVertex)
@@ -136,7 +138,8 @@ if __name__ == "__main__":
     print(dfs.pathTo(7))
     print(dfs.hasPathTo(6))
     print(dfs.hasPathTo(7))
-
+    print()
+    
     bfs = BFS(g,0)
     print(bfs.visited, bfs.fromVertex)
     print(bfs.pathTo(0), bfs.distTo(0))
@@ -149,7 +152,8 @@ if __name__ == "__main__":
     print(bfs.pathTo(7), bfs.distTo(7))
     print(dfs.hasPathTo(6))
     print(dfs.hasPathTo(7))
-
+    print()
+    
     cc = CC(g)
     print(cc.count, cc.id)
     print(cc.connected(0, 3))

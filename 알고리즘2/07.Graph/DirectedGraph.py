@@ -223,12 +223,14 @@ if __name__ == "__main__":
     print(g.adj[0], g.outDegree(0))    
     print(g.adj[5], g.outDegree(5))
     print(g.adj[9], g.outDegree(9))
+    print()
     
     gr = g.reverse()
     print(gr)
     print(gr.adj[0], gr.outDegree(0))    
     print(gr.adj[5], gr.outDegree(5))
     print(gr.adj[9], gr.outDegree(9))
+    print()
     
     dfs = DFS(g,0)
     print(dfs.visited, dfs.fromVertex)
@@ -242,6 +244,7 @@ if __name__ == "__main__":
     print(dfs.pathTo(7))
     print(dfs.hasPathTo(6))
     print(dfs.hasPathTo(7))
+    print()
     
     bfs = BFS(g,0)
     print(bfs.visited, bfs.fromVertex)
@@ -255,7 +258,7 @@ if __name__ == "__main__":
     print(bfs.pathTo(7), bfs.distTo(7))
     print(dfs.hasPathTo(6))
     print(dfs.hasPathTo(7))
-
+    print()
 
     # Unit test for Web crawling
     #resp = requests.get("https://www.naver.com/")
@@ -277,6 +280,7 @@ if __name__ == "__main__":
     tasks.addEdge(6,0)   
     tasks.addEdge(6,4)    
     print(topologicalSort(tasks))
+    print()
     
     g5 = Digraph(5)
     g5.addEdge(0,1)
@@ -287,7 +291,7 @@ if __name__ == "__main__":
     g5.addEdge(2,4)
     print("g5, topological order", topologicalSort(g5))
     print("g5r, topological order", topologicalSort(g5.reverse()))
-
+    print()
 
     # Unit test for Kosaraju-Sharir for Finding Strongly-Connected Components
     print("Correctness test for class SCC")
@@ -305,7 +309,8 @@ if __name__ == "__main__":
     g0.addEdge(2, 4)
     correct = correctnessTest(g0, 2, [(0,1), (0,2), (0,3), (0,4), (1,2), (1,3), (1,4), (2,3), (2,4), (3,4)],\
                               [True, True, True, False, True, True, False, True, False, False], correct)
-
+    print()
+    
     g1 = Digraph(6)
     g1.addEdge(0,1)
     g1.addEdge(1,2)
@@ -317,7 +322,8 @@ if __name__ == "__main__":
     g1.addEdge(5,4)
     correct = correctnessTest(g1, 2, [(0,1), (0,2), (0,3), (0,5), (1,4), (2,5), (3,5)],\
                               [True, True, False, False, True, False, True], correct)    
-
+    print()
+    
     g2 = Digraph(7)
     g2.addEdge(0,1)
     g2.addEdge(1,2)
@@ -330,7 +336,8 @@ if __name__ == "__main__":
     g2.addEdge(6,5)
     correct = correctnessTest(g2, 6, [(0,2), (2,4), (4,5), (5,6)],\
                               [False, False, False, True], correct)
-       
+    print()
+    
     g3 = Digraph(13)
     g3.addEdge(0,1)
     g3.addEdge(0,5)
@@ -356,7 +363,8 @@ if __name__ == "__main__":
     g3.addEdge(12,9)    
     correct = correctnessTest(g3, 5, [(0,3), (0,7), (0,9), (7,8), (7,11), (10,12)],\
                               [True, False, False, False, False, True], correct)    
-
+    print()
+    
     g4 = Digraph(20)
     g4.addEdge(0, 19)
     g4.addEdge(0, 18)
@@ -395,7 +403,7 @@ if __name__ == "__main__":
     g4.addEdge(18, 8)
     correct = correctnessTest(g4, 7, [(1,11), (1,19), (3,15), (4,0), (5,1), (6,3), (7,3), (9,13), (10,11), (18,19), (18,4)],\
                               [True, False, True, True, True, False, False, False, True, False, True], correct)
-    
+
     print()
     print("Speed test for class SCC")
     if not correct: print("Fail (since the algorithm is not correct)")
