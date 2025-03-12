@@ -10,14 +10,14 @@ class Graph:
         self.E += 1
         
     def DFS(self,v):
-        vertexFrom = [v]
-        def recur(v):
-            for element in self.adj[v]:
-                if element not in vertexFrom:
-                    vertexFrom.append(element)
-                    recur(element)
+        vertexFrom = [v] # visited = set()
+        def recur(v): # def recur(node)
+            for element in self.adj[v]: # if node not in visited:
+                if element not in vertexFrom: # visited.add(node)
+                    vertexFrom.append(element) # for neighbor in self.adj[node]
+                    recur(element) # recur(neighbor)
         recur(v)
-        return vertexFrom
+        return vertexFrom # return list(visited)
                 
     
 g = Graph(6)

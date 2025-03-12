@@ -11,7 +11,6 @@ class Graph:
 
     def DFS(self, v):
         visited = set()  # 탐색한 노드를 저장하는 집합
-
         def recur(node):
             if node not in visited:  # 방문하지 않은 노드만 탐색
                 visited.add(node)
