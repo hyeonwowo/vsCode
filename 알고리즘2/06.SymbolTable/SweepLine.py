@@ -67,7 +67,7 @@ def sweepLine(segments):
                     for h_segment in horizontal_segments:
                         if h_segment.y1 == y:
                             intersections.append((h_segment, segment))
-                            break  # 해당 y 값에 대한 첫 번째 세그먼트만 필요
+                            break  # 해당 y 값에 대한 첫 번째 세그먼트만 필요. 만약 break를 하지 않으면 시작, 끝점 시점에서 두번이나 같은 segment가 삽입됨 - 첫번째 시작점에서 삽입 후 break
 
         elif event_type == "end":
             if segment.isHorizontal():
