@@ -18,7 +18,7 @@ class Graph:
         rtList = [f"{self.V} vertices and {self.E} edges\n"]
         for v in range(self.V):
             for w in self.adj[v]:
-                if v <= w: rtList.append(f"{v}-{w}\n")
+                if v <= w: rtList.append(f"{v}-{w}\n") # 간선 출력 중복 방지
         return "".join(rtList)
 
 class DFS:
