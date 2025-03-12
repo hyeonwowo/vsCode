@@ -1,28 +1,28 @@
 from queue import Queue
 
 class Graph:
-    def __init__(self, V):  
+    def __init__(self, V): # 그래프 초기화
         self.V = V 
         self.E = 0 
         self.adj = [[] for _ in range(V)]   
 
-    def addEdge(self, v, w): 
+    def addEdge(self, v, w): # 간선 추가
         self.adj[v].append(w)
         self.adj[w].append(v)
         self.E += 1
 
-    def degree(self, v):
+    def degree(self, v): # vertex 차수
         return len(self.adj[v])
 
-    def __str__(self):
+    def __str__(self): # 그래프 출력
         rtList = [f"{self.V} vertices and {self.E} edges\n"]
         for v in range(self.V):
             for w in self.adj[v]:
                 if v <= w: rtList.append(f"{v}-{w}\n") # 간선 출력 중복 방지
         return "".join(rtList)
 
-class DFS:
-    def __init__(self, g, s): 
+class DFS: # DFS - 너비우선탐색
+    def __init__(self, g, s):  # DFS 수행
         def recur(v):        
             self.visited[v] = True            
             for w in g.adj[v]:
@@ -35,7 +35,7 @@ class DFS:
         self.fromVertex = [None for _ in range(g.V)]
         recur(s)        
 
-    def pathTo(self, v):
+    def pathTo(self, v): # DFS에 따른 경로 (최단경로)
         if not self.visited[v]: return None
         path = []
         while v != self.s:
@@ -45,10 +45,10 @@ class DFS:
         path.reverse()
         return path
 
-    def hasPathTo(self, v):
+    def hasPathTo(self, v): # 경로 여부 확인
         return self.visited[v]
 
-class BFS:
+class BFS: # BFS - 깊이우선탐색
     def __init__(self, g, s):        
         assert(isinstance(g, Graph) and s >= 0 and s < g.V)
         self.g, self.s = g, s
@@ -68,7 +68,7 @@ class BFS:
                     self.fromVertex[w] = v
                     self.distance[w] = self.distance[v] + 1
 
-    def pathTo(self, v):
+    def pathTo(self, v): # 경로 여부 확인
         if not self.visited[v]: return None
         path = []
         while v != self.s:
@@ -84,16 +84,16 @@ class BFS:
     def distTo(self, v):
         return self.distance[v]
 
-class CC:
+class CC: # Connected Commponent 여부 확인
     def __init__(self, g):
         def recur(v):        
             self.id[v] = self.count
             for w in g.adj[v]:
-                if self.id[w] < 0: 
-                    recur(w)                            
+                if self.id[w] < 0:
+                    recur(w)                      
         self.g = g
         self.id = [-1 for i in range(g.V)]
-        self.count = 0 
+        self.count = 0
         for v in range(g.V):
             if self.id[v] < 0:
                 recur(v)
