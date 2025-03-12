@@ -3,10 +3,6 @@ import re # For searching with regular expressions
 import timeit
 from queue import Queue
 
-
-'''
-Class for storing directed graphs
-'''
 class Digraph:
     def __init__(self, V): # Constructor
         self.V = V # Number of vertices
@@ -33,10 +29,6 @@ class Digraph:
             for w in self.adj[v]: g.addEdge(w, v)
         return g
 
-
-'''
-Class for storing the results of depth-first search
-'''
 class DFS:    
     # Constructor
     # Perform DFS on graph g starting from the source vertex s
@@ -87,10 +79,6 @@ def DFSforEvaluation(g):
     
     return visited, fromVertex
 
-
-'''
-Class for storing the results of breadth-first search
-'''
 class BFS:
     # Constructor
     # PerformBDFS on graph g starting from the source vertex s
@@ -131,11 +119,6 @@ class BFS:
     def distTo(self, v):
         return self.distance[v]
 
-
-'''
-Discover web addresses through BFS, starting from root addresses as the source set
-    roots: list of web addresses to use as the source set
-'''
 webaddrPattern = re.compile("https://(?:\\w+\\.)+(?:\\w+)") # Regex pattern for a web address. '?:' indicates a non-capturing group
 def webCrawl(roots, maxDepth=1):
     queue = Queue()
@@ -160,10 +143,6 @@ def webCrawl(roots, maxDepth=1):
         except requests.exceptions.ConnectionError as error:
             pass
 
-
-'''
-Perform the topological sort on a DAG g, and return list of vertices in reverse DFS postorder
-'''
 def topologicalSort(g):
     def recur(v):        
         visited[v] = True        
@@ -180,10 +159,6 @@ def topologicalSort(g):
     reverseList.reverse()
     return reverseList
 
-
-'''
-Class that finds SCC (Strongly-Connected Components) and stores the results    
-'''
 class SCC:
     def __init__(self, g): # Do strongly-connected-components pre-processing, based on Kosaraju-Sharir algorithm
         self.count = 0
@@ -220,7 +195,7 @@ def correctnessTest(g, expected_count, vertex_pairs, expected_output, correct):
 
 
 if __name__ == "__main__":
-    '''# Unit test for Digraph
+    # Unit test for Digraph
     g = Digraph(13)
     g.addEdge(0,1)
     g.addEdge(0,5)
@@ -279,16 +254,16 @@ if __name__ == "__main__":
     print(bfs.pathTo(6), bfs.distTo(6))
     print(bfs.pathTo(7), bfs.distTo(7))
     print(dfs.hasPathTo(6))
-    print(dfs.hasPathTo(7))'''
+    print(dfs.hasPathTo(7))
 
 
-    '''# Unit test for Web crawling
+    # Unit test for Web crawling
     #resp = requests.get("https://www.naver.com/")
     #print(resp.text)
-    webCrawl(["https://www.naver.com/", "https://www.daum.net/"])'''
+    webCrawl(["https://www.naver.com/", "https://www.daum.net/"])
 
 
-    '''# Unit test for topological Sort
+    # Unit test for topological Sort
     tasks = Digraph(7)        
     tasks.addEdge(0,1)
     tasks.addEdge(0,2)
@@ -311,11 +286,11 @@ if __name__ == "__main__":
     g5.addEdge(3,4)
     g5.addEdge(2,4)
     print("g5, topological order", topologicalSort(g5))
-    print("g5r, topological order", topologicalSort(g5.reverse()))'''
+    print("g5r, topological order", topologicalSort(g5.reverse()))
 
 
     # Unit test for Kosaraju-Sharir for Finding Strongly-Connected Components
-    '''print("Correctness test for class SCC")
+    print("Correctness test for class SCC")
     print("For each test case, if your answer does not appear within 5 seconds, then consider that you failed the case")
     print()
     correct = True
@@ -431,7 +406,7 @@ if __name__ == "__main__":
         tDFS = timeit.timeit(lambda: DFSforEvaluation(g3), number=repeat) / repeat    
         print(f"{repeat} calls of connected() on g3 took {tSCC:.10f} sec on average, and the same number of calls of DFS() took {tDFS:.10f} sec on average")
         if tSCC*10 < tDFS: print("Pass")
-        else: print("Fail")'''
+        else: print("Fail")
     
 
 
