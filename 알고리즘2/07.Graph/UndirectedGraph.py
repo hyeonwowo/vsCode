@@ -1,15 +1,12 @@
 from queue import Queue
 
-'''
-Class for storing undirected graphs
-'''
 class Graph:
-    def __init__(self, V): # Constructor
-        self.V = V # Number of vertices
-        self.E = 0 # Number of edges
-        self.adj = [[] for _ in range(V)]   # adj[v] is a list of vertices adjacent to v
+    def __init__(self, V):  
+        self.V = V 
+        self.E = 0 
+        self.adj = [[] for _ in range(V)]   
 
-    def addEdge(self, v, w): # Add edge v-w. Self-loops and parallel edges are allowed
+    def addEdge(self, v, w): 
         self.adj[v].append(w)
         self.adj[w].append(v)
         self.E += 1
@@ -21,16 +18,10 @@ class Graph:
         rtList = [f"{self.V} vertices and {self.E} edges\n"]
         for v in range(self.V):
             for w in self.adj[v]:
-                if v <= w: rtList.append(f"{v}-{w}\n") # use 'v<=w' to NOT print each edge twice
+                if v <= w: rtList.append(f"{v}-{w}\n")
         return "".join(rtList)
 
-
-'''
-Class for storing the results of depth-first search
-'''
-class DFS:    
-    # Constructor
-    # Perform DFS on graph g starting from the source vertex s
+class DFS:
     def __init__(self, g, s): 
         def recur(v):        
             self.visited[v] = True            
@@ -44,8 +35,6 @@ class DFS:
         self.fromVertex = [None for _ in range(g.V)]
         recur(s)        
 
-    # Return a list of vertices on the path from s to v
-    #     based on the results of DFS
     def pathTo(self, v):
         if not self.visited[v]: return None
         path = []
@@ -59,13 +48,7 @@ class DFS:
     def hasPathTo(self, v):
         return self.visited[v]
 
-
-'''
-Class for storing the results of breadth-first search
-'''
 class BFS:
-    # Constructor
-    # PerformBDFS on graph g starting from the source vertex s
     def __init__(self, g, s):        
         assert(isinstance(g, Graph) and s >= 0 and s < g.V)
         self.g, self.s = g, s
@@ -85,8 +68,6 @@ class BFS:
                     self.fromVertex[w] = v
                     self.distance[w] = self.distance[v] + 1
 
-    # Return a list of vertices on the path from s to v
-    #     based on the results of DFS
     def pathTo(self, v):
         if not self.visited[v]: return None
         path = []
@@ -103,26 +84,22 @@ class BFS:
     def distTo(self, v):
         return self.distance[v]
 
-
-'''
-Class for storing the results of connected-components processing
-'''
 class CC:
-    def __init__(self, g): # Do connected-components pre-processing
-        def recur(v): # DFS to mark all vertices connected to v            
+    def __init__(self, g):
+        def recur(v):        
             self.id[v] = self.count
             for w in g.adj[v]:
                 if self.id[w] < 0: 
                     recur(w)                            
         self.g = g
-        self.id = [-1 for i in range(g.V)] # id[v] is the ID of component to which v belongs (-1 for not visited)
-        self.count = 0 # Number of connected components
+        self.id = [-1 for i in range(g.V)]
+        self.count = 0 
         for v in range(g.V):
             if self.id[v] < 0:
                 recur(v)
                 self.count += 1        
 
-    def connected(self, v, w): # Are v and w connected?
+    def connected(self, v, w):
         return self.id[v] == self.id[w]
 
 if __name__ == "__main__":   
