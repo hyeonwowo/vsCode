@@ -15,7 +15,7 @@ class Segment:
             if x1 < x2: self.x1, self.y1, self.x2, self.y2 = x1, y1, x2, y2
             else: self.x1, self.y1, self.x2, self.y2 = x2, y1, x1, y2
     
-    def isHorizontal(self):
+    def isHorizon(self):
         return self.y1 == self.y2
 
     def isVertical(self):
@@ -44,34 +44,31 @@ def sweepLine(segments):
     pq = PriorityQueue()
     lb = LLRB()
     
-    horizon = [seg for seg in segments if seg.isHorizontal()]
-    vertical = [seg for seg in segments if seg.isVertical()]
+    horizonLine = [segment for segment in segments if segment.isHorizon]
+    verticalLine = [segment for segment in segments if segment.isVertical]
     
-    for seg in segments:
-        pq.put((seg.x1,"start",seg))
-        pq.put((seg.x2,"end",seg))
+    for segment in segments:
+        pq.put((segment.x1,"start",segment))
+        pq.put((segment.x2,"end",segment))
         
-    q = []
-    
+    intersection = []
     while not pq.empty():
         x,status,segment = pq.get()
-        
         if status == "start":
-            if segment.isHorizontal():
+            if segment.isHorizon():
                 lb.put(segment.y1,segment.y1)
             elif segment.isVertical():
-                intersection = lb.rangeSearch(segment.y1, segment.y2)
-                
-                for y in intersection:
-                    for h_segment in horizon:
-                        if h_segment.y1 == y:
-                            q.append((h_segment, segment))
+                across = lb.rangeSearch(segment.y1,segment.y2)
+                for acr in across:
+                    for horzion in horizonLine:
+                        if horzion.y1 == acr:
+                            intersection.append((horzion,segment))
                             break
-
         elif status == "end":
-            if segment.isHorizontal():
+            if segment.isHorizon():
                 lb.delete(segment.y1)
-    return q        
+    
+    return intersection
 
 
 def correctnessTest(func, input, expected_output, correct):

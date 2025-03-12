@@ -48,14 +48,14 @@ def sweepLine(segments):
     vertical_segments = [seg for seg in segments if seg.isVertical()]
 
     for segment in segments:
-        pq.put((segment.x1, "start", segment))
+        pq.put((segment.x1, "start", segment)) # pq에 삽입시, 데이터를 편하게 다루기 위한 요소들을 추가 가능. (skill.1)
         pq.put((segment.x2, "end", segment))
 
     intersections = []
 
     while not pq.empty():
-        x, event_type, segment = pq.get()
-
+        x, event_type, segment = pq.get() # 데이터를 편하게 다루기 위해 삽입한 요소를 꺼내서 씀. (skill.1)
+    
         if event_type == "start":
             if segment.isHorizontal():
                 lb.put(segment.y1, segment.y1)  # key, value 구조를 갖고 있기 때문. key - 정렬의 기준이 되는 값, 여기선 y1을 기준으로 정렬해야함. value - 저장할 값, 여기선 y1 자체를 저장
