@@ -1,3 +1,4 @@
+# 큐 사용 BFS
 class Graph:
     def __init__(self, V):
         self.V = V

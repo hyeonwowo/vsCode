@@ -1,3 +1,4 @@
+# 강의자료 BFS
 from queue import Queue
 
 class Graph:

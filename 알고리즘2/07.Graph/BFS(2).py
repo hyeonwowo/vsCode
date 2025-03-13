@@ -1,3 +1,4 @@
+# deque 사용 BFS
 from collections import deque
 
 class Graph:
