@@ -35,17 +35,17 @@ class DFS: # DFS - 너비우선탐색
         self.fromVertex = [None for _ in range(g.V)]
         recur(s)        
 
-    def pathTo(self, v): # DFS에 따른 경로 (최단경로)
+    def pathTo(self, v): # DFS에 따른 경로 (최단경로) : s (start) 부터 v 까지의 경로 반환
         if not self.visited[v]: return None
-        path = []
-        while v != self.s:
+        path = [] # 경로 저장 리스트
+        while v != self.s: # v 부터 시작해서 s (start) 까지 역으로 저장
             path.append(v)
             v = self.fromVertex[v]
         path.append(self.s)
-        path.reverse()
+        path.reverse() # 역으로 저장된 경로를 재설정
         return path
 
-    def hasPathTo(self, v): # 경로 여부 확인
+    def hasPathTo(self, v): # 경로 여부 확인. True 일시 방문 기록 확인 -> 경로 존재
         return self.visited[v]
 
 class BFS: # BFS - 깊이우선탐색
