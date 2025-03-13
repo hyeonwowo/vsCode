@@ -86,18 +86,19 @@ class BFS: # BFS - 깊이우선탐색
 
 class CC: # Connected Commponent 여부 확인
     def __init__(self, g):
-        def recur(v):        
-            self.id[v] = self.count
+        def recur(v): # recur(v) : 정점 v 기준, DFS or BFS 수행. 
+            self.id[v] = self.count # id[v] : CC 그룹 인덱싱 처리
             for w in g.adj[v]:
-                if self.id[w] < 0:
-                    recur(w)                      
+                if self.id[w] < 0: # 한 vertex가 CC 그룹 분류가 안되었을 때
+                    recur(w)
+                    
         self.g = g
-        self.id = [-1 for i in range(g.V)]
+        self.id = [-1 for i in range(g.V)] # CC 그룹을 -1로 초기화
         self.count = 0
         for v in range(g.V):
             if self.id[v] < 0:
                 recur(v)
-                self.count += 1        
+                self.count += 1
 
     def connected(self, v, w):
         return self.id[v] == self.id[w]
