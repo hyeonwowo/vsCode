@@ -86,18 +86,18 @@ class BFS:
 
 class CC:
     def __init__(self, g):
-        def recur(v):        
-            self.id[v] = self.count
+        def recur(v):
+            self.id[v] = self.cout
             for w in g.adj[v]:
-                if self.id[w] < 0: 
-                    recur(w)                            
+                if self.id[w] < 0:
+                    recur(w)
         self.g = g
         self.id = [-1 for i in range(g.V)]
-        self.count = 0 
+        self.count = 0
         for v in range(g.V):
             if self.id[v] < 0:
                 recur(v)
-                self.count += 1        
+                self.count += 1
 
     def connected(self, v, w):
         return self.id[v] == self.id[w]
