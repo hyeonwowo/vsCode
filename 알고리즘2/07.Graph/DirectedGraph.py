@@ -144,7 +144,7 @@ def webCrawl(roots, maxDepth=1):
             pass
 
 def topologicalSort(g): # TP : DFS 사용
-    def recur(v):        
+    def recur(v): # DFS 수행
         visited[v] = True        
         for w in g.adj[v]:            
             if not visited[w]: recur(w)
