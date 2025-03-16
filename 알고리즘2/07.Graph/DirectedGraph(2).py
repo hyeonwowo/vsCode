@@ -143,19 +143,15 @@ def webCrawl(roots, maxDepth=1):
         except requests.exceptions.ConnectionError as error:
             pass
 
-def topologicalSort(g):
-    def recur(v):        
-        visited[v] = True        
-        for w in g.adj[v]:            
+def topologicalSort(self, g):
+    def recur(v):
+        visited[v] = True
+        for w in g.adj[v]:
             if not visited[w]: recur(w)
-        reverseList.append(v) # Add v to the stack if all adjacent vertices were visited                
-
+        reverseList.append(v)
     assert(isinstance(g, Digraph))
-    visited = [False for _ in range(g.V)]
+    visited = [False for _  in range(g.V)]
     reverseList = []
-    for v in range(g.V): 
-        if not visited[v]: recur(v)
-
     reverseList.reverse()
     return reverseList
 

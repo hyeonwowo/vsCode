@@ -153,7 +153,7 @@ def topologicalSort(g): # TP : DFS 사용
     assert(isinstance(g, Digraph))
     visited = [False for _ in range(g.V)]
     reverseList = []
-    for v in range(g.V): 
+    for v in range(g.V):
         if not visited[v]: recur(v)
 
     reverseList.reverse()
