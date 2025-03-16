@@ -88,20 +88,17 @@ class CC:
     def __init__(self, g):
         def recur(v):
             self.id[v] = self.count
-            for w in g.adj[v]:
-                if self.id[w] < 0:
+            for w in self.adj[v]:
+                if self.id[w] < 0:    
                     recur(w)
-        self.g = g
-        self.id = [-1 for i in range(g.V)]
+        self.g = g 
+        self.id = [-1 for _ in range(g.V)]
         self.count = 0
-        for v in range(g.V):
-            if self.id[v] < 0:
-                recur(v)
+        for w in range(g.V):
+            if self.adj[w] < 0:
+                recur(w)
                 self.count += 1
-                
-    def connected(self, v, w):
-        return self.id[v] == self.id[w]
-
+    
 if __name__ == "__main__":   
     g = Graph(13)
     g.addEdge(0, 1)
