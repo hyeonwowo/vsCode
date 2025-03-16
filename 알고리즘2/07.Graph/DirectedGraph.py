@@ -143,7 +143,7 @@ def webCrawl(roots, maxDepth=1):
         except requests.exceptions.ConnectionError as error:
             pass
 
-def topologicalSort(g):
+def topologicalSort(g): # TP : DFS 사용
     def recur(v):        
         visited[v] = True        
         for w in g.adj[v]:            
