@@ -144,11 +144,11 @@ def webCrawl(roots, maxDepth=1):
             pass
 
 def topologicalSort(g): # TP : DFS 사용
-    def recur(v): # DFS 수행
+    def recur(v): # DFS
         visited[v] = True        
         for w in g.adj[v]:            
             if not visited[w]: recur(w)
-        reverseList.append(v) # Add v to the stack if all adjacent vertices were visited                
+        reverseList.append(v) # 하위 노드들의 처리 후, 현재 노드를 list에 추가
 
     assert(isinstance(g, Digraph))
     visited = [False for _ in range(g.V)]
