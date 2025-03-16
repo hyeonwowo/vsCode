@@ -120,6 +120,7 @@ class BFS:
         return self.distance[v]
 
 webaddrPattern = re.compile("https://(?:\\w+\\.)+(?:\\w+)") # Regex pattern for a web address. '?:' indicates a non-capturing group
+'''
 def webCrawl(roots, maxDepth=1):
     queue = Queue()
     discovered = {} # Symbol table of discovered sites and depth, where depth is the distance from sources
@@ -142,7 +143,7 @@ def webCrawl(roots, maxDepth=1):
                         queue.put(w)                        
         except requests.exceptions.ConnectionError as error:
             pass
-
+'''
 def topologicalSort(self, g):
     def recur(v):
         visited[v] = True
@@ -157,11 +158,29 @@ def topologicalSort(self, g):
 
 class SCC:
     def __init__(self, g): # Do strongly-connected-components pre-processing, based on Kosaraju-Sharir algorithm
+        reverseGraph = g.reverse()
+        tpList = topologicalSort(reverseGraph)
         self.count = 0
-        self.id = []       
+        self.id = [-1 for _ in range(g.V)]
+        visited = [False for _ in range(g.V)]
+        visitedFrom = [None for _ in range(g.V)]
+        
+        def recur(v):
+            visited[v] = True
+            for w in g.adj[v]:
+                if not visited[w]:
+                    recur(w)
+                    visitedFrom[w] = v
+            
+        for v in tpList:
+            recur(v)
+            if self.id[v] < 0:
+                recur(v)
+                count += 1
+        
 
     def connected(self, v, w): # Are v and w connected?
-        pass
+        return self.id[v] == self.id[w]
 
 
 def correctnessTest(g, expected_count, vertex_pairs, expected_output, correct):
