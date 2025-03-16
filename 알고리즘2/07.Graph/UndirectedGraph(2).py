@@ -97,7 +97,8 @@ class CC:
         for v in range(g.V):
             if self.id[v] < 0:
                 recur(v)
-                self.count += 1 
+                self.count += 1
+                
     def connected(self, v, w):
         return self.id[v] == self.id[w]
 

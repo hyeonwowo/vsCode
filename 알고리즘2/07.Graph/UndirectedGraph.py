@@ -94,7 +94,7 @@ class CC: # Connected Commponent 여부 확인
                     
         self.g = g
         self.id = [-1 for i in range(g.V)] # CC 그룹을 -1로 초기화
-        self.count = 0 # id부여, 총 cc그룹 개수 저장
+        self.count = 0 # id부여, 총 cc그룹 개수 저장. CC 번호는 0부터 시작
         for v in range(g.V):
             if self.id[v] < 0: # id가 부여되지 않은 v 조우시
                 recur(v) # DFS 호출
