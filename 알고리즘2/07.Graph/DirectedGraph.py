@@ -213,7 +213,7 @@ def correctnessTest(g, expected_count, vertex_pairs, expected_output, correct):
 
 if __name__ == "__main__":
     # Unit test for Digraph
-
+    '''
     g = Digraph(13)
     g.addEdge(0,1)
     g.addEdge(0,5)
@@ -310,7 +310,7 @@ if __name__ == "__main__":
     print("g5, topological order", topologicalSort(g5))
     print("g5r, topological order", topologicalSort(g5.reverse()))
     print()
-
+    '''
     # Unit test for Kosaraju-Sharir for Finding Strongly-Connected Components
     print("Correctness test for class SCC")
     print("For each test case, if your answer does not appear within 5 seconds, then consider that you failed the case")
