@@ -161,29 +161,29 @@ def topologicalSort(g): # TP : DFS 사용
 
 class SCC:
     def __init__(self, g): # Do strongly-connected-components pre-processing, based on Kosaraju-Sharir algorithm
+        assert isinstance(g, Digraph)
         reverseGraph = g.reverse()
         tpList = topologicalSort(reverseGraph)
+        
         self.count = 0
         self.id = [-1 for _ in range(g.V)]
-        visited = [False for _ in range(g.V)]
-        visitedFrom = [None for _ in range(g.V)]
+        self.visited = [False for _ in range(g.V)]
         
         def recur(v):
-            visited[v] = True
+            self.visited[v] = True
+            self.id[v] = self.count
             for w in g.adj[v]:
-                if not visited[w]:
+                if not self.visited[w]:
                     recur(w)
-                    visitedFrom[w] = v
-            
+                                
         for v in tpList:
-            recur(v)
-            if self.id[v] < 0:
+            if not self.visited[v]:
                 recur(v)
-                count += 1
+                self.count += 1
         
-
     def connected(self, v, w): # Are v and w connected?
         return self.id[v] == self.id[w]
+
 
 def correctnessTest(g, expected_count, vertex_pairs, expected_output, correct):
     scc = SCC(g)
