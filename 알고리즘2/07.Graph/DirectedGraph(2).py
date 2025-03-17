@@ -120,7 +120,6 @@ class BFS:
         return self.distance[v]
 
 webaddrPattern = re.compile("https://(?:\\w+\\.)+(?:\\w+)") # Regex pattern for a web address. '?:' indicates a non-capturing group
-'''
 def webCrawl(roots, maxDepth=1):
     queue = Queue()
     discovered = {} # Symbol table of discovered sites and depth, where depth is the distance from sources
@@ -143,45 +142,47 @@ def webCrawl(roots, maxDepth=1):
                         queue.put(w)                        
         except requests.exceptions.ConnectionError as error:
             pass
-'''
-def topologicalSort(self, g):
-    def recur(v):
-        visited[v] = True
-        for w in g.adj[v]:
+
+def topologicalSort(g): # TP : DFS 사용
+    def recur(v): # DFS
+        visited[v] = True        
+        for w in g.adj[v]:            
             if not visited[w]: recur(w)
-        reverseList.append(v)
+        reverseList.append(v) # 하위 노드들의 처리 후, 현재 노드를 list에 추가
+
     assert(isinstance(g, Digraph))
-    visited = [False for _  in range(g.V)]
+    visited = [False for _ in range(g.V)]
     reverseList = []
+    for v in range(g.V):
+        if not visited[v]: recur(v)
+
     reverseList.reverse()
     return reverseList
 
 class SCC:
     def __init__(self, g): # Do strongly-connected-components pre-processing, based on Kosaraju-Sharir algorithm
+
         reverseGraph = g.reverse()
         tpList = topologicalSort(reverseGraph)
+        
         self.count = 0
         self.id = [-1 for _ in range(g.V)]
-        visited = [False for _ in range(g.V)]
-        visitedFrom = [None for _ in range(g.V)]
+        self.visited = [False for _ in range(g.V)]
         
         def recur(v):
-            visited[v] = True
+            self.visited[v] = True
             for w in g.adj[v]:
-                if not visited[w]:
+                if not self.visited[w]:
                     recur(w)
-                    visitedFrom[w] = v
             
         for v in tpList:
-            recur(v)
-            if self.id[v] < 0:
+            if not self.visited[v]:
                 recur(v)
-                count += 1
+                self.count += 1
         
 
     def connected(self, v, w): # Are v and w connected?
         return self.id[v] == self.id[w]
-
 
 def correctnessTest(g, expected_count, vertex_pairs, expected_output, correct):
     scc = SCC(g)
@@ -308,7 +309,7 @@ if __name__ == "__main__":
     print("g5, topological order", topologicalSort(g5))
     print("g5r, topological order", topologicalSort(g5.reverse()))
     print()
-'''
+    '''
     # Unit test for Kosaraju-Sharir for Finding Strongly-Connected Components
     print("Correctness test for class SCC")
     print("For each test case, if your answer does not appear within 5 seconds, then consider that you failed the case")
