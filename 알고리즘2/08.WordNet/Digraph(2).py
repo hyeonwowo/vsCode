@@ -242,46 +242,43 @@ def cycleDetection(g):
 Find the sap(shortest ancestral path) on digraph g between any vertex in aList and any vertex in bList
 Return the common ancestor and the length of sap
 '''
+# GPT 버전
 def sap(g, aList, bList):
-    sapLength = math.inf
-    sapAncestor = None
+    # BFS를 실행하여 각 노드에서 최단 거리를 저장하는 함수
+    def bfs(sources):
+        queue = Queue()
+        visited = {}
+        for s in sources:
+            queue.put((s, 0))  # (정점, 거리)
+            visited[s] = 0
+        while not queue.empty():
+            v, dist = queue.get()
+            for w in g.adj[v]:
+                if w not in visited:
+                    visited[w] = dist + 1
+                    queue.put((w, dist + 1))
+        return visited
     
-    queue = Queue()
-    visitedA = {}
-    visitedB = {}
+    # aList와 bList에서 각각 BFS 실행
+    aDist = bfs(aList)
+    bDist = bfs(bList)
+
+    # 공통 조상 찾기
+    common_ancestors = set(aDist.keys()) & set(bDist.keys())
+    if not common_ancestors:
+        return None  # 공통 조상이 없는 경우
+
+    # 최단 거리의 공통 조상 찾기
+    min_distance = math.inf
+    sca = -1
+    for ancestor in common_ancestors:
+        total_dist = aDist[ancestor] + bDist[ancestor]
+        if total_dist < min_distance:
+            min_distance = total_dist
+            sca = ancestor
     
-    for v in aList:
-        queue.put((v,'a',0))
-        visitedA[v] = 0
-    for v in bList:
-        queue.put((v,'b',0))
-        visitedB[v] = 0
-        
-    while not queue.empty():
-        v, source, distance = queue.get()
-        
-        if distance >= sapLength: break
-        for w in g.adj[v]:
-            if source == 'a':
-                if w not in visitedA:
-                    visitedA[w] = visitedA[v] + 1
-                    queue.put((w,'a',distance+1))
-                if w in visitedB:
-                    totalDistance = visitedA[w] + visitedB[w]
-                    if totalDistance < sapLength:
-                        sapLength = totalDistance
-                        sapAncestor = w
-            elif source == 'b':
-                if w not in visitedB:
-                    visitedB[w] = visitedB[v] + 1
-                    queue.put((w,'b',distance+1))
-                if w in visitedA:
-                    totalDistance = visitedA[w] + visitedB[w]
-                    if totalDistance < sapLength:
-                        sapLength = totalDistance
-                        sapAncestor = w
-    
-    return (sapAncestor, sapLength) if sapAncestor is not None else(None, -1)
+    return (sca, min_distance)
+
     
 
 class WordNet:
