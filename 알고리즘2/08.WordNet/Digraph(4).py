@@ -239,6 +239,24 @@ def cycleDetection(g):
 
 # 내 버전
 def sap(g, aList, bList):
+    def BFS(sources):
+        visited = {}
+        queue = Queue()
+        for v in sources:
+            queue.put((v, 0))
+            visited[v] = 0
+        while not queue.empty():
+            v = queue.get()
+            for w in g.adj[v]:
+                if w not in visited:
+                    visited[w] = visited[v] + 1
+                    queue.put((w, visited[v] + 1))
+        return visited
+
+    visitedA = BFS(aList)
+    visitedB = BFS(bList)
+    
+    commonVertex = set(visitedA.keys()) & set(visitedB.keys())
     return None
     
 
