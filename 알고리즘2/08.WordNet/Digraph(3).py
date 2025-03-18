@@ -244,7 +244,38 @@ Return the common ancestor and the length of sap
 '''
 # 내 버전
 def sap(g, aList, bList):
-    return None
+    def bfs(sources):
+        queue = Queue()
+        visited = {}
+        for v in sources:
+            queue.put((v,0))
+            visited[v] = 0
+        while not queue.empty():
+            v, dis = queue.get()
+            for w in g.adj[v]:
+                if w not in visited:
+                    visited[w] = dis + 1
+                    queue.put((w, visited[w]))
+        return visited
+    
+    aDis = bfs(aList)
+    bDis = bfs(bList)
+
+    acs = None
+    minDis = -1
+    
+    common_w = set(aDis.keys()) & set(bDis.keys())
+    if not common_w:
+        return (acs, minDis)
+    
+    for w in common_w:
+        totalDis = aDis[w] + bDis[w]
+        if totalDis < minDis:
+            minDis = totalDis
+            acs = w
+    
+    return (acs, minDis)
+    
     
 
 class WordNet:
