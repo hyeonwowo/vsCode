@@ -242,8 +242,47 @@ def cycleDetection(g):
 Find the sap(shortest ancestral path) on digraph g between any vertex in aList and any vertex in bList
 Return the common ancestor and the length of sap
 '''
-def sap(g, aList, bList): #
-    return None
+def sap(g, aList, bList):
+    sapLength = math.inf
+    sapAncestor = None
+    
+    queue = Queue()
+    visitedA = {}
+    visitedB = {}
+    
+    for v in aList:
+        queue.put((v,'a',0))
+        visitedA[v] = 0
+    for v in bList:
+        queue.put((v,'b',0))
+        visitedB[v] = 0
+        
+    while not queue.empty():
+        v, source, distance = queue.get()
+        
+        if distance >= sapLength: break
+        for w in g.adj[v]:
+            if source == 'a':
+                if w not in visitedA:
+                    visitedA[w] = visitedA[v] + 1
+                    queue.put((w,'a',distance+1))
+                if w in visitedB:
+                    totalDistance = visitedA[w] + visitedB[w]
+                    if totalDistance < sapLength:
+                        sapLength = totalDistance
+                        sapAncestor = w
+            elif source == 'b':
+                if w not in visitedB:
+                    visitedB[w] = visitedB[v] + 1
+                    queue.put((w,'b',distance+1))
+                if w in visitedA:
+                    totalDistance = visitedA[w] + visitedB[w]
+                    if totalDistance < sapLength:
+                        sapLength = totalDistance
+                        sapAncestor = w
+    
+    return (sapAncestor, sapLength) if sapAncestor is not None else(None, -1)
+    
 
 class WordNet:
     def __init__(self, synsetFileName, hypernymFileName): # Constructor
