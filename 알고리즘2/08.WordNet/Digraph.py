@@ -256,7 +256,7 @@ def sap(g, aList, bList):
     
     for items in bList:
         queue.put((items, 'b',0))
-        visitedB(items)
+        visitedB[items] = 0
     
     while not queue.empty():
         v, source, distance = queue.get()
@@ -275,14 +275,14 @@ def sap(g, aList, bList):
                         sapAncestor = w
             elif source == 'b':
                 if w not in visitedB:
-                    visitedB[w] == distance + 1
+                    visitedB[w] = distance + 1
                     queue.put((w,'b',distance+1))
                 if w in visitedA:
                     totalDistance = visitedA[w] + visitedB[w]
                     if totalDistance < sapLength:
                         sapLength = totalDistance
-                        sapAncestorp = w
-    return (sapAncestor, sapLength) if sapAncestorp is not None else (None, -1)
+                        sapAncestor = w
+    return (sapAncestor, sapLength) if sapAncestor is not None else (None, -1)
 
 class WordNet:
     def __init__(self, synsetFileName, hypernymFileName): # Constructor
