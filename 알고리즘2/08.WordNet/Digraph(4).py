@@ -239,43 +239,7 @@ def cycleDetection(g):
 
 # 내 버전
 def sap(g, aList, bList):
-    sca = None
-    sap = math.inf
-    
-    visitedA = {}
-    visitedB = {}
-    queue = Queue()
-    
-    for v in aList:
-        queue.put((v,'a',0))
-        visitedA[v] = 0
-    for v in bList:
-        queue.put((v,'b',0))
-        visitedB[v] = 0
-        
-    while not queue.empty():
-        v,source,distance = queue.get()
-        if distance >= sap: break
-        for w in g.adj[v]:
-            if source == 'a':
-                if w not in visitedA:
-                    queue.put((w,'a',distance + 1))
-                    visitedA[w] =  distance + 1
-                if w in visitedB:
-                    totalDistance = visitedA[w] + visitedB[w]
-                    if totalDistance < sap:
-                        sap = totalDistance
-                        sca = w
-            elif source == 'b':
-                if w not in visitedB:
-                    visitedB[w] = distance + 1
-                    queue.put((w, 'b', distance + 1))
-                if w in visitedA:
-                    totalDistance = visitedA[w] + visitedB[w]
-                    if totalDistance < sap:
-                        sap = totalDistance
-                        sca = w
-    return (sca, sap)
+    return None
     
 
 class WordNet:
