@@ -246,7 +246,7 @@ def sap(g, aList, bList):
             queue.put((v, 0))
             visited[v] = 0
         while not queue.empty():
-            v = queue.get()
+            v, dis = queue.get()
             for w in g.adj[v]:
                 if w not in visited:
                     visited[w] = visited[v] + 1
@@ -256,8 +256,18 @@ def sap(g, aList, bList):
     visitedA = BFS(aList)
     visitedB = BFS(bList)
     
-    commonVertex = set(visitedA.keys()) & set(visitedB.keys())
-    return None
+    sapLength = math.inf
+    sapAncestor = None
+    
+    commonVertex = set(visitedA.keys()) & set(visitedB.keys()) # A & B = A n B : A와 B의 공통 요소 추출
+
+    for v in commonVertex:
+        length = visitedA[v] +  visitedB[v]
+        if sapLength > length:
+            sapLength = length
+            sapAncestor = v
+            
+    return (sapAncestor, sapLength)
     
 
 class WordNet:
