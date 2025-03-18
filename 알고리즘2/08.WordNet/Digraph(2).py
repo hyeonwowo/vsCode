@@ -248,7 +248,7 @@ def sap(g, aList, bList):
     def bfs(sources):
         queue = Queue()
         visited = {}
-        for s in sources:
+        for s in sources:             
             queue.put((s, 0))  # (정점, 거리)
             visited[s] = 0
         while not queue.empty():
@@ -257,16 +257,16 @@ def sap(g, aList, bList):
                 if w not in visited:
                     visited[w] = dist + 1
                     queue.put((w, dist + 1))
-        return visited
+        return visited # 시작점들에서 위로 출발하여 (방문한 노드, 거리) 저장
     
     # aList와 bList에서 각각 BFS 실행
     aDist = bfs(aList)
     bDist = bfs(bList)
 
-    # 공통 조상 찾기
-    common_ancestors = set(aDist.keys()) & set(bDist.keys())
+    # 공통 조상 찾기 : common_ancestor에는 공통적으로 방문한 노드 데이터들이 저장 -> 해당 노드 데이터 (v1,v2,v3 ...) 들을 aDits[w], bDist[w]에 넣으면 해당하는 거리가 나옴
+    common_ancestors = set(aDist.keys()) & set(bDist.keys()) # keys는 방문한 노드 (방문한 노드, 거리) = (w, visited[w])
     if not common_ancestors:
-        return None  # 공통 조상이 없는 경우
+        return (None,-1)  # 공통 조상이 없는 경우
 
     # 최단 거리의 공통 조상 찾기
     min_distance = math.inf
