@@ -227,7 +227,7 @@ def cycleDetection(g):
             if not visited[w]:
                 if recur(w): return True
         verticesInRecurStack.remove(v)
-        return False
+        return False 
 
     assert(isinstance(g, Digraph))
     visited = [False for _ in range(g.V)]
@@ -243,7 +243,27 @@ Find the sap(shortest ancestral path) on digraph g between any vertex in aList a
 Return the common ancestor and the length of sap
 '''
 def sap(g, aList, bList):    
-    pass          
+    sapLength = math.inf
+    queue = Queue()
+    
+    for items in aList+bList:
+        if items in aList:
+            queue.put((items,"a",0))
+        elif items in bList:
+            queue.put((items,"b",0))
+    
+    while not queue.empty():
+        v, n, distance = queue.get()
+        if distance + 1 >= sapLength: break
+        
+        for w in g.adj[v]:
+            if distance == "a":
+                pass
+            elif distance == "b":
+                pass
+        
+        
+        
 
 
 class WordNet:
