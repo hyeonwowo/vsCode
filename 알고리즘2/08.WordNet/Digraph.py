@@ -242,6 +242,7 @@ def cycleDetection(g):
 Find the sap(shortest ancestral path) on digraph g between any vertex in aList and any vertex in bList
 Return the common ancestor and the length of sap
 '''
+# 알고리즘2 버전
 def sap(g, aList, bList):
     sapLength = math.inf
     sapAncestor = None
@@ -273,10 +274,12 @@ def sap(g, aList, bList):
                     if totalDistance < sapLength:
                         sapLength = totalDistance
                         sapAncestor = w
+                        
             elif source == 'b':
                 if w not in visitedB:
                     visitedB[w] = distance + 1
                     queue.put((w,'b',distance+1))
+                    
                 if w in visitedA:
                     totalDistance = visitedA[w] + visitedB[w]
                     if totalDistance < sapLength:
