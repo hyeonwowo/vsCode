@@ -36,7 +36,7 @@ class Edge: # 간선 가중치 부여
 '''
 Class for storing WUGraphs (Weighted Undirected Graphs)
 '''
-class WUGraph:
+class WUGraph: # 가중치 무방향 그래프
     def __init__(self, V): # Constructor
         self.V = V # Number of vertices
         self.E = 0 # Number of edges
@@ -93,7 +93,7 @@ class WUGraph:
 Class for performing Union Find using weighted quick union
     and storing the results    
 '''
-class UF:
+class UF: # Union-Find
     def __init__(self, V): # V: the number of vertices
         self.ids = [] # ids[i]: i's parent
         self.size = [] # size[i]: size of tree rooted at i
