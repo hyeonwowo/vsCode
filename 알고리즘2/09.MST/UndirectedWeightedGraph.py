@@ -5,7 +5,7 @@ import timeit
 '''
 Class for storing weighted edges
 '''
-class Edge:
+class Edge: # 간선 가중치 부여
     def __init__(self, v, w, weight): # Create an edge v-w with a double weight
         if v <= w: self.v, self.w = v, w  # Put the lesser number in v for convenience
         else: self.v, self.w = w, v        
@@ -300,7 +300,7 @@ def mstPrimEager(g):
 
 
 if __name__ == "__main__":
-    '''# Unit test for Edge and WUGraph
+    # Unit test for Edge and WUGraph
     e1 = Edge(2,3,0.1)
     e2 = Edge(2,3,0.1)
     e3 = Edge(2,3,0.2)
@@ -311,9 +311,9 @@ if __name__ == "__main__":
     print(e1.other(2))
     
     g8 = WUGraph.fromFile("wugraph8.txt")
-    print(g8)'''    
+    print(g8)
 
-    '''
+
     # Unit test for the min PQ
     minPQ = IndexMinPQ(10)
     minPQ.insert(0,'P')
@@ -340,7 +340,6 @@ if __name__ == "__main__":
     print(minPQ.delMin())
     print(minPQ.delMin())
     print(minPQ.delMin())    
-    '''
     
     # Unit Test for mstPrimEager()
     g3 = WUGraph.fromFile("wugraph3.txt")    
@@ -420,6 +419,6 @@ if __name__ == "__main__":
         print(f"Average running time for g50 with Kruskal ({tKruskal:.10f}), PrimLazy ({tPrimLazy:.10f}), and PrimEager({tPrimEager:.10f})")        
         if tPrimEager * 3.0 < tKruskal and tPrimEager * 3.0 < tPrimLazy: print ("pass")
         else: print ("fail")
-    print()  
+    print()
     
     
