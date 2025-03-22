@@ -223,14 +223,14 @@ def cycleDetection(g):
         for w in g.adj[v]:
             if w in verticesInRecurStack: # 만약 v와 인접한 정점 w가 재귀호출경로스택에 존재한다면, 이는 사이클이 존재함을 의미함. -> 즉시 True리턴(Cycle !) 및 탐생 종료               
                 return True # 사이클 발견 (= True 리턴)
-            if not visited[w]:
-                if recur(w): return True
-        verticesInRecurStack.remove(v)
+            if not visited[w]: # 아직 방문하지 않은 정점이라면,
+                if recur(w): return True # 해당 정점 w에 대해 DFS 수행, 재귀 호출 결과가 True(= 사이클 발견) 이라면 현재도 True 리턴
+        verticesInRecurStack.remove(v) # 정점 v의 모든 인접 정점 탐색 수행 후, v를 재귀 스택 집합에서 제거 (현재 DFS 경로에서 탈출)
         return False 
 
     assert(isinstance(g, Digraph))
     visited = [False for _ in range(g.V)]
-    verticesInRecurStack = set() # Initialize set before the first call of recur()
+    verticesInRecurStack = set()
     for v in range(g.V): 
         if not visited[v]:            
             if recur(v): return True
