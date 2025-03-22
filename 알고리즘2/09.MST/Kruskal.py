@@ -1,12 +1,12 @@
 from queue import PriorityQueue
 
-class Edge:
+class Edge: # 간선 추가
     def __init__(self, v, w, weight):
         if v <= w: self.v, self.w = v, w
         else: self.v, self.w = w, v
         self.weight = weight
         
-    def __lt__(self, other):
+    def __lt__(self, other): # __less than__ : 비교 연산자가 사용되는 시점에 자동으로 호출됨.
         return self.weight < other.weight
     
     def __str__(self):
@@ -43,7 +43,24 @@ class UF:
         pass
     
 def mstKruskal(g):
-    pass
+    assert(isinstance(g,WUGraph))
+    mstEdge = []
+    mstEdgeSum = 0
+    
+    pq = PriorityQueue()
+    
+    for edge in g.edges:
+        pq.put(edge)
+        
+    uf = UF(g.V)
+    while not pq.empty() and len(mstEdge) < g.V - 1:
+        e = pq.get()
+        if not uf.connected(e.v, e.w):
+            uf.union(e.v, e.w)
+            mstEdge.append(e)
+            mstEdgeSum += e.weight
+    
+    return mstEdge, mstEdgeSum
 
 if __name__ == "__main__":
     g = WUGraph(4)
