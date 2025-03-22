@@ -2,9 +2,6 @@ from pathlib import Path
 from queue import PriorityQueue
 import timeit
 
-'''
-Class for storing weighted edges
-'''
 class Edge: # 간선 가중치 부여
     def __init__(self, v, w, weight): # Create an edge v-w with a double weight
         if v <= w: self.v, self.w = v, w  # Put the lesser number in v for convenience
@@ -33,9 +30,6 @@ class Edge: # 간선 가중치 부여
         if self.v == v: return self.w
         else: return self.v
 
-'''
-Class for storing WUGraphs (Weighted Undirected Graphs)
-'''
 class WUGraph: # 가중치 무방향 그래프
     def __init__(self, V): # Constructor
         self.V = V # Number of vertices
