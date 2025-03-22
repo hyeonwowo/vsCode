@@ -217,13 +217,12 @@ def topologicalSortWithCycleDetection(g):
     return reverseList
 
 def cycleDetection(g):
-    def recur(v):
-        visited[v] = True
-        verticesInRecurStack.add(v)
+    def recur(v): # DFS수행 재귀함수
+        visited[v] = True # v 방문시, True
+        verticesInRecurStack.add(v) # 현재 재귀 호출 경로(=DFS)의 집합에 추가. 현재 재귀 스택에 존재하는 정점들을 추가함.
         for w in g.adj[v]:
-            if w in verticesInRecurStack: # Edge found to a vertex in the recursive stack
-                #print("cycle detected on vertex", w)                
-                return True
+            if w in verticesInRecurStack: # 만약 v와 인접한 정점 w가 재귀호출경로스택에 존재한다면, 이는 사이클이 존재함을 의미함. -> 즉시 True리턴(Cycle !) 및 탐생 종료               
+                return True # 사이클 발견 (= True 리턴)
             if not visited[w]:
                 if recur(w): return True
         verticesInRecurStack.remove(v)
