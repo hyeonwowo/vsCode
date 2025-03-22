@@ -1,8 +1,8 @@
 from queue import PriorityQueue
 
 class Edge: # 간선 추가
-    def __init__(self, v, w, weight):
-        if v <= w: self.v, self.w = v, w
+    def __init__(self, v, w, weight): # 무방향 그래프이므로 작은게 v, 큰게 w 일관성 설정
+        if v <= w: self.v, self.w = v, w 
         else: self.v, self.w = w, v
         self.weight = weight
         
@@ -12,7 +12,7 @@ class Edge: # 간선 추가
     def __str__(self):
         return f"{self.v}-{self.w} ({self.weight})"
     
-class WUGraph:
+class WUGraph: # 가중치 무방향 그래프
     def __init__(self, V):
         self.V = V
         self.E = 0
@@ -40,7 +40,19 @@ class UF:
         return self.root(v) == self.root(w)
     
     def union(self, p, q):
-        pass
+        # 1. p, q의 사이즈를 각각 비교한다
+        # 2. 더 작은 사이즈의 트리가, 더 큰 사이즈의 루트 바로 아래로 들어간다
+        # 3. 크기를 업데이트 해준다            
+        root_p, root_q = self.root(p), self.root(q)
+        size_p, size_q = self.size(root_p), self.size(root_q)
+        
+        if size_p >= size_q:
+            self.ids[root_q] = root_p
+            self.size[root_p] += self.size[root_q]
+        else:
+            self.ids[root_p] = root_q
+            self.size[root_q] += self.size[root_p]
+        
     
 def mstKruskal(g):
     assert(isinstance(g,WUGraph))

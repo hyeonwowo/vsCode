@@ -96,7 +96,9 @@ class UF: # Union-Find
             self.size.append(1)       
 
     def root(self, i):
-        while i != self.ids[i]: i = self.ids[i]
+        while i != self.ids[i]: 
+            self.ids[i] = self.ids[self.ids[i]]
+            i = self.ids[i]
         return i
 
     def connected(self, p, q):
