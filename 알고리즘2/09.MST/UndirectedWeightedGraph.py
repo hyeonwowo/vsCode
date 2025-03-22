@@ -240,20 +240,19 @@ Find an MST (Minimum Spanning Tree) using Kruskal's algorithm
     and return the MST with its weight sum
 '''
 def mstKruskal(g): # Constructor: finds an MST and stores it
-    assert(isinstance(g, WUGraph))
+    assert(isinstance(g, WUGraph)) # 가중치 무방향 그래프
     
-    edgesInMST = [] # List that stores edges selected as part of the MST
-    weightSum = 0 # Sum of edge weights in the MST
+    edgesInMST = [] # MST 구성 간선 저장 리스트
+    weightSum = 0 # 가중치 총합
 
-    pq = PriorityQueue() # Build a priority queue
+    pq = PriorityQueue() # 최소 가중치 기준 오름차순 정렬
     for e in g.edges:
-        pq.put(e)
+        pq.put(e) # 모든 간선 pq에 삽입
 
-    uf = UF(g.V)
-    while not pq.empty() and len(edgesInMST) < g.V-1:
+    uf = UF(g.V) # union-find 그룹에 vertex 추가
+    while not pq.empty() and len(edgesInMST) < g.V-1: # pq에 간선이 더이상 없거나, 추가된 간선이 v-1개면 종료
         e = pq.get()
-        #print("edge", e)
-        if not uf.connected(e.v, e.w): # Add edge e if it does not create a cycle
+        if not uf.connected(e.v, e.w):
             uf.union(e.v, e.w)
             edgesInMST.append(e)
             weightSum += e.weight

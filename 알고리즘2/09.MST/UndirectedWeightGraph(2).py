@@ -5,7 +5,7 @@ import timeit
 '''
 Class for storing weighted edges
 '''
-class Edge:
+class Edge: # 간선 가중치 부여
     def __init__(self, v, w, weight): # Create an edge v-w with a double weight
         if v <= w: self.v, self.w = v, w  # Put the lesser number in v for convenience
         else: self.v, self.w = w, v        
@@ -36,7 +36,7 @@ class Edge:
 '''
 Class for storing WUGraphs (Weighted Undirected Graphs)
 '''
-class WUGraph:
+class WUGraph: # 가중치 무방향 그래프
     def __init__(self, V): # Constructor
         self.V = V # Number of vertices
         self.E = 0 # Number of edges
@@ -70,7 +70,7 @@ class WUGraph:
             0 1 0.12
             2 0 0.26
         The file needs to be in the same directory as the current .py file
-    '''#
+    '''
     @staticmethod
     def fromFile(fileName):
         filePath = Path(__file__).with_name(fileName)   # Use the location of the current .py file   
@@ -93,7 +93,7 @@ class WUGraph:
 Class for performing Union Find using weighted quick union
     and storing the results    
 '''
-class UF:
+class UF: # Union-Find
     def __init__(self, V): # V: the number of vertices
         self.ids = [] # ids[i]: i's parent
         self.size = [] # size[i]: size of tree rooted at i
@@ -240,20 +240,19 @@ Find an MST (Minimum Spanning Tree) using Kruskal's algorithm
     and return the MST with its weight sum
 '''
 def mstKruskal(g): # Constructor: finds an MST and stores it
-    assert(isinstance(g, WUGraph))
+    assert(isinstance(g, WUGraph)) # 가중치 무방향 그래프
     
-    edgesInMST = [] # List that stores edges selected as part of the MST
-    weightSum = 0 # Sum of edge weights in the MST
+    edgesInMST = [] # MST 구성 간선 저장 리스트
+    weightSum = 0 # 가중치 총합
 
-    pq = PriorityQueue() # Build a priority queue
+    pq = PriorityQueue() # 최소 가중치 기준 오름차순 정렬
     for e in g.edges:
-        pq.put(e)
+        pq.put(e) # 모든 간선 pq에 삽입
 
-    uf = UF(g.V)
-    while not pq.empty() and len(edgesInMST) < g.V-1:
+    uf = UF(g.V) # union-find 그룹에 vertex 추가
+    while not pq.empty() and len(edgesInMST) < g.V-1: # pq에 간선이 더이상 없거나, 추가된 간선이 v-1개면 종료
         e = pq.get()
-        #print("edge", e)
-        if not uf.connected(e.v, e.w): # Add edge e if it does not create a cycle
+        if not uf.connected(e.v, e.w):
             uf.union(e.v, e.w)
             edgesInMST.append(e)
             weightSum += e.weight
@@ -300,7 +299,7 @@ def mstPrimEager(g):
 
 
 if __name__ == "__main__":
-    '''# Unit test for Edge and WUGraph
+    # Unit test for Edge and WUGraph
     e1 = Edge(2,3,0.1)
     e2 = Edge(2,3,0.1)
     e3 = Edge(2,3,0.2)
@@ -311,9 +310,9 @@ if __name__ == "__main__":
     print(e1.other(2))
     
     g8 = WUGraph.fromFile("wugraph8.txt")
-    print(g8)'''    
+    print(g8)
 
-    '''
+
     # Unit test for the min PQ
     minPQ = IndexMinPQ(10)
     minPQ.insert(0,'P')
@@ -340,7 +339,6 @@ if __name__ == "__main__":
     print(minPQ.delMin())
     print(minPQ.delMin())
     print(minPQ.delMin())    
-    '''
     
     # Unit Test for mstPrimEager()
     g3 = WUGraph.fromFile("wugraph3.txt")    
@@ -420,6 +418,6 @@ if __name__ == "__main__":
         print(f"Average running time for g50 with Kruskal ({tKruskal:.10f}), PrimLazy ({tPrimLazy:.10f}), and PrimEager({tPrimEager:.10f})")        
         if tPrimEager * 3.0 < tKruskal and tPrimEager * 3.0 < tPrimLazy: print ("pass")
         else: print ("fail")
-    print()  
+    print()
     
     
