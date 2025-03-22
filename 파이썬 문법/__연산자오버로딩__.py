@@ -103,8 +103,8 @@ edges = {e1, e2, Edge(0, 1, 3)}
 print(edges)       # set 중복 제거 → __eq__ + __hash__ 호출
 
 
-# 왜 굳이, 일일히 코드를 작성해줘야 할까?
 
+# 왜 굳이, 일일히 코드를 작성해줘야 할까?
 class Edge:
     def __init__(self, v, w, weight):
         self.v = v
