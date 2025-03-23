@@ -290,33 +290,33 @@ Find an MST (Minimum Spanning Tree) using Prim's algorithm (eager version)
     and return the MST with its weight sum
 '''
 def mstPrimEager(g):    
-    def include(i):
-        included[i] = True
-        for e in g.adj[i]:
-            j = e.other(i)
-            if included[j]: continue
+    def include(i): # 정점 i를 MST에 포함시키고, 그 정점에서 나가는 간선을 기준으로 PQ갱신
+        included[i] = True # 정점 i를 MST에 포함
+        for e in g.adj[i]: # i와 연결된 모든 간선 검사
+            j = e.other(i) # 간선 e의 다른쪽 정점 j (i-j)
+            if included[j]: continue # 이미 MST에 포함된 정점이면 무시
             if not pq.contains(j):  # 아직 PQ에 없으면 삽입
-                edgeTo[j] = e
-                pq.insert(j, e)
+                edgeTo[j] = e # 정점 j로 연결된 최소 간선 기록
+                pq.insert(j, e) # 정점 j를 PQ에 삽입
             elif e.weight < edgeTo[j].weight:  # 더 짧은 간선이면 갱신
-                edgeTo[j] = e
-                pq.decreaseKey(j, e)
+                edgeTo[j] = e # 간선 갱신
+                pq.decreaseKey(j, e) # 우선순위 큐에서 key갱신 (위로 올라감)
 
     assert isinstance(g, WUGraph)
 
     edgeInMST = []
-    edgeWeightSum = 0
-    included = [False for _ in range(g.V)] # MST
+    edgeWeightSum = 0 
+    included = [False for _ in range(g.V)] # MST 리스트
     edgeTo = [None for _ in range(g.V)]  # 각 정점으로 연결되는 최소 간선
-    pq = IndexMinPQ(g.V)
+    pq = IndexMinPQ(g.V) # 인덱스 기반 우선순위 큐 (정점 번호 -> 간선)
 
-    include(0)
+    include(0) # 시작 정점 0을 MST에 포함시키고 인접 간선 처리
 
     while not pq.isEmpty() and len(edgeInMST) < g.V - 1:
-        e, v = pq.delMin()  # 정점 v로 연결되는 최소 간선 e
+        e, v = pq.delMin()  # 가장 작은 간선을 가진 정점 v와 간선 e를 꺼냄
         edgeInMST.append(e)
         edgeWeightSum += e.weight
-        include(v)
+        include(v) # 정점 v를 MST에 포함시키고 인접 간선 처리
 
     return edgeInMST, edgeWeightSum
 
