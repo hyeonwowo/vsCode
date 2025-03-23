@@ -21,8 +21,17 @@ if __name__ == "__main__":
     edgeList = []
     
     for i in range(5):
-        edgeList.append(globals()[f"edge{i+1}"])
-        
+        edgeList.append(globals()[f"edge{i+1}"]) # Edge class를 리스트에 통체로 넣음 (v, w, weight)
+    
+    print(edgeList)
+    print()
+    
     for element in edgeList:
         print(element)
-       
+    print()
+    
+    # 리스트에 통체로 담긴 클래스를 다루기
+    print(edgeList[0])
+    print(edgeList[0].v)
+    print(edgeList[0].w)
+    print(edgeList[0].weight)
