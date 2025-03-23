@@ -266,25 +266,25 @@ def mstPrimLazy(g):
     def include(v):
         included[v] = True
         for e in g.adj[v]:
-            if not include[e.other(v)]: pq.put(e)
-            
-    assert(isinstance(g, WUGraph))
+            if not included[e.other(v)]:
+                pq.put(e)
+    assert(isinstance(g,WUGraph))
     
-    edegsInMST = []
-    included = [False] * g.V
-    weightSum = 0
+    edgeInMST = []
+    edgeWeightSum = 0
+    included = [False for _ in range(g.V)]
     pq = PriorityQueue()
     include(0)
     
-    while not pq.empty() and len(edegsInMST) < g.V-1:
+    while not pq.empty() and len(edgeInMST) < g.V - 1:
         e = pq.get()
         if included[e.v] and included[e.w]: continue
-        edegsInMST.append(e)
-        weightSum += e.weight
+        edgeInMST.append(e)
+        edgeWeightSum += e.weight
         if not included[e.v]: include(e.v)
         if not included[e.w]: include(e.w)
         
-    return edegsInMST, weightSum
+    return edgeInMST, edgeWeightSum
 
 
 '''
@@ -292,7 +292,8 @@ Find an MST (Minimum Spanning Tree) using Prim's algorithm (eager version)
     and return the MST with its weight sum
 '''
 def mstPrimEager(g):    
-    return [], 0.0
+    return None
+
 
 
 if __name__ == "__main__":

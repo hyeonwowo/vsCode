@@ -290,7 +290,35 @@ Find an MST (Minimum Spanning Tree) using Prim's algorithm (eager version)
     and return the MST with its weight sum
 '''
 def mstPrimEager(g):    
-    return [], 0.0
+    def include(i):
+        included[i] = True
+        for e in g.adj[i]:
+            j = e.other(i)
+            if included[j]: continue
+            if not pq.contains(j):  # 아직 PQ에 없으면 삽입
+                edgeTo[j] = e
+                pq.insert(j, e)
+            elif e.weight < edgeTo[j].weight:  # 더 짧은 간선이면 갱신
+                edgeTo[j] = e
+                pq.decreaseKey(j, e)
+
+    assert isinstance(g, WUGraph)
+
+    edgeInMST = []
+    edgeWeightSum = 0
+    included = [False for _ in range(g.V)]
+    edgeTo = [None for _ in range(g.V)]  # 각 정점으로 연결되는 최소 간선
+    pq = IndexMinPQ(g.V)
+
+    include(0)
+
+    while not pq.isEmpty() and len(edgeInMST) < g.V - 1:
+        e, v = pq.delMin()  # 정점 v로 연결되는 최소 간선 e
+        edgeInMST.append(e)
+        edgeWeightSum += e.weight
+        include(v)
+
+    return edgeInMST, edgeWeightSum
 
 
 if __name__ == "__main__":
