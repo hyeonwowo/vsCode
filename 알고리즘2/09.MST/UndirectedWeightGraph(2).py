@@ -293,25 +293,32 @@ Find an MST (Minimum Spanning Tree) using Prim's algorithm (eager version)
 '''
 def mstPrimEager(g):    
     def include(i):
-        pass
-    
-    assert isinstance(g, WUGraph)
+        included[i] = True
+        for e in g.adj[i]:
+            j = e.other(i)
+            if included[j]: continue
+            if not pq.contains(j):
+                edgeTo[j] = e.weight
+                pq.insert(j,e)
+            elif e.weight < edgeTo[j]:
+                edgeTo[j] = e.weight
+                pq.decreaseKey(j, e)
     
     edgeInMST = []
     edgeWeightSum = 0
     included = [False for _ in range(g.V)]
     edgeTo = [False for _ in range(g.V)]
     pq = IndexMinPQ(g.V)
-    
     include(0)
-    
+
     while not pq.isEmpty() and len(edgeInMST) < g.V - 1:
         e, v = pq.delMin()
+        include(v)
         edgeInMST.append(e)
         edgeWeightSum += e.weight
-        include(v)
         
     return edgeInMST, edgeWeightSum
+           
 
 if __name__ == "__main__":
     # Unit test for Edge and WUGraph
