@@ -306,7 +306,7 @@ def mstPrimEager(g):
 
     edgeInMST = []
     edgeWeightSum = 0
-    included = [False for _ in range(g.V)]
+    included = [False for _ in range(g.V)] # MST
     edgeTo = [None for _ in range(g.V)]  # 각 정점으로 연결되는 최소 간선
     pq = IndexMinPQ(g.V)
 
