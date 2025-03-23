@@ -292,7 +292,7 @@ Find an MST (Minimum Spanning Tree) using Prim's algorithm (eager version)
 def mstPrimEager(g):    
     def include(i): # 정점 i를 MST에 포함시키고, 그 정점에서 나가는 간선을 기준으로 PQ갱신
         included[i] = True # 정점 i를 MST에 포함
-        for e in g.adj[i]: # i와 연결된 모든 간선 검사
+        for e in g.adj[i]: # i와 연결된 모든 간선 검사 : WUGraph 클래스의 정의를 보면, g.adj[i]는 정점이 아니라 간선(Edge 객체)을 담고 있음
             j = e.other(i) # 간선 e의 다른쪽 정점 j (i-j)
             if included[j]: continue # 이미 MST에 포함된 정점이면 무시
             if not pq.contains(j):  # 아직 PQ에 없으면 삽입
@@ -308,7 +308,7 @@ def mstPrimEager(g):
     edgeWeightSum = 0 
     included = [False for _ in range(g.V)] # MST 리스트
     edgeTo = [None for _ in range(g.V)]  # 각 정점으로 연결되는 최소 간선
-    pq = IndexMinPQ(g.V) # 인덱스 기반 우선순위 큐 (정점 번호 -> 간선)
+    pq = IndexMinPQ(g.V) # 인덱스 기반 우선순위 큐 (정점 번호 -> 간선) : IndexMinPQ는 index로 요소들을 처리하기 때문에, 고정적인 값인 g.V 필요
 
     include(0) # 시작 정점 0을 MST에 포함시키고 인접 간선 처리
 
