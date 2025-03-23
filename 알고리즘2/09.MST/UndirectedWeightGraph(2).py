@@ -298,10 +298,10 @@ def mstPrimEager(g):
             j = e.other(i)
             if included[j]: continue
             if not pq.contains(j):
-                edgeTo[j] = e.weight
+                edgeTo[j] = e.weight # 간선 개별 정보를 저장하기보단, 간선 클래스 전체를 저장 -> 정보량 증가
                 pq.insert(j,e)
-            elif e.weight < edgeTo[j]:
-                edgeTo[j] = e.weight
+            elif e.weight < edgeTo[j]: # 간선 클래스 전체 정보를 저장했다면, edgeTo[j] -> edgeTo[j].weight
+                edgeTo[j] = e.weight #                       "
                 pq.decreaseKey(j, e)
     
     edgeInMST = []
