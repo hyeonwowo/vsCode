@@ -261,27 +261,26 @@ Find an MST (Minimum Spanning Tree) using Prim's algorithm (lazy version)
     and return the MST with its weight sum
 '''
 def mstPrimLazy(g):
-    def include(v):
+    def include(v): # v를 MST에 추가 & 인접한 간선 중 MST 외부로 향하는 간선 모두 추가
         included[v] = True
         for e in g.adj[v]:            
-            if not included[e.other(v)]: pq.put(e)
+            if not included[e.other(v)]: pq.put(e) # 반대 v가 MST에 포함되지 않은 경우에만 v-w 간선 (e) 추가
 
     assert(isinstance(g, WUGraph))
 
-    edgesInMST = [] # Stores edges selected as part of the MST
-    included = [False] * g.V # included[v] == True if v is in the MST
-    weightSum = 0  # Sum of edge weights in the MST    
-    pq = PriorityQueue() # Build a priority queue
+    edgesInMST = []
+    included = [False] * g.V # MST 포함여부 확인 리스트
+    weightSum = 0 
+    pq = PriorityQueue()
     include(0)
 
     while not pq.empty() and len(edgesInMST) < g.V-1:
         e = pq.get()
-        #print("edge", e)
-        if included[e.v] and included[e.w]: continue # Ignore the edge v-w if both v and w are included in the MST
+        if included[e.v] and included[e.w]: continue # 최소 weight 간선 v-w를 Pop한 후 v,w모두 MST상에 있지 않다면 continue
         edgesInMST.append(e)
         weightSum += e.weight
-        if not included[e.v]: include(e.v) # Add to the MST the vertex not yet included
-        if not included[e.w]: include(e.w)
+        if not included[e.v]: include(e.v) # e.v가 아직 MST에 안들어가 있으면, MST에 추가하고 간선 확장
+        if not included[e.w]: include(e.w) # e.w가 아직 MST에 안들어가 있으면, MST에 추가하고 간선 확장
 
     return edgesInMST, weightSum    
 

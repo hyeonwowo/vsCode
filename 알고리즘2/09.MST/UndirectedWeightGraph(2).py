@@ -265,27 +265,26 @@ Find an MST (Minimum Spanning Tree) using Prim's algorithm (lazy version)
 def mstPrimLazy(g):
     def include(v):
         included[v] = True
-        for e in g.adj[v]:            
-            if not included[e.other(v)]: pq.put(e)
-
+        for e in g.adj[v]:
+            if not include[e.other(v)]: pq.put(e)
+            
     assert(isinstance(g, WUGraph))
-
-    edgesInMST = [] # Stores edges selected as part of the MST
-    included = [False] * g.V # included[v] == True if v is in the MST
-    weightSum = 0  # Sum of edge weights in the MST    
-    pq = PriorityQueue() # Build a priority queue
+    
+    edegsInMST = []
+    included = [False] * g.V
+    weightSum = 0
+    pq = PriorityQueue()
     include(0)
-
-    while not pq.empty() and len(edgesInMST) < g.V-1:
+    
+    while not pq.empty() and len(edegsInMST) < g.V-1:
         e = pq.get()
-        #print("edge", e)
-        if included[e.v] and included[e.w]: continue # Ignore the edge v-w if both v and w are included in the MST
-        edgesInMST.append(e)
+        if included[e.v] and included[e.w]: continue
+        edegsInMST.append(e)
         weightSum += e.weight
-        if not included[e.v]: include(e.v) # Add to the MST the vertex not yet included
+        if not included[e.v]: include(e.v)
         if not included[e.w]: include(e.w)
-
-    return edgesInMST, weightSum    
+        
+    return edegsInMST, weightSum
 
 
 '''
