@@ -2,7 +2,7 @@ from pathlib import Path
 from queue import PriorityQueue
 from queue import Queue
 import timeit
-
+#
 class DirectedEdge:
     def __init__(self, v, w, weight): # Create an edge v->w with a double weight
         self.v, self.w, self.weight = v, w, weight
