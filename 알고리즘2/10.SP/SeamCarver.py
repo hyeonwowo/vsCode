@@ -91,8 +91,38 @@ class SeamCarver:
         self.image = carvedImage
 
     def findVerticalSeam(self):
-        # Add codes below
-        return [0] * self.height()
+        width = self.width()
+        height = self.height()
+        
+        energy_matrix = [[self.energy(x, y) for x in range(width)] for y in range(height)]
+        dist_to = [[float('inf')] * width for _ in range(height)]
+        edge_to = [[-1] * width for _ in range(height)]
+        
+        # Initialize the top row
+        for x in range(width):
+            dist_to[0][x] = energy_matrix[0][x]
+        
+        # Fill dist_to and edge_to
+        for y in range(1, height):
+            for x in range(width):
+                for dx in [-1, 0, 1]:  # left, down, right
+                    prev_x = x + dx
+                    if 0 <= prev_x < width:
+                        if dist_to[y][x] > dist_to[y-1][prev_x] + energy_matrix[y][x]:
+                            dist_to[y][x] = dist_to[y-1][prev_x] + energy_matrix[y][x]
+                            edge_to[y][x] = prev_x
+        
+        # Find minimum energy at bottom row
+        min_end_x = min(range(width), key=lambda x: dist_to[height-1][x])
+        
+        # Backtrack to find seam path
+        seam = [0] * height
+        seam[height - 1] = min_end_x
+        for y in range(height - 2, -1, -1):
+            seam[y] = edge_to[y + 1][seam[y + 1]]
+        
+        return seam
+
 
 
 def showBeforeAfterSeamCarving(fileName, numCarve):
