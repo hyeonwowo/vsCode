@@ -2,8 +2,8 @@ from pathlib import Path
 from queue import PriorityQueue
 from queue import Queue
 import timeit
-#
-class DirectedEdge:
+
+class DirectedEdge: # 방향 가중치 간선 클래스
     def __init__(self, v, w, weight): # Create an edge v->w with a double weight
         self.v, self.w, self.weight = v, w, weight
     
@@ -138,7 +138,7 @@ class IndexMinPQ:
         minKey = self.keys[minIndex]
         self.exch(1, self.n)
         self.n -= 1
-        self.sink(1)
+        self.sink(1)              
         assert(minIndex == self.pq[self.n+1])
         self.qp[minIndex] = -1 # Mark the index as being deleted
         self.keys[minIndex] = None
@@ -149,7 +149,7 @@ class IndexMinPQ:
         self.validateIndex(i)
         if not self.contains(i): raise Exception(f"index {i} is not in PQ")
         else: return self.keys[i]
-
+        
     def changeKey(self, i, key):
         self.validateIndex(i)
         if not self.contains(i): raise Exception(f"index {i} is not in PQ")
@@ -242,10 +242,10 @@ def topologicalSortWithCycleDetection(g):
     reverseList.reverse()
     return reverseList
 
-
 '''
 Class that finds and stores shortest paths from a single source    
 '''
+    
 class SP:
     def __init__(self, g, s): # Find shortest paths from s in graph g
         if not isinstance(g, EdgeWeightedDigraph): raise Exception(f"{g} is not an EdgeWeightedDigraph")
@@ -270,8 +270,6 @@ class SP:
         self.validateVertex(v)
         return self.distTo[v] < float('inf')
 
-    # If e=v->w gives a shorter path to w through v
-    #   update distTo[w] and edgeTo[w]
     def relax(self, e):
         assert(isinstance(e, DirectedEdge))        
         if self.distTo[e.w] > self.distTo[e.v] +  e.weight:
@@ -282,14 +280,13 @@ class SP:
         if v<0 or v>=self.g.V: raise Exception(f"vertex {v} is not between 0 and {self.g.V-1}")
 
 
-class DijkstraSP(SP): # Inherit SP class
+class DijkstraSP(SP):
     def __init__(self, g, s):
-        super().__init__(g, s) # run the constructor of the parent class
+        super().__init__(g, s)
         self.pq = IndexMinPQ(g.V)
-        self.pq.insert(s, 0) # insert (source vertex id, distance)
+        self.pq.insert(s, 0)
         self.closed = [False] * g.V
         while not self.pq.isEmpty():
-            # select vertices in order of distance from s
             dist, v = self.pq.delMin()
             self.closed[v] = True            
             for e in self.g.adj[v]:
@@ -306,9 +303,9 @@ class DijkstraSP(SP): # Inherit SP class
 
 class AcyclicSP(SP):
     def __init__(self, g, s):
-        super().__init__(g, s) # run the constructor of the parent class
+        super().__init__(g, s) 
         tpOrder = topologicalSortWithCycleDetection(g)
-        assert(tpOrder != None) # confirm no cycle
+        assert(tpOrder != None)
         for v in tpOrder:
            for e in self.g.adj[v]:
                 self.relax(e) 
@@ -338,7 +335,6 @@ class BellmanFordSP(SP):
 
 
 if __name__ == "__main__":
-    # Unit test for DirectedEdge
     e1 = DirectedEdge(2, 3, 0.1)
     e1a = DirectedEdge(2, 3, 0.1)
     e2 = DirectedEdge(3, 4, 0.9)
@@ -350,7 +346,6 @@ if __name__ == "__main__":
     print("e2 < e3", e2 < e3)
     print()
 
-    # Unit test for EdgeWeightedDigraph
     g1 = EdgeWeightedDigraph(8)
     g1.addEdge(4, 5, 0.35)
     g1.addEdge(5, 4, 0.35)
