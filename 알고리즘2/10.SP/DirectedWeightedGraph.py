@@ -315,12 +315,12 @@ class BellmanFordSP(SP):
     def __init__(self, g, s):
         super().__init__(g, s)
         self.q = Queue(maxsize=g.V)
-        self.onQ = [False] * g.V
+        self.onQ = [False] * g.V # 어떤 v가 Queue 내부에 있는지 빠르게 확인
         self.q.put(s)        
         self.onQ[s] = True
         while self.q.qsize() > 0:        
             v = self.q.get()
-            self.onQ[v] = False
+            self.onQ[v] = False # 어떤 v를 Queue에서 꺼냈으므로 False
             for e in self.g.adj[v]:
                 self.relax(e)
 
