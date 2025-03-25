@@ -247,19 +247,19 @@ Class that finds and stores shortest paths from a single source
 '''
     
 class SP:
-    def __init__(self, g, s): # Find shortest paths from s in graph g
+    def __init__(self, g, s): # 최단거리탐색
         if not isinstance(g, EdgeWeightedDigraph): raise Exception(f"{g} is not an EdgeWeightedDigraph")
         self.g, self.s = g, s
         self.validateVertex(s)        
-        self.edgeTo = [None] * g.V # edgeTo[w]: last edge on the shortest known path to w
-        self.distTo = [float('inf')] * g.V  # distTo[w]: shortest known distance to w
-        self.distTo[s] = 0
+        self.edgeTo = [None] * g.V # edgeTo[w]: 현재 노드의 이전 노드
+        self.distTo = [float('inf')] * g.V  # distTo[w]: 현재 노드까지의 최소 가중치합
+        self.distTo[s] = 0 # 출발점 - 0으로 초기화
 
     def pathTo(self, v):
         self.validateVertex(v)
         if not self.hasPathTo(v): raise Exception(f"no path exists to vertex {v}")
         path = []
-        e = self.edgeTo[v]
+        e = self.edgeTo[v] # 현재 노드 이전부터 시작 (a -> b -> c -> d -> e 라고 할 때 pathTo(e) : a -> b -> c -> d (시작점 제외 나머지 경로만 반환))
         while e != None:
             path.append(e)
             e = self.edgeTo[e.v]
@@ -268,60 +268,58 @@ class SP:
 
     def hasPathTo(self, v):
         self.validateVertex(v)
-        return self.distTo[v] < float('inf')
+        return self.distTo[v] < float('inf') # 가중치합이 무한대이면 아직 경로가 없고, 무한대보다 작으면 경로 존재
 
     def relax(self, e):
         assert(isinstance(e, DirectedEdge))        
-        if self.distTo[e.w] > self.distTo[e.v] +  e.weight:
-            self.distTo[e.w] = self.distTo[e.v] +  e.weight
-            self.edgeTo[e.w] = e
+        if self.distTo[e.w] > self.distTo[e.v] +  e.weight: # w까지의 기존 거리 (알려진 거리) > v까지의 기존 거리(v는 w의 전) + v-w 간선의 가중치
+            self.distTo[e.w] = self.distTo[e.v] +  e.weight # 새롭게 확장될 w 거리 업데이트
+            self.edgeTo[e.w] = e # 새롭게 확장된 w의 정보 업데이트 (e : v, w, weight)
 
     def validateVertex(self, v):
         if v<0 or v>=self.g.V: raise Exception(f"vertex {v} is not between 0 and {self.g.V-1}")
 
 
-class DijkstraSP(SP):
+class DijkstraSP(SP): # 상위클래스 : SP
     def __init__(self, g, s):
-        super().__init__(g, s)
-        self.pq = IndexMinPQ(g.V)
-        self.pq.insert(s, 0)
-        self.closed = [False] * g.V
-        while not self.pq.isEmpty():
-            dist, v = self.pq.delMin()
-            self.closed[v] = True            
-            for e in self.g.adj[v]:
-                if not self.closed[e.w]: self.relax(e)
+        super().__init__(g, s) # super().__init__ : 상속클래스 DijkstraSP 에서, 상위클래스 SP __init__() 메서드 사용
+        self.pq = IndexMinPQ(g.V) # indexedPQ 초기화
+        self.pq.insert(s, 0) # insert(정점, 최소 가중치합)
+        self.closed = [False] * g.V # 방문노드 표시 리스트 (다익스트라에선 한번이라도 방문한 노드를 두번다시 방문하지 않음)
+        while not self.pq.isEmpty(): 
+            dist, v = self.pq.delMin() # (최소 가중치합, 정점) 꺼내옴
+            self.closed[v] = True # 최소 가중치합을 가진 vertex에 방문 -> 방문처리
+            for e in self.g.adj[v]: # 해당 vertex 주변 vertex 가중치합 계산 및 업데이트
+                if not self.closed[e.w]: self.relax(e) # 방문하지 않은 vertex만 업데이트 (방문한 vertex라면 건들이지 않음)
 
-    def relax(self, e):
+    def relax(self, e): # relax 발동 조건 : 방문하지 않은 노드 (closed[v] = False)
         assert(isinstance(e, DirectedEdge))        
         if self.distTo[e.w] > self.distTo[e.v] +  e.weight:
             self.distTo[e.w] = self.distTo[e.v] +  e.weight
             self.edgeTo[e.w] = e
-            if self.pq.contains(e.w): self.pq.decreaseKey(e.w, self.distTo[e.w])
-            else: self.pq.insert(e.w, self.distTo[e.w])
-
+            if self.pq.contains(e.w): self.pq.decreaseKey(e.w, self.distTo[e.w]) # 만약 pq에 존재한다면, 최소가중치합 갱신 (감소)
+            else: self.pq.insert(e.w, self.distTo[e.w]) # 만약에 pq에 없다면, 새로 추가
 
 class AcyclicSP(SP):
     def __init__(self, g, s):
         super().__init__(g, s) 
-        tpOrder = topologicalSortWithCycleDetection(g)
+        tpOrder = topologicalSortWithCycleDetection(g) # tpOrder을 얻어옴
         assert(tpOrder != None)
-        for v in tpOrder:
+        for v in tpOrder: # tpOrder순으로 정점 v 선정
            for e in self.g.adj[v]:
-                self.relax(e) 
-
+                self.relax(e) # 상위클래스 SP에 있는 relax 발동
 
 class BellmanFordSP(SP):
     def __init__(self, g, s):
         super().__init__(g, s)
-        self.q = Queue(maxsize=g.V)
+        self.q = Queue(maxsize=g.V) # 큐의 최대 사이즈 고정시키고 시작
         self.onQ = [False] * g.V # 어떤 v가 Queue 내부에 있는지 빠르게 확인
-        self.q.put(s)        
-        self.onQ[s] = True
-        while self.q.qsize() > 0:        
-            v = self.q.get()
+        self.q.put(s) # 시작점 queue에 삽입
+        self.onQ[s] = True # queue에 존재하는 s를 True로 설정
+        while self.q.qsize() > 0:  
+            v = self.q.get() 
             self.onQ[v] = False # 어떤 v를 Queue에서 꺼냈으므로 False
-            for e in self.g.adj[v]:
+            for e in self.g.adj[v]: # 꺼낸 v에서 갈 수 있는 모든 vertex 탐색
                 self.relax(e)
 
     def relax(self, e):
@@ -329,9 +327,9 @@ class BellmanFordSP(SP):
         if self.distTo[e.w] > self.distTo[e.v] +  e.weight:
             self.distTo[e.w] = self.distTo[e.v] +  e.weight
             self.edgeTo[e.w] = e
-            if not self.onQ[e.w]:
-                self.q.put(e.w)
-                self.onQ[e.w] = True
+            if not self.onQ[e.w]: # queue에 없다면
+                self.q.put(e.w) # queue에 삽입
+                self.onQ[e.w] = True # queue에 존재하니 True
 
 
 if __name__ == "__main__":
