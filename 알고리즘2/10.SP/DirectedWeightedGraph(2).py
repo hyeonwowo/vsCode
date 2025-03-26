@@ -248,16 +248,16 @@ Class that finds and stores shortest paths from a single source
     
 class SP:
     def __init__(self, g, s):
-        if not isinstance(g, EdgeWeightedDigraph): raise Exception(f"{g} is not an EdgeWeightedDigraph")
+        if not isinstance(g, EdgeWeightedDigraph): raise Exception(f"{g} is not a EdgeWeightedDigraph")
         self.g, self.s = g, s
         self.validateVertex(s)
         self.edgeTo = [None] * g.V
         self.distTo = [float('inf')] * g.V
         self.distTo[s] = 0
-        
+    
     def pathTo(self, v):
         self.validateVertex(v)
-        if not self.hasPathTo(v): raise Exception(f"no path exists to vertex {v}")
+        if not self.hasPathTo(v): raise Exception(f"no path exists to vertex v")
         path = []
         e = self.edgeTo[v]
         while e != None:
@@ -265,49 +265,47 @@ class SP:
             e = self.edgeTo[e.v]
         path.reverse()
         return path
-
+    
     def hasPathTo(self, v):
-        self.validateVertex(v)
         return self.distTo[v] < float('inf')
     
     def relax(self, e):
-        assert(isinstance(e, DirectedEdge))
         if self.distTo[e.w] > self.distTo[e.v] + e.weight:
             self.distTo[e.w] = self.distTo[e.v] + e.weight
             self.edgeTo[e.w] = e
-
-    def validateVertex(self, v):
-        if v < 0 or v >=self.g.V: raise Exception(f"vertex {v} is not between 0 and {self.g.V-1}")
         
+    def validateVertex(self,v):
+        if v<0 or v>=self.g.V: raise Exception(f"vertex {v} is not between {self.g.V-1}")
+
 class DijkstraSP(SP):
     def __init__(self, g, s):
-        super().__init__(g, s)
+        super().__init__(g,s)
         self.pq = IndexMinPQ(g.V)
-        self.pq.insert(s, 0)
+        self.pq.insert(s,0)
         self.closed = [False] * g.V
         while not self.pq.isEmpty():
-            dist, v = self.pq.delMin()
+            dist,v = self.pq.delMin()
             self.closed[v] = True
             for e in self.g.adj[v]:
                 if not self.closed[e.w]: self.relax(e)
                 
     def relax(self, e):
-        assert(isinstance(e,DirectedEdge))
+        assert(isinstance(e, DirectedEdge))
         if self.distTo[e.w] > self.distTo[e.v] + e.weight:
             self.distTo[e.w] = self.distTo[e.v] + e.weight
             self.edgeTo[e.w] = e
             if self.pq.contains(e.w): self.pq.decreaseKey(e.w, self.distTo[e.w])
-            else: self.pq.insert(e.w, self.distTo[e.w])
-        
+            else: self.pq.insert(e.w, self.distTo[e.w])  
+                  
 class AcyclicSP(SP):
     def __init__(self, g, s):
-        super().__init__(g, s)
-        tpOrder = topologicalSortWithCycleDetection(g)
-        assert(tpOrder != None)
-        for v in tpOrder:
+        super().__init__(g,s)
+        tporder = topologicalSortWithCycleDetection(g)
+        assert(tporder != None)
+        for v in tporder:
             for e in self.g.adj[v]:
                 self.relax(e)
-                   
+                
 class BellmanFordSP(SP):
     def __init__(self, g, s):
         super().__init__(g, s)
@@ -320,7 +318,7 @@ class BellmanFordSP(SP):
             self.onQ[v] = False
             for e in self.g.adj[v]:
                 self.relax(e)
-                
+    
     def relax(self, e):
         assert(isinstance(e, DirectedEdge))
         if self.distTo[e.w] > self.distTo[e.v] + e.weight:
@@ -329,7 +327,7 @@ class BellmanFordSP(SP):
             if not self.onQ[e.w]:
                 self.q.put(e.w)
                 self.onQ[e.w] = True
-                
+        
 if __name__ == "__main__":
     e1 = DirectedEdge(2, 3, 0.1)
     e1a = DirectedEdge(2, 3, 0.1)
