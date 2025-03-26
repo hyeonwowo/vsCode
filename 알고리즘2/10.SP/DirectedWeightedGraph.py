@@ -283,7 +283,7 @@ class SP:
 class DijkstraSP(SP): # 상위클래스 : SP
     def __init__(self, g, s):
         super().__init__(g, s) # super().__init__ : 상속클래스 DijkstraSP 에서, 상위클래스 SP __init__() 메서드 사용
-        self.pq = IndexMinPQ(g.V) # indexedPQ 초기화
+        self.pq = IndexMinPQ(g.V) # indexedPQ 초기화 : indexedPQ에 정점(index)과, 해당 정점까지의 최소 가중치합(key) 저장
         self.pq.insert(s, 0) # insert(정점, 최소 가중치합)
         self.closed = [False] * g.V # 방문노드 표시 리스트 (다익스트라에선 한번이라도 방문한 노드를 두번다시 방문하지 않음)
         while not self.pq.isEmpty(): 
