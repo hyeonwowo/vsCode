@@ -44,7 +44,6 @@ def deque_operations():
 deque_operations()
 print()
 
-
 def set_operations():
     s = set()
     s.add(1)
