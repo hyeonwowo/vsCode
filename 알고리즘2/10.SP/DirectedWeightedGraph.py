@@ -31,9 +31,9 @@ class DirectedEdge: # 방향 가중치 간선 클래스
 Class for storing Weighted Digraphs
 '''
 class EdgeWeightedDigraph:
-    def __init__(self, V): # Constructor
-        self.V = V # Number of vertices
-        self.E = 0 # Number of edges
+    def __init__(self, V): # Vertex 수를 고정하고 시작
+        self.V = V # 정점 수
+        self.E = 0 # 간선 수
         self.adj = [[] for _ in range(V)]   # adj[v] is a list of vertices adjacent to v
         self.edges = []
 

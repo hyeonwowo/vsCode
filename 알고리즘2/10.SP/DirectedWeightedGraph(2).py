@@ -4,11 +4,94 @@ from queue import Queue
 import timeit
 
 class DirectedEdge: # 방향 가중치 간선 클래스
-
+    def __init__(self, v, w, weight):
+        self.v, self.w, self.weight = v, w, weight
+    def __lt__(self, other):
+        assert(isinstance(other, DirectedEdge))
+        return self.weight < other.weight
+    def __gt__(self, other):
+        assert(isinstance(other, DirectedEdge))
+        return self.weight > other.weight
+    def __eq__(self, other):
+        if other == None: return False
+        assert(isinstance(other, DirectedEdge))
+        return self.v == other.v and self.w == other.w and self.weight == other.weight
+    def __str__(self):
+        return f"{self.v}---{self.weight}---{self.w}"
+    def __repr__(self):
+        return self.__str__()
+    
 class EdgeWeightedDigraph:         
+    def __init__(self, V):
+        self.V = V
+        self.E = 0
+        self.adj = [[] for _ in range(g.V)]
+        self.edges = []
+    
+    def addEdge(self, v, w, weight):
+        e = DirectedEdge(v, w, weight)
+        self.adj[v].append(e)
+        self.edges.append(e)
+        self.E += 1
+        
+    def outDegree(self, v):
+        return len(self.adj[v])
+    
+    def __str__(self):
+        rtList = [f"{self.V} verrtices and {self.E} edges\n"]
+        for v in range(self.V):
+            for e in self.adj[v]: rtList.append(f"{e}\n")
+        return "".join(rtList)
+    
+    def negate(self):
+        g = EdgeWeightedDigraph(self.V)
+        for e in self.edges: g.addEdge(e.v, e.w, -e.weight)
+        return g
 
+    def reverse(self):
+        g = EdgeWeightedDigraph(self.V)
+        for e in self.edges: g.addEdge(e.w, e.v, e.weight)
+        return g
+    
+    @staticmethod
+    def fromFile(fileName):
+        filePath = Path(__file__).with_name(fileName)   # Use the location of the current .py file   
+        with filePath.open('r') as f:
+            phase = 0
+            line = f.readline().strip() # Read a line, while removing preceding and trailing whitespaces
+            while line:                                
+                if len(line) > 0:
+                    if phase == 0: # Read V, the number of vertices
+                        g = EdgeWeightedDigraph(int(line))
+                        phase = 1
+                    elif phase == 1: # Read edges
+                        edge = line.split()
+                        if len(edge) != 3: raise Exception(f"Invalid edge format found in {line}")
+                        g.addEdge(int(edge[0]), int(edge[1]), float(edge[2]))                        
+                line = f.readline().strip()
+        return g
+    
 class IndexMinPQ:
-
+    def __init__(self, maxN):
+        if maxN < 0: raise Exception("maxN < 0")
+        self.maxN = maxN
+        self.n = 0
+        self.keys = [None] * (maxN+1)
+        self.pq = [-1] * (maxN+1)
+        self.pq = [-1] * maxN
+        
+    def isEmpty(self):
+        return self.n == 0
+    
+    def contains(self, i):
+        self.vaildateIndex(i)
+        return self.pq[i] != -1
+    
+    def vaildateIndex(self, i):
+        if i<0: raise Exception(f"index {i} < 0")
+        if i>=self.maxN: raise Exception(f"index {i} > {self.maxN}")
+    
+    
 def topologicalSortWithCycleDetection(g):
     
 class SP:
