@@ -1,19 +1,19 @@
 class IndexedMinPQ:
     def __init__(self, maxN):
         self.maxN = maxN
-        self.n = 0
-        self.keys = [None] * maxN        # index i에 대한 key 값
-        self.pq = []                     # heap: (key, index)
-        self.index_pos = {}             # index → pq 내 위치
+        self.n = 0                                     # 현재 index를 사용하고 있는 key 수
+        self.keys = [None for _ in range(maxN)]        # index i에 대한 key 값 : pq 내부의 데이터를 배열에 저장
+        self.pq = []                     # heap: (key, index) : 실질적 heap 역할 수행
+        self.index_pos = {}             # index → pq 내 위치 : index - key 한쌍 저장
 
     def isEmpty(self):
         return self.n == 0
 
-    def contains(self, i):
-        return i in self.index_pos
+    def contains(self, i): # index [i] 사용 여부 확인 (=key값 배정 여부 확인)
+        return i in self.index_pos # i : index
 
-    def insert(self, i, key):
-        if self.contains(i):
+    def insert(self, i, key): # i : index, key : key
+        if self.contains(i): # index가 사용중이라면 해당 메시지 출력
             raise Exception(f"Index {i} already in PQ")
         self.keys[i] = key
         self.pq.append((key, i))
