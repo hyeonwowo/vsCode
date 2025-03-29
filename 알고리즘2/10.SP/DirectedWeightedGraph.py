@@ -97,117 +97,125 @@ Min Priority Queue based on a binary heap
     with decreaseKey operation added
 '''
 class IndexMinPQ:
-    def __init__(self, maxN): # Create an indexed PQ with indices 0 to (N-1)
+    def __init__(self, maxN):
         if maxN < 0: raise Exception("maxN < 0")
-        self.maxN = maxN # Max number of elements on PQ
-        self.n = 0 # Number of elements on PQ
-        self.keys = [None] * (maxN+1)  # keys[i]: key with index i
-        self.pq = [-1] * (maxN+1)  # pq[i]: index of the key at heap position i (pq[0] is not used)        
-        self.qp = [-1] * maxN # qp[i]: heap position of the key with index i (inverse of pq[])        
+        self.maxN = maxN                     # 저장 가능한 최대 index 수 (0 ~ maxN-1)
+        self.n = 0                           # 현재 PQ에 들어있는 원소 수
+        self.keys = [None] * (maxN + 1)      # 각 index에 대응되는 key값 저장 (index -> key)
+        self.pq = [-1] * (maxN + 1)          # 힙 구조: pq[i] = index, i는 힙에서의 위치
+        self.qp = [-1] * maxN                # 역관계: qp[index] = i (힙에서의 위치)
+        # ⇒ 항상 pq[qp[i]] == i, qp[pq[i]] == i 성립
 
     def isEmpty(self):
-        return self.n == 0
+        return self.n == 0                   # PQ가 비었는지 여부
 
-    def contains(self, i): # Is i an index on the PQ?
+    def contains(self, i):
         self.validateIndex(i)
-        return self.qp[i] != -1
+        return self.qp[i] != -1              # index i가 현재 PQ에 존재하는지 여부
 
     def size(self):
-        return self.n
+        return self.n                        # 현재 PQ에 들어있는 원소 수 반환
 
-    def insert(self, i, key): # Associate key with index i
+    def insert(self, i, key):
         self.validateIndex(i)
         if self.contains(i): raise Exception(f"index {i} is already in PQ")
         self.n += 1
-        self.qp[i] = self.n
-        self.pq[self.n] = i
-        self.keys[i] = key
-        self.swimUp(self.n)
+        self.qp[i] = self.n                  # index i는 힙의 self.n 위치에 들어감
+        self.pq[self.n] = i                  # 힙의 self.n 위치에 index i 배정
+        self.keys[i] = key                   # index i에 key 연결
+        self.swimUp(self.n)                  # 힙 위로 정렬
 
-    def minIndex(self): # Index associated with the minimum key
+    def minIndex(self):
         if self.n == 0: raise Exception("PQ has no element, so no min index exists")
-        return self.pq[1]
+        return self.pq[1]                    # 루트의 index 반환 (최소 key를 가진 index)
 
     def minKey(self):
         if self.n == 0: raise Exception("PQ has no element, so no min key exists")
-        return self.keys[self.pq[1]]
+        return self.keys[self.pq[1]]         # 루트의 key 반환 (최소 key)
 
     def delMin(self):
         if self.n == 0: raise Exception("PQ has no element, so no element to delete")
-        minIndex = self.pq[1]
+        minIndex = self.pq[1]                # 최소 key를 가진 index
         minKey = self.keys[minIndex]
-        self.exch(1, self.n)
-        self.n -= 1
-        self.sink(1)              
+        self.exch(1, self.n)                 # 루트와 마지막 원소 교환
+        self.n -= 1                          # 힙 크기 감소
+        self.sink(1)                         # 루트에서 아래로 정렬
         assert(minIndex == self.pq[self.n+1])
-        self.qp[minIndex] = -1 # Mark the index as being deleted
+        self.qp[minIndex] = -1               # 해당 index는 PQ에서 제거됨을 표시
         self.keys[minIndex] = None
-        self.pq[self.n+1] = -1
-        return minKey, minIndex
+        self.pq[self.n+1] = -1               # 더 이상 사용되지 않음
+        return minKey, minIndex              # 최소 key와 index 반환
 
     def keyOf(self, i):
         self.validateIndex(i)
         if not self.contains(i): raise Exception(f"index {i} is not in PQ")
-        else: return self.keys[i]
-        
+        return self.keys[i]                  # index i의 key 반환
+
     def changeKey(self, i, key):
         self.validateIndex(i)
         if not self.contains(i): raise Exception(f"index {i} is not in PQ")
-        self.keys[i] = key
-        self.swimUp(self.qp[i])
-        self.sink(self.qp[i])
+        self.keys[i] = key                   # key 갱신
+        self.swimUp(self.qp[i])              # 위로 정렬
+        self.sink(self.qp[i])                # 아래로 정렬 (양방향 가능성 고려)
 
     def decreaseKey(self, i, key):
         self.validateIndex(i)
         if not self.contains(i): raise Exception(f"index {i} is not in PQ")
-        if self.keys[i] == key: raise Exception(f"calling decreaseKey() with key {key} equal to the previous key")
-        if self.keys[i] < key: raise Exception(f"calling decreaseKey() with key {key} greater than the previous key {self.keys[i]}")
+        if self.keys[i] == key: raise Exception("new key is same as current key")
+        if self.keys[i] < key: raise Exception("new key is greater than current key")
         self.keys[i] = key
-        self.swimUp(self.qp[i])
+        self.swimUp(self.qp[i])              # 키가 줄었으므로 위로만 정렬
 
     def increaseKey(self, i, key):
         self.validateIndex(i)
         if not self.contains(i): raise Exception(f"index {i} is not in PQ")
-        if self.keys[i] == key: raise Exception(f"calling increaseKey() with key {key} equal to the previous key")
-        if self.keys[i] > key: raise Exception(f"calling increaseKey() with key {key} smaller than the previous key {self.keys[i]}")
+        if self.keys[i] == key: raise Exception("new key is same as current key")
+        if self.keys[i] > key: raise Exception("new key is less than current key")
         self.keys[i] = key
-        self.sink(self.qp[i])
+        self.sink(self.qp[i])                # 키가 커졌으므로 아래로만 정렬
 
     def delete(self, i):
         self.validateIndex(i)
         if not self.contains(i): raise Exception(f"index {i} is not in PQ")
-        idx = self.qp[i]
-        self.exch(idx, self.n)
+        idx = self.qp[i]                     # 힙에서의 위치
+        self.exch(idx, self.n)               # 마지막 원소와 교환
         self.n -= 1
-        self.swimUp(idx)
-        self.sink(idx)
+        self.swimUp(idx)                     # 교환 후 위로 정렬
+        self.sink(idx)                       # 아래로도 정렬
         self.keys[i] = None
-        self.qp[i] = -1   
+        self.qp[i] = -1                      # index 제거 표시
 
     def validateIndex(self, i):
         if i < 0: raise Exception(f"index {i} < 0")
         if i >= self.maxN: raise Exception(f"index {i} >= capacity {self.maxN}")
 
     def greater(self, i, j):
+        # 힙에서 i, j 위치의 key 비교
         return self.keys[self.pq[i]] > self.keys[self.pq[j]]
 
     def exch(self, i, j):
+        # 힙 위치 i, j의 index를 교환하고 qp도 함께 갱신
         self.pq[i], self.pq[j] = self.pq[j], self.pq[i]
         self.qp[self.pq[i]] = i
         self.qp[self.pq[j]] = j
 
-    def swimUp(self, idx): # idx is the index in pq[]
-        while idx>1 and self.greater(idx//2, idx):
-            self.exch(idx, idx//2)            
-            idx = idx//2
+    def swimUp(self, idx):
+        # 힙에서 위로 올라가며 key 정렬
+        while idx > 1 and self.greater(idx // 2, idx):
+            self.exch(idx, idx // 2)
+            idx = idx // 2
 
-    def sink(self, idx): # idx is the index in pq[]
-        while 2*idx <= self.n:    # If a child exists
-            idxChild = 2*idx # Left child
-            if idxChild<self.n and self.greater(idxChild, idxChild+1): idxChild = idxChild+1 # Find the smaller child
-            if not self.greater(idx, idxChild): break
-            self.exch(idx, idxChild) # Swap with (i.e., sink to) the greater child
+    def sink(self, idx):
+        # 힙에서 아래로 내려가며 key 정렬
+        while 2 * idx <= self.n:
+            idxChild = 2 * idx
+            if idxChild < self.n and self.greater(idxChild, idxChild + 1):
+                idxChild += 1
+            if not self.greater(idx, idxChild):
+                break
+            self.exch(idx, idxChild)
             idx = idxChild
+
 
 
 '''
