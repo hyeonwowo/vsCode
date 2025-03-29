@@ -78,7 +78,7 @@ class IndexMinPQ:
         self.n = 0
         self.keys = [None] * (maxN+1)
         self.pq = [-1] * (maxN+1)
-        self.pq = [-1] * maxN
+        self.qp = [-1] * maxN
         
     def isEmpty(self):
         return self.n == 0
