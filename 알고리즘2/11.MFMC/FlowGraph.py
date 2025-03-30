@@ -2,7 +2,7 @@ from pathlib import Path
 from queue import Queue
 import timeit
 
-class FlowEdge:
+class FlowEdge: # F/C 존재하는 간선 생성
     def __init__(self, v, w, capacity): # Create an edge v->w with a double capacity
         assert isinstance(v, int) and isinstance(w, int), f"v({v}) and/or w({w}) are not integers"
         assert v>=0 and w>=0, f"Vertices {v} and/or {w} have negative IDs"
@@ -86,17 +86,6 @@ class FlowNetwork:
         for e in self.edges: fn.addEdge(FlowEdge(e.v, e.w, e.capacity))
         return fn
 
-    '''
-    Create an FlowNetwork from a file
-        fileName: Name of the file that contains graph information as follows:
-            (1) the number of vertices, followed by
-            (2) one edge in each line, where an edge v->w with capacity is represented by "v w capacity"
-            e.g., the following file represents a digraph with 3 vertices and 2 edges
-            3
-            0 1 0.12
-            2 0 0.26
-        The file needs to be in the same directory as the current .py file
-    '''
     @staticmethod
     def fromFile(fileName):
         filePath = Path(__file__).with_name(fileName)   # Use the location of the current .py file   
@@ -140,11 +129,6 @@ def findAugmentingPathBFS(g, s):
 
     return edgeTo, visited
 
-
-'''
-Class that performs FordFulkerson algorithm to identify maxflow and mincut
-    and that stores the results
-'''
 class FordFulkerson:
     def __init__(self, g, s, t):        
         FlowNetwork.validateInstance(g)
@@ -258,7 +242,7 @@ class BaseballElimination:
 
 
 if __name__ == "__main__":
-    '''# Unit test for FlowEdge
+    # Unit test for FlowEdge
     e1 = FlowEdge(2,3,10)
     e1a = FlowEdge(2,3,10)
     e2 = FlowEdge(3,4,90)
@@ -283,9 +267,9 @@ if __name__ == "__main__":
 
     e1.addRemainingFlowTo(3, 5)
     e1.addRemainingFlowTo(2, 4)
-    print(e1.remainingCapacityTo(3), e1.remainingCapacityTo(2))'''
+    print(e1.remainingCapacityTo(3), e1.remainingCapacityTo(2))
 
-    '''# Unit test for FlowNetwork
+    # Unit test for FlowNetwork
     g8m = FlowNetwork(8)
     g8m.addEdge(FlowEdge(0,1,6))
     g8m.addEdge(FlowEdge(0,2,1))
@@ -333,9 +317,9 @@ if __name__ == "__main__":
     print("g8.adj[0]", g8.adj[0])
     print("g8.adj[2]", g8.adj[2])
     print("g8.adj[7]", g8.adj[7])
-    print()'''
+    print()
 
-    '''# Unit test for findAugmentingPathBFS
+    # Unit test for findAugmentingPathBFS
     g8 = FlowNetwork.fromFile("flownet8.txt")
     print(findAugmentingPathBFS(g8.copy(), 0))
     ff8 = FordFulkerson(g8, 0, g8.V-1)
@@ -346,9 +330,9 @@ if __name__ == "__main__":
     print()
     print("ff8.g", ff8.g)
     print()
-    print(findAugmentingPathBFS(ff8.g, 0))'''
+    print(findAugmentingPathBFS(ff8.g, 0))
 
-    '''
+    
     # Unit test for FordFulkerson
     g8 = FlowNetwork.fromFile("flownet8.txt")    
     ff8 = FordFulkerson(g8, 0, g8.V-1)
@@ -461,9 +445,9 @@ if __name__ == "__main__":
     print()
     print("ff12heros.g", ff12heros.g)
     print()
-    '''
+    
 
-    '''# Unit test for BaseballElimination
+    # Unit test for BaseballElimination
     be4 = BaseballElimination("teams4.txt")
     print(be4)
     be4.printResult()    
@@ -522,4 +506,4 @@ if __name__ == "__main__":
     if be12.isEliminated("Chile") == (True, ['Poland', 'USA', 'Brazil', 'Iran']): print("P ",end='')
     else: print("F ",end='')
     print()
-    print()'''
+    print()
