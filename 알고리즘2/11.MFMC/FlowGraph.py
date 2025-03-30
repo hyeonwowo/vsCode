@@ -66,7 +66,7 @@ class FlowNetwork:
         self.adj = [[] for _ in range(V)]   # adj[v] is a list of vertices adjacent to v
         self.edges = []
 
-    def addEdge(self, e): # Add edge v-w. Self-loops and parallel edges are allowed
+    def addEdge(self, e): # addEdge(FlowEdge(0,1,6))
         FlowEdge.validateInstance(e)
         assert 0<=e.v and e.v<self.V and 0<=e.w and e.w<self.V, f"Edge endpoints ({e.v},{e.w}) are out of the range 0 to {self.V-1}"
         self.adj[e.v].append(e) # Add forward edge
@@ -74,7 +74,7 @@ class FlowNetwork:
         self.edges.append(e)
         self.E += 1
 
-    def __str__(self):
+    def __str__(self): # 모든 정방향 간선 정보 출력
         rtList = [f"{self.V} vertices and {self.E} edges\n"]
         for v in range(self.V):
             for e in self.adj[v]: 
@@ -144,18 +144,18 @@ class FordFulkerson:
             # Compute bottleneck capacity along the augmenting path
             minflow = float('inf')
             v = t
-            while v != s: 
-                minflow = min(minflow, self.edgeTo[v].remainingCapacityTo(v))
+            while v != s: # t부터 s까지 경로를 따라 거슬러 올라가며, 각 간선의 잔여 용량(remainingCapacityTo)을 확인
+                minflow = min(minflow, self.edgeTo[v].remainingCapacityTo(v)) # 그 중 가장 작은 값이 바로 **현재 경로에서 보낼 수 있는 최대 유량(bottleneck)
                 v = self.edgeTo[v].other(v)
             
             # Add bottlenack capacity to the augmenting path
             v = t
-            while v != s:
-                self.edgeTo[v].addRemainingFlowTo(v, minflow)
+            while v != s: # 경로를 따라 다시 거슬러 올라가면서, bottleneck 만큼의 유량을 해당 간선에 추가
+                self.edgeTo[v].addRemainingFlowTo(v, minflow) # addRemainingFlowTo(v, minflow)는 해당 방향이 정방향이면 flow +=, 역방향이면 flow -= 수행
                 v = self.edgeTo[v].other(v)
         
             # Increase the amount of flow
-            self.flow += minflow
+            self.flow += minflow 
 
     # Perform BFS to find vertices reachable from s along with shortest paths to them
     def hasAugmentingPath(self):
