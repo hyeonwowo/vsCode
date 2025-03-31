@@ -40,11 +40,11 @@ class FlowEdge: # F/C 존재하는 간선 생성
         elif vertex == self.w: return self.capacity - self.flow
         else: self.invalidIndex(vertex)
     
-    def addRemainingFlowTo(self, vertex, delta): # Add delta flow toward vertex     
+    def addRemainingFlowTo(self, vertex, delta): # vertex 방향으로 delta만큼 유량을 흘리는 작업을 수행
         assert isinstance(delta, int) or isinstance(delta, float), f"Delta {delta} is neither an integer nor a floating-point number"
         assert delta <= self.remainingCapacityTo(vertex), f"Delta {delta} is greater than the remaining capacity {self.remainingCapacity(vertex)}"        
-        if vertex == self.v: self.flow -= delta
-        elif vertex == self.w: self.flow += delta
+        if vertex == self.v: self.flow -= delta # v < w 방향(역박향)이니까 - flow
+        elif vertex == self.w: self.flow += delta # v -> w 방향(정방향)이니까 + flow
         else: self.invalidIndex(vertex)
 
     def invalidIndex(self, i):
@@ -61,8 +61,8 @@ Class that represents Digraphs with Flow/Capacity
 class FlowNetwork:
     def __init__(self, V): # Constructor
         assert isinstance(V, int) and V >= 0, f"V({V}) is not an integer >= 0"
-        self.V = V # Number of vertices
-        self.E = 0 # Number of edges
+        self.V = V # vertex 개수
+        self.E = 0 # edge 개수
         self.adj = [[] for _ in range(V)]   # adj[v] is a list of vertices adjacent to v
         self.edges = []
 
@@ -112,7 +112,7 @@ class FlowNetwork:
 
 def findAugmentingPathBFS(g, s):
     FlowNetwork.validateInstance(g)
-    edgeTo = [None for _ in range(g.V)]
+    edgeTo = [None for _ in range(g.V)] # 해당 v로 가기위한 edge 정보 저장
     visited = [False for _ in range(g.V)]
         
     q = Queue()
@@ -120,7 +120,7 @@ def findAugmentingPathBFS(g, s):
     visited[s] = True
     while not q.empty():
         v = q.get()
-        for e in g.adj[v]:
+        for e in g.adj[v]: # 여기서 꺼내진 e는 FlowEdge() class 형태로 저장되어있음
             w = e.other(v)
             if e.remainingCapacityTo(w) > 0 and not visited[w]:
                 edgeTo[w] = e
@@ -174,7 +174,8 @@ class FordFulkerson:
                     self.visited[w] = True
                     q.put(w)
 
-        return self.visited[self.t] # Is t reachable from s with current flow assignment?
+        return self.visited[self.t] # visited[t]가 true라면, 목적지(t)까지 유량이 흐를만한 경로가 존재한다는 뜻. hasAugementingPath : True 반환.
+                                    # visited[t]가 False라면, 목적지(t)까지 유량이 흐를만한 경로가 없다는 뜻. hasAugementingPath : False 반환.
 
     def inCut(self, vertex): # Is vertex reachable from s with current flow assignment?
         assert vertex>=0 and vertex<self.g.V, f"vertex({vertex}) is not within 0 ~ {self.g.V-1}"
