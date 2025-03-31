@@ -146,13 +146,13 @@ class FordFulkerson:
             v = t
             while v != s: # t부터 s까지 경로를 따라 거슬러 올라가며, 각 간선의 잔여 용량(remainingCapacityTo)을 확인
                 minflow = min(minflow, self.edgeTo[v].remainingCapacityTo(v)) # 그 중 가장 작은 값이 바로 **현재 경로에서 보낼 수 있는 최대 유량(bottleneck)
-                v = self.edgeTo[v].other(v)
+                v = self.edgeTo[v].other(v) # 다음 vertex로 이동 (=경로이동)
             
             # Add bottlenack capacity to the augmenting path
             v = t
             while v != s: # 경로를 따라 다시 거슬러 올라가면서, bottleneck 만큼의 유량을 해당 간선에 추가
                 self.edgeTo[v].addRemainingFlowTo(v, minflow) # addRemainingFlowTo(v, minflow)는 해당 방향이 정방향이면 flow +=, 역방향이면 flow -= 수행
-                v = self.edgeTo[v].other(v)
+                v = self.edgeTo[v].other(v) # 다음 vertex로 이동 (=경로이동)
         
             # Increase the amount of flow
             self.flow += minflow 
