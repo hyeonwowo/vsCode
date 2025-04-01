@@ -27,3 +27,8 @@ print(list(result_list))
 import sys
 x, y, z, = map(int, sys.stdin.readline().split())
 print(x, y, z)
+
+
+# 리스트에 여러 요소 한번에 입력
+gradeArr = list(map(int, sys.stdin.readline().split()))
+print(gradeArr)

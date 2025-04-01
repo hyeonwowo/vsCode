@@ -13,3 +13,4 @@ if __name__ == "__main__":
     N, M = map(int, sys.stdin.readline().split())
     result = bucket(N, M)
     print(*result)
+    # print(*bucket(N,M)) 으로 대체 가능
