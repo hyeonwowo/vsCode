@@ -63,3 +63,66 @@ class FlowNetwork:
         newFlowNetwork = FlowNetwork(self.V)
         for e in self.edges:
             newFlowNetwork.addEdge(FlowEdge(e.v, e.w, e.capacity))
+        return newFlowNetwork
+    
+    @staticmethod
+    def fromFile(fileName):
+        filePath = Path(__file__).with_name(fileName)   # Use the location of the current .py file   
+        with filePath.open('r') as f:
+            phase = 0
+            line = f.readline().strip() # Read a line, while removing preceding and trailing whitespaces
+            while line:                                
+                if len(line) > 0:
+                    if phase == 0: # Read V, the number of vertices
+                        g = FlowNetwork(int(line))
+                        phase = 1
+                    elif phase == 1: # Read edges
+                        edge = line.split()
+                        assert len(edge) == 3, f"Invalid edge format found in {line}"
+                        if edge[2] == 'inf': g.addEdge(FlowEdge(int(edge[0]), int(edge[1]), float('inf')))                        
+                        else: g.addEdge(FlowEdge(int(edge[0]), int(edge[1]), float(edge[2])))                        
+                line = f.readline().strip()
+        return g
+
+    @staticmethod
+    def validateInstance(g):
+        assert isinstance(g, FlowNetwork), f"g={g} is not an instance of FlowNetwork"
+
+class FordFulkerson:
+    def __init__(self, g, s, t):
+        self.g = g.copy()
+        self.s, self.t = s, t
+        self.flow = 0.0
+        
+        while self.hasAugmentingPath():
+            minflow = float('inf')
+            v = t
+            while s != v:
+                minflow = min(minflow, self.edgeTo[v].remainingCapacity(v))
+                v = self.edgeTo[v].other(v)
+                
+            v = t
+            while s != v:
+                self.edgeTo[v].addRemainingFlowTo(v, minflow)
+                v = self.edgeTo[v].other(v)
+                
+            self.flow += minflow
+        
+    def hasAugmentingPath(self):
+        self.edgeTo = [None for _ in range(self.g.V)]
+        self.visited = [False for _ in range(self.g.V)]
+        
+        queue = Queue()
+        queue.put(self.s)
+        self.visited[self.s] = True
+        
+        while not queue.empty():
+            v = queue.get()
+            for e in self.g.adj[v]:
+                w = e.other(v)
+                if e.remainingCapacity(w) > 0 and not self.vistied[w]:
+                    queue.put(w)
+                    self.visited[w] = True
+                    self.edgeTo[w] = e
+        return self.visited[self.t]
+        

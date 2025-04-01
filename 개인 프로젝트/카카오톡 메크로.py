@@ -53,7 +53,7 @@ def wait_until(target_time):
 if __name__ == "__main__":
     recipient_name = "신현우"
     message_content = "멋진헛간 \n월 6-8\n 월 8-10\n 수 8-10"
-    target_time = datetime.now().replace(hour=17, minute=48, second=0, microsecond=0)
+    target_time = datetime.now().replace(hour=23, minute=44, second=0, microsecond=0)
 
     print(f"{target_time.strftime('%H:%M')}에 메시지를 전송합니다.")
     wait_until(target_time)

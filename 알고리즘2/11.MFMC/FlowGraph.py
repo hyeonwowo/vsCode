@@ -136,14 +136,13 @@ class FordFulkerson:
         assert t>=0 and t<g.V, f"t({t}) is not within 0 ~ {g.V-1}"
         assert s != t, f"s({s}) and t({t}) must be different"
 
-        self.g = g.copy() # Make a copy to not mutate the original graph
+        self.g = g.copy() # g4 = FlowNetwork.fromFile("flownet4.txt")   
         self.s, self.t = s, t
-
-        self.flow = 0.0
+        self.flow = 0.0 # 전체 flow
         while self.hasAugmentingPath():
             # Compute bottleneck capacity along the augmenting path
             minflow = float('inf')
-            v = t
+            v = t # BFS는 거꾸로 경로 정보를 저장, 따라서 해당 연산도 t에서 s로 연산 수행
             while v != s: # t부터 s까지 경로를 따라 거슬러 올라가며, 각 간선의 잔여 용량(remainingCapacityTo)을 확인
                 minflow = min(minflow, self.edgeTo[v].remainingCapacityTo(v)) # 그 중 가장 작은 값이 바로 **현재 경로에서 보낼 수 있는 최대 유량(bottleneck)
                 v = self.edgeTo[v].other(v) # 다음 vertex로 이동 (=경로이동)
@@ -239,8 +238,56 @@ class BaseballElimination:
     # Return (True, a list of team names responsible for the elimination), if teamName must be eliminated
     # Return (False, []), if teamName is NOT eliminated yet
     def isEliminated(self, teamName):
-        return True, []
+        x = self.team2id[teamName]
+        maxWins = self.wins[x] + self.remaining[x]
 
+        for i in range(self.numberOfTeams):
+            if i != x and self.wins[i] > maxWins:
+                return True, [self.teams[i]]
+
+        teamList = [i for i in range(self.numberOfTeams) if i != x]
+        teamIdMap = {team: idx for idx, team in enumerate(teamList)}
+        gNodes = []
+        totalGames = 0
+
+        for i in range(len(teamList)):
+            for j in range(i+1, len(teamList)):
+                team1 = teamList[i]
+                team2 = teamList[j]
+                games = self.against[team1][team2]
+                if games > 0:
+                    gNodes.append((team1, team2, games))
+                    totalGames += games
+
+        V = 2 + len(gNodes) + len(teamList)  
+        g = FlowNetwork(V)
+        s = 0
+        t = V - 1
+
+        for idx, (i, j, games) in enumerate(gNodes):
+            gameNode = idx + 1
+            g.addEdge(FlowEdge(s, gameNode, games))
+            teamNode1 = len(gNodes) + 1 + teamIdMap[i]
+            teamNode2 = len(gNodes) + 1 + teamIdMap[j]
+            g.addEdge(FlowEdge(gameNode, teamNode1, float('inf')))
+            g.addEdge(FlowEdge(gameNode, teamNode2, float('inf')))
+
+        for i in teamList:
+            teamNode = len(gNodes) + 1 + teamIdMap[i]
+            capacity = maxWins - self.wins[i]
+            g.addEdge(FlowEdge(teamNode, t, capacity))
+
+        ff = FordFulkerson(g, s, t)
+
+        if ff.flow < totalGames:
+            responsible = []
+            for i in teamList:
+                teamNode = len(gNodes) + 1 + teamIdMap[i]
+                if ff.inCut(teamNode):
+                    responsible.append(self.teams[i])
+            return True, responsible
+        else:
+            return False, []
 
 if __name__ == "__main__":
     # Unit test for FlowEdge
