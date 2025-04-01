@@ -10,3 +10,15 @@ print(line)
 
 x, y, z = sys.stdin.readline().split()
 print(x, y, z)
+
+# 배열 요소 한번에 바꾸기
+arr = [None for _ in range(5)]
+print(arr)
+x, y = 1, 3
+arr[x:y] = [99] * (y - x)
+print(arr)
+
+# * - unpacking 연산자
+arr = [1,2,3]
+print(arr) # [1,2,3]
+print(*arr) # 1 2 3

@@ -21,3 +21,9 @@ result_list = map(power,input_list)
 
 print(result_list)
 print(list(result_list))
+
+
+# 한번에 여러 요소 입력
+import sys
+x, y, z, = map(int, sys.stdin.readline().split())
+print(x, y, z)
