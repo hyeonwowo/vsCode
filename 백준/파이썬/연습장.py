@@ -1,2 +1,4 @@
-x, y, z = map(int, input("").split())
-print(x, y, z)
+arr = [None for i in range(5)]
+
+arr[1:4] = [99] * (4-1)
+print(arr)
