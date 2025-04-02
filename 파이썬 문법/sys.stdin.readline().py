@@ -9,6 +9,8 @@ import sys
 line = sys.stdin.readline()
 line = line.strip() # \n 제거
 
+line = sys.stdin.readline().strip() # \n 제거
+
 # 정수 여러개 입력
 x, y, z = map(int, input("").split()) # 기존 input 사용 (느림)
 x, y, z = map(int, sys.stdin.readline().split())
