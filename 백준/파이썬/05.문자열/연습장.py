@@ -1,4 +1,5 @@
-str = "12345"
+import sys
 
-for ch in str:
-    print(ch)
+st = list(sys.stdin.readline().split())
+print(st[0])
+print(st[1])
