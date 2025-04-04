@@ -1,5 +1,3 @@
-import sys
+lista = ['1234','5678']
 
-st = list(sys.stdin.readline().split())
-print(st[0])
-print(st[1])
+print(lista[0].reverse())

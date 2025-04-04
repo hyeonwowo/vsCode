@@ -26,3 +26,39 @@ print(len(lst)) # 2
 
 # N = input() 사용시 N은 문자열의 형태
 N = int(input()) # 정수로 사용하고 싶으면 변환해줘야함
+
+
+# 문자열뒤집기
+
+# 1.슬라이싱 사용 [::-1]
+s = "abc"
+reversed_s = s[::-1]
+print(reversed_s)  # 출력: cba
+
+# 2. reversed()함수 + join()
+s = "abc"
+reversed_s = ''.join(reversed(s))
+print(reversed_s)  # 출력: cba
+
+# 3. 반복문 사용 (직접 뒤집기)
+s = "abc"
+reversed_s = ""
+for ch in s:
+    reversed_s = ch + reversed_s
+print(reversed_s)  # 출력: cba
+
+
+# 4. 리스트로 바꿔서 뒤집기
+s = "abc"
+lst = list(s)
+lst.reverse()
+reversed_s = ''.join(lst)
+print(reversed_s)  # 출력: cba
+
+
+# 삼항 연산자
+def df(x,y):
+    return x if x>y else y
+
+print(df(2,3))
+print(df(3,2))
