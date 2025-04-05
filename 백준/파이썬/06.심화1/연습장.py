@@ -1,11 +1,16 @@
-import sys
+def isGroupWord(word):
+    st = set()
+    prev = ''
+    for ch in word:
+        if prev != ch:
+            if ch in st:
+                return False
+            st.add(ch)
+        prev = ch
 
-def modricAlpha(st):
-    dictlist = ["c=", "c-", "dz=", "d-", "lj", "nj", "s=", "z="]
-    for key in dictlist:
-        st = st.replace(key," ")
-    return len(st.replace(" ","")) + st.count(" ")
+def groupWordCount(N):
+    return sum(1 for _ in range(N) if isGroupWord(input().strip()))
 
 if __name__ == "__main__":
-    st = sys.stdin.readline().strip()
-    print(modricAlpha(st))
+    N = int(input())
+    print(groupWordCount(N))
