@@ -1,7 +1,7 @@
 import sys
 
 def modricAlpha(st):
-    stlist = list(st)
+    stlist = list(st) # 문자열을 리스트로 변경
     dictlist = ["dz=", "c=", "c-", "d-", "lj", "nj", "s=", "z="]  # "dz=" 먼저 처리 필수!
     count = 0
 
@@ -12,7 +12,7 @@ def modricAlpha(st):
             keylen = len(key)
             if ''.join(stlist[i:i+keylen]) == key:
                 stlist[i:i+keylen] = [None] * keylen
-                count += 1
+                count += 1 # 크로아티아알파벳 카운트 + 1
                 i += keylen
                 found = True
                 break
