@@ -16,6 +16,7 @@ print(sorted_word)
 def modricAlpha(st):
     dictlist = ["c=", "c-", "dz=", "d-", "lj", "nj", "s=", "z="]
     
+    # replace()는 새로운 문자열을 반환
     for key in dictlist:
         st = st.replace(key, " ")  # 해당 패턴을 공백(또는 한 글자)으로 치환
 

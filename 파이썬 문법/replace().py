@@ -1,4 +1,6 @@
 # replace() 메소드는 파이썬 문자열에서 아주 자주 쓰이는 강력하고 간단한 도구. 문자열에서 특정 부분을 찾아 다른것으로 바꿀 때 사용
+# new_str = replace("기존","새롭게 바꿀 거")
+# new_str = replace("기존","새롭게 바꿀 거",n) 여기서 n은 횟수
 
 # 1. 단순 문자열 치환
 text = "apple banana apple"
