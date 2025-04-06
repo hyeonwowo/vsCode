@@ -96,3 +96,14 @@ def reversearr(arr):
     return ' '.join(char for col in zip(*arr) for char in col)
 
 print(reversearr(arr))
+
+
+# 한번에 정수 여러개 입력
+x, y, z = map(int, sys.stdin.readline().split())
+
+# 정수 한개 입력
+x = int(sys.stdin.readline().split())
+
+# abs() : 절대값
+print(abs(-1))
+print(abs(1))
