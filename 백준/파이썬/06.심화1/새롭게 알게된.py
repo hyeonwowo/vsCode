@@ -1,3 +1,9 @@
+# 새롭게 알게된
+# 1. 딕셔너리 value or "key"값에 따른 정렬 : new_dict = sorted(dictA.items(), key = lambda x:x[0])
+# 2. 딕셔너리 "value" or key값에 따른 정렬 : new_dict = sorted(dictA.items(), key = lambda x:x[1])
+# 3. 문자열 내부 요소 확인 및 변환 : replace()
+# 4. 리스트 등 반복가능한 요소에서 조건을 만족하는 요소만 걸러냄 : filter()
+# 5. 반복 가능한 자료형의 모든 값을 누적하여 하나의 결과 도출 : reduce()
 # 딕셔너리 - Value or key 값에 따른 정렬
     
 word = {'B': 2, 'A': 5, 'C': 1}

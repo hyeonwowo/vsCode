@@ -1,3 +1,10 @@
+# 새롭게알게된
+# 1. 한번에 여러 요소 입력받기 : x, y, z = map(int, sys.stdin.readline().split())
+# 2. input보다 빠르게 데이터 입력받기 : sys.stdin.readline().split()
+# 3. 배열 요소 한번에 바꾸기 : arr[x:y] = [new_element] * (y-x)
+# 4. unpacking 연산자 : *arr
+
+
 # 한번에 여러 요소 입력받기 - map()
 x, y, z, = map(int, input("").split())
 print(x, y, z)
