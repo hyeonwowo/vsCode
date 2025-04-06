@@ -1,3 +1,18 @@
+# 새롭게 알게된
+# 1. 숫자 리스트 연결 : ''.join(map(str,afr))
+# 2. 2차원 배열의 순회 : for i, row in enumerate(arr):
+#                       for j, element in enumerate(row):
+# 3. 2차원 배열 생성 : [[0] * m for _ in range(n)]
+# 4. 2차원 배열의 row, col : row = len(arr), col = len(arr[0])
+# 5. 전치행렬 만들기 : [list(row) for row in zip(*arr)]
+# 6. 불규칙한 2차원 배열 처리 : 가장 긴 열(or행) 기준 ' '으로 채워넣어 정사각형 행렬로 만들어 필요한 연산 처리
+# 7. 세로방향 2차원 배열 처리 : for j in range(len(arr[0])):
+#                            for i in range(len(arr)):
+#                                 arr[i][j]
+# 8. zip()을 이용한 세로읽기 처리 : ' '.join(char for col in zip(*arr) for char in col)
+# 9. 절대값 : abs(-1)
+# 10. 2차원 배열을 좌표평면 치환 : x = i, y = (len(arr) - 1) - j
+
 # join : 리스트(or 반복 가능한 요소들)에 있는 "문자열"들을 하나로 연결
 # join() : 내부에 들어가는 인자는 반드시 str 형태
 # 1. 예제
