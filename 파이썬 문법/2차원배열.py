@@ -39,3 +39,20 @@ rows = len(arr)
 cols = len(arr[0])
 
 print(f"행의 개수: {rows}, 열의 개수: {cols}")
+
+
+# 2차원 배열의 생성
+n,m = 3, 3
+reverselst = [[0] * n for _ in range(m)]
+
+lst = [
+    [1,2,3],
+    [4,5,6],
+    [7,8,9]
+]
+
+for i, row in enumerate(lst):
+    for j, element in enumerate(row):
+        reverselst[j][i] = element
+print(lst)
+print(reverselst)

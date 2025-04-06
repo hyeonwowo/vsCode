@@ -1,6 +1,17 @@
-lst = [1,2,3,4,5]
+lst = [
+    [1,2,3],
+    [4,5,6],
+    [7,8,9],
+]
 
-for element in lst:
-    if element == 2:
-        continue
-    print(element)
+print(len(lst[0]))
+print(len(lst))
+
+reverselst = [[]*len(lst)]
+
+for i, row in enumerate(lst):
+    for j, element in enumerate(row):
+        reverselst[j][i] = element
+        
+print(lst)
+print(reverselst)
