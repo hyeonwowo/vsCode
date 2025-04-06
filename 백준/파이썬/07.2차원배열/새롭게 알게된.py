@@ -107,3 +107,16 @@ x = int(sys.stdin.readline().split())
 # abs() : 절대값
 print(abs(-1))
 print(abs(1))
+
+
+# 2차원 배열을 좌표평면으로 치환시
+def initSquare():
+    return [[0] * 10 for _ in range(10)]
+
+def fillSquare(page, x, y):
+    for i in range(10):
+        for j in range(10):
+            row = 9 - (y + j) # y좌표는 위로 갈수록 작아지므로 - (y + j)
+            col = x + i
+            page[row][col] = 1
+    return page
