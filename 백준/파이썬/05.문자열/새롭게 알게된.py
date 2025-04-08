@@ -70,3 +70,11 @@ def df(x,y):
 
 print(df(2,3))
 print(df(3,2))
+
+
+# 문자열과 reverse
+st = "abcdefg"
+print(st)
+print(reversed(st)) # 이터러블 형태로 반환
+print(list(reversed(st))) # 문자열이 뒤집히지만, 리스트 형태로 반환
+print(''.join(list(reversed(st)))) # 뒤집힌 문자열의 형태로 반환

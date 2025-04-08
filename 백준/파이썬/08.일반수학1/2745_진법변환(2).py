@@ -11,4 +11,5 @@ for digit in reversed(N):
         value = ord(digit) - 55
     result += value * (B ** power)
     power += 1
+
 print(result)

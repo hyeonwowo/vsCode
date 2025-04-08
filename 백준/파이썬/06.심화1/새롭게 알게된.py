@@ -4,8 +4,9 @@
 # 3. 문자열 내부 요소 확인 및 변환 : replace()
 # 4. 리스트 등 반복가능한 요소에서 조건을 만족하는 요소만 걸러냄 : filter()
 # 5. 반복 가능한 자료형의 모든 값을 누적하여 하나의 결과 도출 : reduce()
-# 딕셔너리 - Value or key 값에 따른 정렬
-    
+
+
+# 딕셔너리 - Value or key 값에 따른 정렬    
 word = {'B': 2, 'A': 5, 'C': 1}
 
 # key 기준 정렬
@@ -17,7 +18,7 @@ sorted_word = sorted(word.items(), key=lambda x: x[1], reverse=True)
 print(sorted_word)
 
 
-# replace() : 문자열을 끝까지 탐색해 치환
+# replace() : 문자열을 처음부터 끝까지 탐색해 치환 (중간에서 걸렸다고 끝내지 않고 무조건 끝까지 진행)
 def modricAlpha(st):
     dictlist = ["c=", "c-", "dz=", "d-", "lj", "nj", "s=", "z="]
     
