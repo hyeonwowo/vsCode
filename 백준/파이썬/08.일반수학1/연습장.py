@@ -1,14 +1,11 @@
-N, B = input().split()
-B = int(B)
+import sys
+import math
 
-result = 0
-power = 0
+def snail_fast(up, down, height):
+    length = up - down
+    result = ()
+    return result
 
-for digit in reversed(N):
-    if '0' <= digit <= '9':
-        value = int(digit)
-    else:
-        value = ord(digit) - 55
-    result += value * (B ** power)
-    power += 1
-print(result)
+if __name__ == "__main__":
+    A, B, V = map(int, sys.stdin.readline().split())
+    print(snail_fast(A, B, V))

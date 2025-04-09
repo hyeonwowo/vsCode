@@ -1,0 +1,5 @@
+print(4%5)
+print(4%6)
+print(4%7)
+print(4%8)
+print(4%9)
