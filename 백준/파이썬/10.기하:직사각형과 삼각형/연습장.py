@@ -1,6 +1,3 @@
-dicta = {
-    "a" : 1,
-    "b" : 2
-}
-
-print(dicta.get())
+set = {1,1,2}
+print(set)
+print(len(set))
