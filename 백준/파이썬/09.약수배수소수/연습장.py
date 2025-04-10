@@ -1,5 +1,7 @@
-print(4%5)
-print(4%6)
-print(4%7)
-print(4%8)
-print(4%9)
+x = 4
+y = 2
+
+if not 4//5:
+    print("x")
+else:
+    print("o")
