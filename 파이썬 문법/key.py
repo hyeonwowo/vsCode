@@ -28,3 +28,4 @@ top_student = max(students, key=lambda x:x['score'])
 top_studentt = min(students, key=lambda x:x['name'])
 print(top_student)
 print(top_studentt)
+
