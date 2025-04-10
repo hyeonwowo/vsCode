@@ -24,3 +24,20 @@ a, b = map(int, sys.stdin.readline().split()) # 한줄로 입력 ex) 10 20
 a = int(sys.stdin.readline()) # 여러줄로 입력 ex) 10
 b = int(sys.stdin.readline()) # 여러줄로 입력 ex) 20 
 
+
+# 소인수분해 while문 조건 
+n = 72
+i = 2 # i 는 2부터 시작
+lst = []
+
+while n % i != 0: 
+    if n % i == 0:
+        lst.append(i)
+        n = n // i
+    elif n % i != 0:
+        i += 1
+        
+        
+# n 이 i 로 나눠지지 않을 때의 조건 : % 사용 
+if n % i != 0: 
+    pass 
