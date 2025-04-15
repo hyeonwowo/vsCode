@@ -2,13 +2,13 @@ import sys
 
 def startPoint(lst,n,m):
     spx, spy = n - 8 + 1, m - 8 + 1
-    mincolor = float('int')
+    mincolor = float('inf')
     for x in range(spx+1):
         for y in range(spy+1):
             colorcount = colorChess(lst[x][y],lst)
             if mincolor > colorcount:
                 mincolor = colorcount
-    return colorcount
+    return mincolor
                 
 def colorChess(color,lst):
     count = 0

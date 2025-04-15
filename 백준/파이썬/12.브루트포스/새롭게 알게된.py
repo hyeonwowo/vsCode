@@ -27,3 +27,9 @@ print(lst)
 # 최소값 갱신문제 : 최소값은 무한대로, 최대값은 0으로 초기화 시키고 시작해야함. 그러지 않으면 영원히 갱신되지 않음
 minValue = float('inf') 
 maxValue = 0
+
+
+# 무한대정수 초기화 : float('inf)
+a = float('inf')
+print(a)            # 출력: inf
+print(a > 1000000)  # 출력: True
