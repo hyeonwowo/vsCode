@@ -10,21 +10,21 @@ def startPoint(lst,n,m):
             mincolor = min(mincolor, colorcount1, colorcount2)
     return mincolor
                 
-def colorChess(x, y, lst, start_color):
+def colorChess(x,y,lst,start_color):
     count = 0
-    for i in range(8):
-        for j in range(8):
-            if (i + j) % 2 == 0: # 짝수위치는 시작색과 동일
-                expected = start_color
-            else: # 홀수위치는 시작색과 반대
+    for row in range(8):
+        for col in range(8):
+            if (row + col) % 2 == 0:
+                expectedColor = start_color
+            else:
                 if start_color == 'W':
-                    expected = 'B'
+                    expectedColor = 'B'
                 else:
-                    expected = 'W'
-            if lst[x + i][y + j] != expected:
-                count += 1
+                    expectedColor = 'W'
+            if lst[x+row][y+col] != expectedColor:
+                count += 1            
     return count
-
+      
 if __name__ == "__main__":
     n,m = map(int, sys.stdin.readline().split())
     lst = [[] for _ in range(n)]
