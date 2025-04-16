@@ -30,3 +30,12 @@ print(names)         # ['banana', 'cherry', 'apple']
 
 
 # 파이썬에는 avg() 메서드가 없다 !
+
+# lst.sort()와 함수 인자
+def printlst(lst):
+    print(lst)
+    
+lst = [5,3,4,2,1]
+print(lst.sort()) # None 출력 : lst.sort() 는 lst를 수정하고, None을 반환
+lst.sort
+print(lst.sort()) # 정렬된 리스트 출력

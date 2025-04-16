@@ -2,7 +2,7 @@
 
 # sort() : 리스트만 사용 가능, 리스트 객체.sort()
 numbers = [3, 1, 4, 2]
-numbers.sort()
+numbers.sort() # numbers를 정렬하고, numbers.sort() 자체는 None 반환
 print(numbers)
 
 
