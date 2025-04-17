@@ -74,3 +74,14 @@ lst = [1,2,3]
 revlst = reversed(lst)
 print(list(revlst)) # [3,2,1]
 print(lst) # [1,2,3] : 원본은 그대로
+
+
+# 튜플로 감싸진 리스트 접근
+points = [(3,4),(1,-1),(2,5)]
+
+# case1) : 언팩하면서 접근 (더 깔끔)
+print('\n'.join(f"{x} {y}" for x, y in points))
+# case2) : 인덱스로 접근 (튜플일때)
+print('\n'.join(f"{point[0]} {point[1]}" for point in points))
+# caseX) : 이건 안됨
+print('\n'.join(f"{point.x} {point.y}" for point in points))
