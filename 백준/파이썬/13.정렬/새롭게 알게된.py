@@ -85,3 +85,16 @@ print('\n'.join(f"{x} {y}" for x, y in points))
 print('\n'.join(f"{point[0]} {point[1]}" for point in points))
 # caseX) : 이건 안됨
 print('\n'.join(f"{point.x} {point.y}" for point in points))
+
+
+# set 생성
+set1 = set()
+set2 = {1,1,2,2,3,3}
+set3 = set({1,1,2,3,3,4})
+
+
+# 리스트내 튜플 생성 : [(a,1),(b,2),(c,3)]
+lst = [tuple(sys.stdin.readline().split()) for _ in range(3)]
+
+# 리스트내 튜플 요소별 출력
+print('\n'.join(f"{age} {name}" for age, name in lst))
