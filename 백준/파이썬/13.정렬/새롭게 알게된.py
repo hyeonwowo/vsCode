@@ -39,3 +39,9 @@ lst = [5,3,4,2,1]
 print(lst.sort()) # None 출력 : lst.sort() 는 lst를 수정하고, None을 반환
 lst.sort
 print(lst.sort()) # 정렬된 리스트 출력
+
+
+# sys.stdout.write("") : 출력시 print()보다 더 빠른 속도 보장
+import sys
+element = 100
+sys.stdout.write(f"{element}\n")
