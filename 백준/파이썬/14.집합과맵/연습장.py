@@ -1,4 +1,4 @@
-set1 = {1,2,3,4,5}
+import sys
 
-if 1 in set1:
-    print("tt")
+date = sys.stdin.readline().split()[1]
+print(date)
