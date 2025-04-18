@@ -62,3 +62,37 @@ print(s2.isalpha())   # True
 print(s3.isalnum())   # True
 print(s4.isupper())   # True
 print(s5.isspace())   # True
+
+
+# int, str 등 type 확인 : isinstance()
+x = 123
+y = "123"
+
+print(isinstance(x,int))
+print(isinstance(x,str))
+print(isinstance(y,int))
+print(isinstance(y,str))
+
+
+# dict, lst, set등을 처리를 할 때 해당하는 element가 자료구조에 저장되지 않았을 때의 케이스를 고려하기
+
+
+# 집합 연산
+A={1,2,3,4}
+B={3,4,5,6}
+
+    # 합집합 (union)
+print(A|B)
+print(A.union(B))
+
+    # 교집합 (intersection)
+print(A&B)
+print(A.intersection(B))
+
+    # 차집합 (difference)
+print(A-B)
+print(A.difference(B))
+
+    # 대칭 차칩잡 (symmetric difference) : 서로 다른 요소만 포함
+print(A^B)
+print(A.symmetric_difference(B))

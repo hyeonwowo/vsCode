@@ -105,3 +105,10 @@ print(s)
 s = {1,2,3}
 s.add(frozenset([4,5]))
 print(s)
+
+
+
+# 리스트에 한번에 입력
+import sys
+inputlst = list(map(int, sys.stdin.readline().split()))
+print(inputlst)
