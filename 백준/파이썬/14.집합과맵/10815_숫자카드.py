@@ -1,12 +1,21 @@
 import sys
 
-def inputnumbercard(n):
+def inputdate(n):
     return list(map(int, sys.stdin.readline().split()))
 
-def outputnumbercard(m,lst):
-    input = set(lst)
-    output = set(list(map(int, sys.stdin.readline().split())))
+def outputdate(m,resin):
+    resout = list(map(int, sys.stdin.readline().split()))
+    dupresout = resout
+    setresult = set(resin) & set(resout)
+    
+    for i in range(len(resout)):
+        if dupresout[i] in setresult:
+            dupresout[i] = 1
+        else:
+            dupresout[i] = 0
+    return ' '.join(list(map(str,dupresout)))
 
 if __name__ == "__main__":
-    lst = inputnumbercard(int(input()))
-    outputnumbercard(int(input()),lst)
+    resin = inputdate(int(input()))
+    m = int(input())
+    print(outputdate(m,resin))
