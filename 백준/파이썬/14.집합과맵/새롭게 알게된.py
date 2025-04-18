@@ -26,3 +26,17 @@ print(log) # asdf asdf -> a
 
 logg = input()[0]
 print(logg) # asdf asdf -> a
+
+
+# 리스트는 순차탐색 O(n), set은 해시탐색 O(1) : 만약 둘다 사용 가능하다면 set을 사용하자
+
+# 한번에 두개 인자 받기
+def pocketmon():
+    pass
+print(pocketmon(*map(int, sys.stdin.readline().split())))
+
+
+# 숫자 -> 이름 : 이름 -> 숫자
+# 딕셔너리 두개 사용하는게 효율적 !
+name_to_num = {}
+num_to_name = {}

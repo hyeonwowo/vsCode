@@ -8,7 +8,7 @@ print(set1, set2)
 
 
 
-# 기본 연산
+# 기본 연산 : add / discard
 set1 = {1,2,3}
 set1.add(4) # list는 .append()
 set1.update([1,2,3,4,1,2,3,4]) # iterable(리스트, 튜플, 문자열, 딕셔너리, 세트) 등의 요소를 집합(set)에 추가. set.update(1,2,3,4) - 이런 형태는 안됨

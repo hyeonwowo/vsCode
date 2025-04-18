@@ -1,4 +1,6 @@
-import sys
+dict = {}
 
-date = sys.stdin.readline().split()[1]
-print(date)
+for i in range(5):
+    dict[i+1] = str(i)
+
+print(type(dict.keys()))

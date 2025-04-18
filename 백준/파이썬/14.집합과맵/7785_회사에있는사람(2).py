@@ -5,9 +5,9 @@ def companyLog(n):
     for _ in range(n):
         name, status = sys.stdin.readline().split()
         if status == "enter":
-            log.add(name)
+            set.add(name)
         else:
-            log.discard(name)  # 안전하게 제거
+            set.discard(name)
     return '\n'.join(sorted(log, reverse=True))
 
 if __name__ == "__main__":
