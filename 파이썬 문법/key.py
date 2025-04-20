@@ -3,8 +3,8 @@
 
 # 1) 문자열 리스트 정렬(길이기준)
 words = ['apple','banana','kiwi']
-sorted_words = sorted(words, key=len)
-min_word = min(words, key=len)
+sorted_words = sorted(words, key=len) # ['kiwi', 'apple', 'banana']
+min_word = min(words, key=len) # kiwi
 print(sorted_words)
 print(min_word)
 
@@ -15,7 +15,8 @@ dictA = {
     'b':50,
     'c':75
 }
-min_key = min(dictA, key=dictA.get)
+min_key = min(dictA, key=dictA.get) # b
+print(min_key)
 
 
 # 3) lambda와 함께 쓰기
