@@ -5,24 +5,18 @@ def gcd(a,b):
         a,b = b, a%b
     return a
 
-def lcm(a,b):
-    return (a*b) // gcd(a,b)
-
 def loadTree(n):
-    lst = []
-    for _ in range(n): # 거리 정보
-        lst.append(int(sys.stdin.readline().strip()))
+    lst = [int(sys.stdin.readline()) for _ in range(n)]
     
-    lst_blank = []
-    for i in range(1,n): # 간격 정보
-        lst_blank.append(lst[i] - lst[i-1])
-        
-    g = lst_blank[0]
-    for element in lst_blank[1:]:
-        g = gcd(g,element)
-        
-    lstb = [i for i in range(lst[0],n,g)]
-    return len(lst) - len(lstb)
-    
+    diffs = [lst[i+1] - lst[i] for i in range(n-1)]
+
+    g = diffs[0]
+    for d in diffs[1:]:
+        g = gcd(g, d)
+
+    # 총 필요한 나무 개수 = 전체 간격 // g
+    total_gaps = (lst[-1] - lst[0]) // g
+    return total_gaps - (n - 1)
+
 if __name__ == "__main__":
-    print(loadTree(int(input())))
+    print(loadTree(int(sys.stdin.readline())))
