@@ -102,7 +102,7 @@ print()
 
 
 
-# get() 함수 : dict.get("key")
+# get() 함수 : dict.get("key") : key값에 따른 Value값 출력
 dictTOT = {
     "name" : "son",
     "number" : 7,
