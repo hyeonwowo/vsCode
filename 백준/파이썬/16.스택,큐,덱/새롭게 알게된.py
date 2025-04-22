@@ -73,3 +73,14 @@ print()
 # 문자열과 join의 + 연산
 lst = [1,2,3,4,5,6,7]
 print("<" + ', '.join(map(str,lst))+">")
+
+
+# 클래스에서의 deque선언
+class Deque:
+    dq = deque()  # ❌ 클래스 변수 → 모든 인스턴스가 공유함
+    # 메인함수에서 덱을 하나만 호출했다면 상관이 없지만, 여러개를 호출하고 연산 수행시 상호간섭이 발생함.
+
+class Deque:
+    def __init__(self):
+        self.dq = deque()  # ✅ 인스턴스별로 독립된 덱을 호출하도록 코드 작성
+
