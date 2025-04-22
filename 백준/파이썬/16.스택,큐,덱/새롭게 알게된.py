@@ -67,3 +67,9 @@ dq.rotate(-2)       # dq: [1, 3, 4, 2]
 
 # 기타
 dq.clear()          # dq: []
+print()
+
+
+# 문자열과 join의 + 연산
+lst = [1,2,3,4,5,6,7]
+print("<" + ', '.join(map(str,lst))+">")
