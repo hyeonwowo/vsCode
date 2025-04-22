@@ -14,19 +14,24 @@ class Stack:
 
 def balance(str):
     myStack = Stack()
+    dictch ={
+        ")":"(",
+        "}":"{",
+        "]":"["
+    }
     for ch in str:
         if ch in "({[":
             myStack.push(ch)
         elif ch in ")}]":
             popelement = myStack.pop()
             if popelement == None: return "no"
-            if popelement != ch: return "no"
-    return "yes"
+            if popelement != dictch[ch]: return "no"
+    return "yes" if myStack.empty() else "no"
 
 if __name__ == "__main__":
     result = []
     while True:
-        ipt = sys.stdin.readline().rsplit()
-        if ipt == ".": break
-        result.append(balance(ipt))
+        str = sys.stdin.readline().rstrip()
+        if str == ".": break
+        result.append(balance(str))
     print('\n'.join(result))
