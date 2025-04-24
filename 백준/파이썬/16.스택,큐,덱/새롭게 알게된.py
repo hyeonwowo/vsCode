@@ -84,3 +84,25 @@ class Deque:
     def __init__(self):
         self.dq = deque()  # ✅ 인스턴스별로 독립된 덱을 호출하도록 코드 작성
 
+
+# rotate : 리스트 회전 기능 제공
+dq = deque([1,2,3,4,5])
+
+dq.rotate(1)  # 오른쪽으로 1칸 회전 = 오른쪽으로 1칸 밀기
+print(dq)     # 출력: deque([5, 1, 2, 3, 4])
+
+dq.rotate(-2) # 왼쪽으로 2칸 회전 = 왼쪽으로 2칸 밀기
+print(dq)     # 출력: deque([2, 3, 4, 5, 1])
+
+
+# 일반 List에서는 rotate() 제공하지 않음. 리스트 회전 필요시 deque사용 혹은 슬라이싱 활용
+lst = [1,2,3,4,5]
+rotatedlst = lst[-1:] + lst[:-1] # 오른쪽으로 1칸 회전
+print(rotatedlst) # 출력: [5, 1, 2, 3, 4]
+
+
+# 절대값 : abs()
+print(abs(-1))
+print(abs(-2))
+print(abs(-3))
+print(abs(-4))
