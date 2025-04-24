@@ -1,6 +1,10 @@
-n = int(input())
+from collections import deque
 
-result = 1
-for i in range(1,n+1):
-    result *= i
-print(result)
+mydeque = deque()
+mydeque.append(1)
+mydeque.append(2)
+mydeque.append(3)
+mydeque.append(4)
+mydeque.append(5)
+
+print(mydeque.pop(3))
