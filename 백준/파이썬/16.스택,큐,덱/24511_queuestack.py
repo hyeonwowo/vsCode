@@ -36,9 +36,11 @@ def insertdata():
 def main(N,DS,B,M,C):
     for i in range(1,N+1):
         if DS[i] == 0:
-            
+            mystack[i] = Stack()
+            mystack.append(B[i-1])
         else:
-            pass
+            myqueue[i] = Queue()
+            myqueue.append(B[i-1])
 
 if __name__ == "__main__":
     print(main(insertdata()))

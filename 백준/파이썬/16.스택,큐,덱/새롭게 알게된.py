@@ -106,3 +106,72 @@ print(abs(-1))
 print(abs(-2))
 print(abs(-3))
 print(abs(-4))
+
+
+
+# empty()를 만들기보다, 스택 리스트 자체를 넣어 간편하게 비어있는지 아닌지 확인하기
+class Stack:
+    def __init__(self):
+        self.stack = []
+    def push(self,x):
+        self.stack.append(x)
+    def pop(self):
+        return self.stack.pop() if self.stack else None
+
+
+
+# 자료구조를 사용자 입력 n개만큼 동적으로 생성하고 관리하는 방법 정리
+class Stack:
+    def __init__(self):
+        self.stack = []
+    def push(self, x):
+        self.stack.append(x)
+    def pop(self):
+        return self.stack.pop() if self.stack else None
+    def __repr__(self):
+        return f"Stack: {self.stack}"
+
+class Queue:
+    def __init__(self):
+        self.queue = []
+    def enqueue(self, x):
+        self.queue.append(x)
+    def dequeue(self):
+        return self.queue.pop(0) if self.queue else None
+    def __repr__(self):
+        return f"Queue: {self.queue}"
+
+
+n = int(input("몇 개의 자료구조를 만들까요? "))
+datestructurelst = []
+
+for i in range(n):
+    if i % 2 == 0:
+        datestructurelst.append(Stack())
+    else:
+        datestructurelst.append(Queue())
+
+datestructurelst[0].push(1)
+datestructurelst[0].push(2)
+datestructurelst[0].push(3)
+
+datestructurelst[1].enqueue(1)
+datestructurelst[1].enqueue(2)
+datestructurelst[1].enqueue(3)
+
+print("\n[Stack pops]")
+print(datestructurelst[0].pop())  # 3
+print(datestructurelst[0].pop())  # 2
+print(datestructurelst[0].pop())  # 1
+
+print("\n[Queue dequeues]")
+print(datestructurelst[1].dequeue())  # 1
+print(datestructurelst[1].dequeue())  # 2
+print(datestructurelst[1].dequeue())  # 3
+
+# 어떤 자료구조인지 확인 : isinstance 사용
+for i, ds in enumerate(datestructurelst):
+    if isinstance(ds, Stack):
+        print(f"{i}번째는 Stack입니다.")
+    elif isinstance(ds, Queue):
+        print(f"{i}번째는 Queue입니다.")
