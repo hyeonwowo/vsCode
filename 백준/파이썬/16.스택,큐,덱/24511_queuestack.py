@@ -1,46 +1,48 @@
 import sys
 from collections import deque
 
+input = sys.stdin.readline
+
 class Stack:
-    def __init__(self):
-        self.stack = []
-    def empty(self):
-        if self.stack: return 0
-        return 1
-    def push(self,x):
+    def __init__(self, val):
+        self.stack = [val]
+    def push(self, x):
         self.stack.append(x)
     def pop(self):
-        if self.empty(): return None
-        return self.stack[-1]
+        return self.stack.pop()
 
 class Queue:
-    def __init__(self):
-        self.queue = deque()
-    def empty(self):
-        if self.queue: return 0
-        return 1
-    def enqueue(self,x):
+    def __init__(self, val):
+        self.queue = deque([val])
+    def push(self, x):
         self.queue.append(x)
-    def dequeue(self):
-        if self.empty(): return None
+    def pop(self):
         return self.queue.popleft()
 
-def insertdata():
+def main():
     N = int(input())
-    DS = list(map(int, sys.stdin.readline().split()))
-    B = list(map(int, sys.stdin.readline().split()))
+    A = list(map(int, input().split()))
+    B = list(map(int, input().split()))
     M = int(input())
-    C = list(map(int, sys.stdin.readline().split()))
-    return N,DS,B,M,C
+    C = list(map(int, input().split()))
 
-def main(N,DS,B,M,C):
-    for i in range(1,N+1):
-        if DS[i] == 0:
-            mystack[i] = Stack()
-            mystack.append(B[i-1])
+    datastructures = []
+
+    for i in range(N):
+        if A[i] == 0:
+            datastructures.append(Queue(B[i]))
         else:
-            myqueue[i] = Queue()
-            myqueue.append(B[i-1])
+            datastructures.append(Stack(B[i]))
+
+    result = []
+    for val in C:
+        x = val
+        for ds in datastructures:
+            ds.push(x)
+            x = ds.pop()
+        result.append(x)
+
+    print(*result)
 
 if __name__ == "__main__":
-    print(main(insertdata()))
+    main()
