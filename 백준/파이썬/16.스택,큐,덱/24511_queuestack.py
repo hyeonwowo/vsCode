@@ -1,48 +1,24 @@
 import sys
-from collections import deque
-
 input = sys.stdin.readline
-
-class Stack:
-    def __init__(self, val):
-        self.stack = [val]
-    def push(self, x):
-        self.stack.append(x)
-    def pop(self):
-        return self.stack.pop()
-
-class Queue:
-    def __init__(self, val):
-        self.queue = deque([val])
-    def push(self, x):
-        self.queue.append(x)
-    def pop(self):
-        return self.queue.popleft()
 
 def main():
     N = int(input())
-    A = list(map(int, input().split()))
-    B = list(map(int, input().split()))
+    structure_types = list(map(int, input().split()))  # A 배열
+    initial_values = list(map(int, input().split()))   # B 배열
+    
+    queue_data = [initial_values[i] for i in range(N) if structure_types[i] == 0]
+    queue_data.reverse()  # queuestack의 흐름 보정
+
     M = int(input())
-    C = list(map(int, input().split()))
+    input_sequence = list(map(int, input().split()))  # C 배열
 
-    datastructures = []
-
-    for i in range(N):
-        if A[i] == 0:
-            datastructures.append(Queue(B[i]))
-        else:
-            datastructures.append(Stack(B[i]))
-
-    result = []
-    for val in C:
-        x = val
-        for ds in datastructures:
-            ds.push(x)
-            x = ds.pop()
-        result.append(x)
-
-    print(*result)
+    if len(queue_data) >= M:
+        print(*queue_data[:M])
+    elif len(queue_data) == 0:
+        print(*input_sequence[:M])
+    else:
+        print(*queue_data, end=' ')
+        print(*input_sequence[:M - len(queue_data)])
 
 if __name__ == "__main__":
     main()
