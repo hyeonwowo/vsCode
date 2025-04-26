@@ -6,9 +6,9 @@ def chongchong(n):
     for _ in range(n):
         usera, userb = sys.stdin.readline().split()
         if usera in myset:
-            myset.add(usera)
-        elif userb in myset:
             myset.add(userb)
+        elif userb in myset:
+            myset.add(usera)
     return len(myset)
 
 if __name__ == "__main__":
