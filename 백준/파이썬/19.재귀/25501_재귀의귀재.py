@@ -14,7 +14,9 @@ def main(n):
     for _ in range(n):
         word = sys.stdin.readline().strip()
         result.append(isPalindrome(word))
-    return '\n'.join(*map(str, result))
+        
+    for a,b in result:
+        print(a,b)
 
 if __name__ == "__main__":
-    print(main(int(input())))
+    main(int(input()))
