@@ -1,21 +1,24 @@
 import sys
 
-def OX(n):
-    result = []
-    for _ in range(n):
-        result.append(str(findsolution(sys.stdin.readline().strip())))
-    return '\n'.join(result)
+def draw_star(n):
+    if n == 3: return "***\n* *\n***"
+    else:
+        prev = draw_star(3 ** n-1)
+        new = ""
     
-def findsolution(lst):
-    count = 0
-    temp = 1
-    for ch in lst:
-        if ch == 'O':
-            count += temp 
-            temp += 1
-        elif ch == 'X': 
-            temp = 1
-    return count
-
+        # top
+        for _ in range(3):
+            new += prev * 3
+        
+        # middle
+        new += prev
+        new += " " * 3
+        new += prev
+        
+        # bottom
+        for _ in range(3):
+            new += prev * 3
+            
+        return new
 if __name__ == "__main__":
-    print(OX(int(input())))
+    print(draw_star(int(input())))
