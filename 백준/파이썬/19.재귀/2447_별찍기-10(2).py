@@ -1,33 +1,25 @@
 import sys
 
 def draw_star(n):
-    if n == 1:
-        return ['***', '* *', '***']
+    if n == 1: return ['***','* *','***']
     else:
         prev = draw_star(n-1)
-        size = len(prev)
         new = []
-        
-        # 위쪽: prev + prev + prev
+        print(len(prev)) # 1 - 3 - 9 - 27 ..
+        # top
         for line in prev:
             new.append(line * 3)
-        
-        # 가운데: prev + 공백 + prev
+        # middle
         for line in prev:
-            new.append(line + ' ' * size + line)
-        
-        # 아래쪽: prev + prev + prev
+            new.append(line + ' '*len(prev) + line)
+        # bottom
         for line in prev:
             new.append(line * 3)
         
         return new
+    
+def main(lst):
+    return '\n'.join(lst)
 
 if __name__ == "__main__":
-    n = int(sys.stdin.readline())
-    k = 0
-    while 3 ** k != n:
-        k += 1
-
-    result = draw_star(k)
-    for line in result:
-        print(line)
+    print(main(draw_star(int(input()))))

@@ -1,24 +1,25 @@
 import sys
 
 def draw_star(n):
-    if n == 3: return "***\n* *\n***"
+    if n == 1: return ['***','* *','***']
     else:
-        prev = draw_star(3 ** n-1)
-        new = ""
-    
+        prev = draw_star(n-1)
+        new = []
+        print(len)
         # top
-        for _ in range(3):
-            new += prev * 3
-        
+        for line in prev:
+            new.append(line * 3)
         # middle
-        new += prev
-        new += " " * 3
-        new += prev
-        
+        for line in prev:
+            new.append(line + ' '*len(prev) + line)
         # bottom
-        for _ in range(3):
-            new += prev * 3
-            
+        for line in prev:
+            new.append(line * 3)
+        
         return new
+    
+def main(lst):
+    return '\n'.join(lst)
+
 if __name__ == "__main__":
-    print(draw_star(int(input())))
+    print(main(draw_star(int(input()))))
