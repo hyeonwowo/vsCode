@@ -1,12 +1,12 @@
 import sys
 
-def backtracking(k):
+def backtracking(k): # 매개인자 - 행
     global cnt
     for i in range(N): # 열 번호를 순회
         if queen(k,i): # k번째 행, i번째 열. queen() 검사를 통과하면, k번째행의 i번째 열에 queen 배치
             board[k] = i
             if k == N-1: # 전체 queen의 수가 N-1개라면(0~N-1) cnt리턴
-                cnt += 1
+                cnt += 1 # cnt는, 여러곳에서 호출된 함수 backtracking의 이곳저곳에서 동시에 다뤄짐
                 return
             else:
                 backtracking(k+1) # 아니라면 다음행으로 이동
