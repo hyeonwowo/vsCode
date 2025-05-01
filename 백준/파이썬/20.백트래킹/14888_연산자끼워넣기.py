@@ -9,6 +9,7 @@ def backtrack(depth, total, plus, minus, multiply, divide):
         mincnt = min(total, mincnt)
         return
     
+    # if문이 여러개라 하나에 걸리면 backtrack() 다음으로 넘어가는게 아니라, plus에서도 실행, minus에서도 실행, .. 조건에 성립하면 모든 if문을 작동시켜서 트리처럼
     if plus:
         backtrack(depth + 1, total + num[depth], plus - 1, minus, multiply, divide)
     if minus:
@@ -23,7 +24,7 @@ def backtrack(depth, total, plus, minus, multiply, divide):
 
 if __name__ == "__main__":
     mincnt = float('inf')
-    maxcnt = -float('inf')  # 여기 수정!
+    maxcnt = -float('inf') 
     N = int(sys.stdin.readline())
     num = list(map(int, sys.stdin.readline().split()))
     op = list(map(int, sys.stdin.readline().split()))
