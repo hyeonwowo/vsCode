@@ -1,6 +1,6 @@
 import sys
 
-def backtrack(k):
+def backtracking(k):
     global cnt
     for i in range(N):
         if queen(k,i):
@@ -9,7 +9,7 @@ def backtrack(k):
                 cnt += 1
                 return
             else:
-                backtrack(k+1)
+                backtracking(k+1)
 
 def queen(a,b):
     for i in range(a):
@@ -18,8 +18,8 @@ def queen(a,b):
     return True
 
 if __name__ == "__main__":
-    N = int(input())
+    N = int(sys.stdin.readline())
     board = [0] * N
     cnt = 0
-    backtrack(0)
+    backtracking(0)
     print(cnt)
