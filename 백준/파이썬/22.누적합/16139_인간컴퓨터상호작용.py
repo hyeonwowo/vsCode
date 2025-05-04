@@ -1,9 +1,29 @@
 import sys
+input = sys.stdin.readline
 
-alphaPrev = [[] for _ in range(26)] # a ~ z 까지 prev를 저장할 이중 리스트 생성 (전역)
+alphaPrev = [[0] for _ in range(26)] 
 
-def wordcount(alpha, a, b):
-    pass
+def wordcount():
+    for i in range(wordlen):
+        for j in range(26):
+            alphaPrev[j].append(alphaPrev[j][-1])
+        idx = ord(word[i]) - ord('a')
+        alphaPrev[idx][-1] += 1 
 
 if __name__ == "__main__":
-    pass
+    word = input().strip()
+    wordlen = len(word)
+    inputcount = int(input())
+    result = []
+
+    wordcount()
+
+    for _ in range(inputcount):
+        ch, a, b = input().split()
+        a = int(a)
+        b = int(b)
+        idx = ord(ch) - ord('a')
+        res = alphaPrev[idx][b+1] - alphaPrev[idx][a]
+        result.append(str(res))
+
+    print('\n'.join(result))
