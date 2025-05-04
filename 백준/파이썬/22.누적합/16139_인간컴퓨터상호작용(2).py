@@ -1,4 +1,4 @@
-import sys
+import sys # 50점 부분성공 코드
 
 def humancomp(wd,a,b):
     return str(st[a:b+1].count(wd))
