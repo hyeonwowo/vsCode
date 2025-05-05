@@ -15,6 +15,10 @@ sudoku = [list(map(int, sys.stdin.readline().split())) for _ in range(9)] # [[ma
 print(sudoku)
 
 
+# 입력한 2차원 배열 출력
+for row in sudoku:
+    print(*row)
+
 # count() : 리스트 내에서 특정 값이 몇번 등장하는지 카운팅
 lst = [1,0,2,0,3,5,0]
 print(lst.count(0))
@@ -25,3 +29,6 @@ numlst    = [10, 20, 30, 40, 50]
 prevsum   = [0, 10, 30, 60, 100, 150]  # 인덱스 1부터 의미 있음
 
 # ex) 구간 [2, 4]의 합 = prevsum[4] - prevsum[1] = 100 - 10 = 90
+
+
+# sys.exit() : 실행중인 파이썬 프로그램을 종료시킴. 0 - 정상종료, 1(0이 아닌 모든값) - 비정상종료. "message" - 메시지를 출력하고 비정상 종료

@@ -1,25 +1,26 @@
 import sys
 
-def backtrack(k):
+def nqueen(k):
     global cnt
-    for i in range(N):
-        if queen(k,i):
-            board[k] = i
-            if k == N-1:
-                cnt += 1
-                return
-            else:
-                backtrack(k+1)
+    if k == N:
+        cnt += 1
+        return
+    else:
+        for i in range(N):
+            if isqueen(k,i):
+                board[k] = i
+                nqueen(k+1)
 
-def queen(a,b):
+def isqueen(a,b):
     for i in range(a):
-        if board[i] == b or abs(board[i] - b) == abs(i - a):
-            return True
-    return False
+        if board[i] == b or abs(board[i]-b) == abs(i-a):
+            return False
+    return True
 
 if __name__ == "__main__":
     N = int(sys.stdin.readline())
     cnt = 0
     board = [0] * N
-    backtrack(0)
+    nqueen(0)
     print(cnt)
+    
