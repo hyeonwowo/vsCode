@@ -1,5 +1,12 @@
-lst = [1,2,3,4,5,6,7,8,9]
-a = 111
+import sys
 
-if a not in lst:
-    print("AA")
+def findparent(a,b):
+    
+    return str()
+
+if __name__ == "__main__":
+    n = int(sys.stdin.readline())
+    result = []
+    for _ in range(n):
+        result.append(findparent(*map(int, sys.stdin.readline().split())))
+    print('\n'.join(result))
