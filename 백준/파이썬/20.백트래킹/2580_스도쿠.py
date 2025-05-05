@@ -1,4 +1,4 @@
-import sys
+import sys # 시간 빠름 (gpt코드)
 
 def find_candidates(x, y):
     used = set()

@@ -1,39 +1,40 @@
-import sys
+import sys # 개선사항 필요(오류수정, 시간단축)
 
-def sudoku(idx):
-    # ✅ 개선 1: 모든 빈칸을 미리 리스트로 저장하고, 그 인덱스를 따라가며 채움
-    # 기존 코드에서는 매번 9x9를 돌면서 0을 찾았지만, 이 방식은 한 번만 찾고 끝남
-    if idx == len(zero_positions):  # 모든 빈칸을 채웠다면
+def sudoku(cnt):
+    if cnt == zerocnt:
         for row in board:
-            print(*row)
-        sys.exit(0)  # ✅ 개선 2: 첫 정답에서 바로 종료 (기존과 동일)
-    
-    x, y = zero_positions[idx]  # 미리 저장된 빈칸 좌표를 가져옴
-    for num in findnum(x, y):  # 현재 위치에 넣을 수 있는 수들을 하나씩 시도
-        board[x][y] = num
-        sudoku(idx + 1)  # 다음 빈칸으로
-        board[x][y] = 0  # 백트래킹: 원상 복구
-
-def findnum(x, y):
-    candidates = set(range(1, 10))  # ✅ 개선 3: set(range(1, 10)) 으로 더 간결하게 만듦
-
-    # 행, 열에서 숫자 제거
+            print(*row) 
+        sys.exit(0)
+    else:
+        for i in range(9):
+            for j in range(9):
+                if board[i][j] == 0:
+                    numlst = findnum(i,j)
+                    for element in numlst:
+                        board[i][j] = element
+                        sudoku(cnt+1)
+                        # 되돌리는 로직 추가
+                        board[i][j] = 0 # 백트래킹에 있어 필수적
+                        
+def findnum(x,y): # 찾기
+    numlst = set([1,2,3,4,5,6,7,8,9])
     for k in range(9):
-        candidates.discard(board[x][k])
-        candidates.discard(board[k][y])
+        a, b = board[x][k], board[k][y]
+        numlst.discard(a)
+        numlst.discard(b)
     
-    # 3x3 박스 내 숫자 제거
-    box_x, box_y = (x // 3) * 3, (y // 3) * 3
+    a, b = (x//3)*3, (y//3)*3
     for i in range(3):
         for j in range(3):
-            candidates.discard(board[box_x + i][box_y + j])
-
-    return candidates  # 남은 수가 현재 칸에 들어갈 수 있는 후보 숫자
+            numlst.discard(board[a+i][b+j])
+            
+    return numlst
 
 if __name__ == "__main__":
     board = [list(map(int, sys.stdin.readline().split())) for _ in range(9)]
-
-    # ✅ 개선 4: 빈칸 좌표들을 미리 리스트에 저장하여 재탐색 제거
-    zero_positions = [(i, j) for i in range(9) for j in range(9) if board[i][j] == 0]
-
-    sudoku(0)  # idx = 0부터 시작 (zero_positions의 0번째 좌표부터 채우기)
+    zerocnt = 0
+    for i in range(9):
+        for j in range(9):
+            if board[i][j] == 0: zerocnt += 1
+    print()
+    sudoku(0)
