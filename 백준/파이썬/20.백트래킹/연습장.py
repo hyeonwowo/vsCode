@@ -1,3 +1,17 @@
-lst = [1,2,3]
-lst.remove(4)
-print(lst)
+import sys
+
+def pellen(st):
+    reversed_st = st[::-1]
+    if st == reversed_st:
+        return "yes"
+    return "no"
+
+def main():
+    result = []
+    while True:
+        st = sys.stdin.readline().strip()
+        if st == '0': return '\n'.join(result)
+        result.append(pellen(st))
+
+if __name__ == "__main__":
+    print(main())

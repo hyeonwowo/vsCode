@@ -1,4 +1,4 @@
-import sys # 개선사항 필요(오류수정, 시간단축)
+import sys # 개선사항 반영한 최종본
 
 def sudoku(cnt):
     if cnt == zerocnt:
@@ -6,16 +6,14 @@ def sudoku(cnt):
             print(*row) 
         sys.exit(0)
     else:
-        for i in range(9):
-            for j in range(9):
-                if board[i][j] == 0:
-                    numlst = findnum(i,j)
-                    for element in numlst:
-                        board[i][j] = element
-                        sudoku(cnt+1)
-                        # 되돌리는 로직 추가
-                        board[i][j] = 0 # 백트래킹에 있어 필수적
-                        
+        i,j = zeropoint[cnt]
+        if board[i][j] == 0:
+            numlst = findnum(i,j)
+            for element in numlst:
+                board[i][j] = element
+                sudoku(cnt+1)
+                board[i][j] = 0
+                    
 def findnum(x,y): # 찾기
     numlst = set([1,2,3,4,5,6,7,8,9])
     for k in range(9):
@@ -33,8 +31,11 @@ def findnum(x,y): # 찾기
 if __name__ == "__main__":
     board = [list(map(int, sys.stdin.readline().split())) for _ in range(9)]
     zerocnt = 0
+    zeropoint = []
     for i in range(9):
         for j in range(9):
-            if board[i][j] == 0: zerocnt += 1
+            if board[i][j] == 0: 
+                zerocnt += 1
+                zeropoint.append((i,j))
     print()
     sudoku(0)
