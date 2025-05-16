@@ -13,7 +13,7 @@ def sudoku(cnt):
                 board[i][j] = element
                 sudoku(cnt+1)
                 board[i][j] = 0
-                    
+
 def findnum(x,y): # 찾기
     numlst = set([1,2,3,4,5,6,7,8,9])
     for k in range(9):
