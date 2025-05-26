@@ -7,5 +7,5 @@ if __name__ == "__main__":
     
     for i in range(2,N+1):
         board[i] = board[i-2] + board[i-1]
-        
+
     print(board[N]%15746)
