@@ -1,4 +1,4 @@
-import sys # Dp 사용
+import sys
 
 def increasenumsum(lst):
     dp = [1] * n
@@ -6,7 +6,7 @@ def increasenumsum(lst):
         for j in range(i):
             if lst[i] > lst[j]:
                 dp[i] = max(dp[j] + 1, dp[i])
-    return max(dp)
+    return max(dp) # dp : 1 2 1 3 2 4
 
 if __name__ == "__main__":
     n = int(sys.stdin.readline())
