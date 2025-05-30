@@ -1,2 +1,2 @@
 
-    N, M = map(int, sys.stdin.readline().split())
+    if dp[n] == 0:
