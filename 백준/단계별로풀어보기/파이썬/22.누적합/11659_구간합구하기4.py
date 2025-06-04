@@ -1,21 +1,23 @@
 import sys
-input = sys.stdin.readline
 
-def totalsum():
-    prevsum = [0]  
-    for i in range(len(numlst)):
-        prevsum.append(prevsum[-1] + numlst[i])
-    return prevsum
+def totalsum(lst, startend):
+    length = len(lst)
+    prev_totalsum = [0] * length
+    prev_totalsum[0] = lst[0]
+    for i in range(1, length):
+        prev_totalsum[i] = prev_totalsum[i-1] + lst[i]
+    prev_totalsum.insert(0,0)
+        
+    result = []
+    for i in range(m):
+        start, end = startend[i]
+        indexsum = prev_totalsum[end] - prev_totalsum[start-1]
+        print(indexsum)
+    return '\n'.join(result)
 
 if __name__ == "__main__":
-    N, M = map(int, input().split())
-    numlst = list(map(int, input().split()))
-    data = [list(map(int, input().split())) for _ in range(M)]
-    
-    total = totalsum()
-    result = []
-    
-    for a, b in data:
-        result.append(total[b] - total[a - 1])
-    
-    print('\n'.join(map(str, result)))
+    n, m = map(int, sys.stdin.readline().split())
+    lst = list(map(int, sys.stdin.readline().split()))
+    startend = [tuple(map(int, sys.stdin.readline().split())) for _ in range(m)]
+    print(totalsum(lst, startend))
+        

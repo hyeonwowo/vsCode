@@ -1,17 +1,15 @@
 import sys
-input = sys.stdin.readline
 
-def totalsum():
-    current_sum = sum(lst[:M])
-    max_sum = current_sum
+def sliceing(lst):
+    windowslice = sum(lst[:m])
+    maxval = windowslice
+    for i in range(1,n-m+1):
+        windowslice = windowslice - lst[i-1] + lst[i-1+m]
+        if maxval < windowslice:
+            maxval = windowslice
+    return maxval
 
-    for i in range(M, N):
-        current_sum = current_sum + lst[i] - lst[i - M]
-        max_sum = max(max_sum, current_sum)
-
-    return max_sum
-        
 if __name__ == "__main__":
-    N, M = map(int, input().split())
-    lst = list(map(int, input().split()))
-    print(totalsum())
+    n, m = map(int, sys.stdin.readline().split())
+    lst = list(map(int, sys.stdin.readline().split()))
+    print(sliceing(lst))
