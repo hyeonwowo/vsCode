@@ -1,2 +1,4 @@
-arr = ['1','2','3']
-print(''.join(arr))
+lst = [1,10,50,100,500]
+coin = 300
+
+print(max(lst))
