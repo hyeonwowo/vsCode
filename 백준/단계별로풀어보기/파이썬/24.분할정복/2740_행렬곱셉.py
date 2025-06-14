@@ -8,6 +8,7 @@ def mullinear(a, b):
                 c[i][j] += a[i][k] * b[k][j]
     return c
 
+
 if __name__ == "__main__":
     N, K = map(int, sys.stdin.readline().split())
     alinear = [list(map(int, sys.stdin.readline().split())) for _ in range(N)]
