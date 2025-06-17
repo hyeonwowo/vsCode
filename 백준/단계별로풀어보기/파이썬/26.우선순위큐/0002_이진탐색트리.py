@@ -9,7 +9,6 @@ class BinarySearchTree:
     def __init__(self):
         self.root = None
 
-    # Insert key into the tree
     def insert(self, key):
         self.root = self._insert(self.root, key)
 
@@ -23,7 +22,6 @@ class BinarySearchTree:
         # 중복은 무시
         return node
 
-    # Search key in the tree
     def search(self, key):
         return self._search(self.root, key)
 
@@ -37,7 +35,6 @@ class BinarySearchTree:
         else:
             return self._search(node.right, key)
 
-    # Inorder traversal (sorted order)
     def inorder(self):
         result = []
         self._inorder(self.root, result)
@@ -49,7 +46,6 @@ class BinarySearchTree:
             result.append(node.key)
             self._inorder(node.right, result)
 
-    # Find min value
     def find_min(self):
         node = self.root
         if not node:
@@ -58,7 +54,6 @@ class BinarySearchTree:
             node = node.left
         return node.key
 
-    # Find max value
     def find_max(self):
         node = self.root
         if not node:

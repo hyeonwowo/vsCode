@@ -1,4 +1,4 @@
-# 우선순위 큐 구현 (최소힙)
+# 우선순위 큐 구현 (최소힙), 0-based index
 import sys
 
 class PriorityQueue:
@@ -26,17 +26,19 @@ class PriorityQueue:
         return self.heap[0]
     
     def heap_up(self,index): # 자식 노드가 부모보다 작으면 교환하며 위로 올라감. push 연산과 관련. index는 기준이 되는 인덱스
-        parent = (index - 1) // 2 # Inde는 현재 인덱스이자 기준이 되는 인덱스
+        parent = (index - 1) // 2 # Index는 현재 인덱스이자 기준이 되는 인덱스
         if index > 0 and self.heap[index] < self.heap[parent]:
             self.swap(index, parent)
             self.heap_up(parent) # 재귀 호출로 계속 위로 올라감
     
     def heap_down(self, index):
-        smallest = index # 부모 노드가 자식 노드보다 크면 아래로 내려가며 교환. pop 연산과 관련. index는 기준이 되는 인덱스
+        # smallest는 두 자식 중 더 작은 자식을 저장하기 위한 변수
+        smallest = index # 부모 노드가 자식 노드보다 크면 아래로 내려가며 교환. pop 연산과 관련. index는 기준이 되는 인덱스 
         left = index * 2 + 1
         right = index * 2 + 2
         size = len(self.heap)
         
+        # smallest 변수를 통해, 더 작은 자식 노드 저장 (왼쪽이나 오른쪽자식)
         if left < size and self.heap[left] < self.heap[smallest]: # 왼쪽 자식과 비교
             smallest = left
         if right < size and self.heap[right] < self.heap[smallest]: # 오른쪽 자식과 비교
