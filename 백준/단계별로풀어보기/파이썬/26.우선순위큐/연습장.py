@@ -1,59 +1,60 @@
 import sys
 
-class PriorityQueue:
+class Node:
+    def __init__(self, key):
+        self.key = key
+        self.left = None
+        self.right = None
+    
+class BST:
     def __init__(self):
-        self.heap = []
+        self.root = None
     
-    def empty(self):
-        return len(self.heap) == 0
+    def insert(self, key):
+        self.root = self._insert(self.root, key)
     
-    def push(self, value):
-        self.heap.append(value)
-        self.heap_up(len(self.heap)-1)
-    
-    def pop(self):
-        if self.empty():
-            return f"empty heapQueue"
-        self.swap(0,len(self.heap)-1)
-        minval = self.heap.pop()
-        self.heap_down(0)
-        return minval
-    
-    def peek(self):
-        if self.empty():
-            return f"empty heapqueue"
-        return self.heap[0]
-    
-    def heap_up(self, index):
-        parent = (index - 1) // 2
-        if index > 0 and self.heap[index] < self.heap[parent]:
-            self.swap(index, parent)
-            self.heap_up(parent)
-    
-    def heap_down(self, index):
-        smallest = index
-        left = index * 2 + 1
-        right = index * 2 + 2
-        size = len(self.heap)
+    def _insert(self, node, key):
+        if node is None:
+            return Node(key)
+        if key < node.key:
+            node.left = self._insert(node.left, key)
+        elif key > node.key:
+            node.right = self._insert(node.right, key)
         
-        if left < size and self.heap[left] < self.heap[smallest]:
-            smallest = left
-        if right < size and self.heap[right] < self.heap[smallest]:
-            smallest = right
-            
-        if smallest != index:
-            self.swap(index, smallest)
-            self.heap_down(smallest)
+        return node
     
-    def swap(self, i, j):
-        self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
+    def search(self, key):
+        return self._search(self.root, key)
+    
+    def _search(self, node, key):
+        if node is None:
+            return False
+        if key == node.key:
+            return True
+        elif key < node.key:
+            return self._search(node.left, key)
+        else:
+            return self._search(node.right, key)
+    
+    def find_min(self):
+        node = self.root
+        if not node:
+            return None
+        while node.left:
+            node = node.left
+        return node.key
+    
+    def find_max(self):
+        node = self.root
+        if not node:
+            return None
+        while node.right:
+            node = node.right
+        return node.key
     
 if __name__ == "__main__":
-    pq = PriorityQueue()
-    pq.push(5)
-    pq.push(2)
-    pq.push(8)
-    
-    while not pq.empty():
-        print(pq.pop())
-    
+    bst = BST()
+    for num in [10,5,20,3,7,15,30]:
+        bst.insert(num)
+        
+        

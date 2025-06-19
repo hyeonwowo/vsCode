@@ -1,3 +1,4 @@
+# 우선순위 큐 구현 (최소힙), 1-based index
 import sys
 
 class PriorityQueue:
@@ -9,12 +10,12 @@ class PriorityQueue:
  
     def push(self, value):
         self.heap.append(value)
-        self.heap_up(len(self.heap) - 1)  # 수정
-
+        self.heap_up(len(self.heap) - 1)  # 수정 : len(self.heap) -> len(self.heap) - 1
+                                          # len(self.heap) - 1은 0based든, 1based든 마지막 인덱스를 구하기 위한 공식
     def pop(self):
         if self.empty():
             return "empty heapqueue"
-        self.swap(1, len(self.heap) - 1)  # 수정
+        self.swap(1, len(self.heap) - 1)  # 수정 : len(self.heap) -> len(self.heap) - 1
         minval = self.heap.pop()
         self.heap_down(1)
         return minval
