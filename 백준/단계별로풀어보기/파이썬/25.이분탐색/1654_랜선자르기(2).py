@@ -8,7 +8,7 @@ def binary_search(lst, k):
         count = sum(x // mid  for x in lst) # 현재 랜선길이로 만들수있는 랜선의 수 구하기
         if count >= k: # 랜선이 많거나 같을때
             answer = mid # 최대값을 구하기 위한 과정
-            left = mid + 1 # 현재 랜선 길이 + 1 ~ 802까지 
+            left = mid + 1 # 현재 랜선 길이 + 1 ~ 802까지
         else: # 랜선이 부족할 때
             right = mid - 1 # 1 ~ 현재 랜선 길이 + 1
     return answer

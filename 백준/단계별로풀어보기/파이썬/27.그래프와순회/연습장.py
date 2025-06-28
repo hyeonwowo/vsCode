@@ -1,5 +1,2 @@
-from collections import deque
-
-queue = deque([(0,0)])
-x, y = queue.popleft()
-print(x, y)
+lst = [[[1,2],[3,4]],[[11,22],[33,44]]]
+print(lst[0])
