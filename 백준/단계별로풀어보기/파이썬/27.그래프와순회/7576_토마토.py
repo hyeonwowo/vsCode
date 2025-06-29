@@ -17,7 +17,7 @@ def BFS(grid):
         x, y = queue.popleft()
         for dx, dy in directions:
             nx, ny  = x + dx, y + dy
-            if 0 <= nx < m and 0 <= ny < n: # m, n : m-n 순으로 초기화된 visited, grid 배열을 다루니 m n 순으로
+            if 0 <= nx < m and 0 <= ny < n: 
                 if not visited[nx][ny] and grid[nx][ny] == 0:
                     visited[nx][ny] = True
                     depth[nx][ny] = depth[x][y] + 1
