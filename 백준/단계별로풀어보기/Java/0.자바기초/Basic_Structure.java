@@ -1,4 +1,4 @@
-public class Basic_Structure {
+public class Basic_Structure { // 클래스
     public static void main(String[] args){
         Person p = new Person("hyeonwoo", 25);
         p.sayHello();

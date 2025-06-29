@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.ArrayList; // 리스트
 
 public class list{
     public static void main(String[] args){

@@ -1,4 +1,4 @@
-import java.util.HashMap;
+import java.util.HashMap; // 해시
 
 public class hash{
     public static void main(String[] args){

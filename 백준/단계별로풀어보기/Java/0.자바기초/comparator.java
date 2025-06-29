@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.*; // 요소 비교
 
 class Person {
     String name;

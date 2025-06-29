@@ -1,6 +1,5 @@
-public class Array {
+public class Array { // 배열 선언 및 초기화
     public static void main(String[] args) {
-        // 배열 선언 및 초기화
         int[] arr = new int[5];
         arr[0] = 10;
 
