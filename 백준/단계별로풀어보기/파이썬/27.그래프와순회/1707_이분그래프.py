@@ -2,45 +2,65 @@ import sys
 from collections import deque
 
 class Graph:
-    def __init__(self, V):
+    def __init__(self, V, E):
         self.v = V
-        self.adj = [[] for _ in range(V + 1)]
-        self.color = [0] * (V + 1)
-        self.visited = [False] * (V + 1)
+        self.e = E
+        self.adj = [[] for _ in range(1, V+1)]
+        self.color = [[] for _ in range(1, V+1)]
+        self.visited = [[False] for _ in range(1, V+1)]
 
     def addEdge(self, v, w):
         self.adj[v].append(w)
-        self.adj[w].append(v)  # 양방향 간선 추가
-
-    def BFS(self, S):
-        queue = deque([S])
+        
+    def DFS(self, S):
+        def recur(v):
+            for w in self.adj[v]:
+                if not self.visited[w]:
+                    self.visited[w] = True
+                    self.color[w] = -self.color[v]
+                    recur(w)
         self.color[S] = 1
         self.visited[S] = True
-
+        recur(S)
+    
+    def BFS(self, S):
+        queue = deque([S])
+        self.visited[S] = True
+        self.color[S] = 1
+        
         while queue:
             node = queue.popleft()
-            for neighbor in self.adj[node]:
-                if not self.visited[neighbor]:
-                    self.visited[neighbor] = True
-                    self.color[neighbor] = -self.color[node]
-                    queue.append(neighbor)
-                elif self.color[neighbor] == self.color[node]:
-                    return False  # 인접 노드가 같은 색이면 이분 그래프가 아님
-        return True
-
-    def isBipartite(self):
-        for node in range(1, self.v + 1):
-            if not self.visited[node]:
-                if not self.BFS(node):
+            for w in self.adj[node]:
+                if not self.visited[w]:
+                    self.visited[w] = True
+                    self.color[w] = -self.color[node]
+                    queue.append(w)
+    
+    def search(self, S):
+        queue = deque([S])
+        self.visited[S] = True
+        
+        while queue:
+            node = queue.popleft()
+            for w in self.adj[node]:
+                if not self.visited[w] and self.color[node] != self.color[w]:
+                    self.visited[w] = True
+                    queue.append(w)
+                else:
                     return "NO"
         return "YES"
-
+    
 if __name__ == "__main__":
     t = int(sys.stdin.readline())
+    
     for _ in range(t):
         v, e = map(int, sys.stdin.readline().split())
-        g = Graph(v)
+        g = Graph(v, e)
+        
         for _ in range(e):
-            a, b = map(int, sys.stdin.readline().split())
-            g.addEdge(a, b)
-        print(g.isBipartite())
+            v, w = map(int, sys.stdin.readline().split())
+            g.addEdge(v, w)
+            
+        g.BFS(1)
+        print(g.search(1))
+        
