@@ -1,4 +1,4 @@
-N,M = map(int,input().split())
+N,M = map(int,input().split()) # 중복 가능 수열
 path = [] 
 visited = [False] * (N+1)
 
@@ -15,3 +15,24 @@ def backtrack():
                 
 if __name__ == "__main__":
     backtrack()
+    
+# 입력
+# 4 2
+
+# 출력
+# 1 1
+# 1 2
+# 1 3
+# 1 4
+# 2 1
+# 2 2
+# 2 3
+# 2 4
+# 3 1
+# 3 2
+# 3 3
+# 3 4
+# 4 1
+# 4 2
+# 4 3
+# 4 4
