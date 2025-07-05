@@ -1,34 +1,41 @@
 import sys
 
 class Edge:
-    def __init__(self, v, w, weight):
+    def __init__(self, u, v, weight):
+        self.u = u
         self.v = v
-        self.w = w
         self.weight = weight
-        
+
 class Graph:
     def __init__(self, V):
-        self.v = V
-        self.edges = [] # 간선중심이라 edges 자료구조 사용
-        
-    def addEdge(self, v, w, weight):
-        self.edges.append(Edge(v, w, weight))
-        
+        self.V = V
+        self.edges = []
+
+    def addEdge(self, u, v, weight):
+        self.edges.append(Edge(u, v, weight))
+
+def relax(u, v, w, distTo, edgeTo):
+    if distTo[u] != float('inf') and distTo[u] + w < distTo[v]:
+        distTo[v] = distTo[u] + w
+        edgeTo[v] = u
+        return True
+    return False
+
 def bellman_ford(graph, start):
-    V = graph.v
-    distTo = [float('inf')] * (V+1)
-    edgeTo = [None] * (V+1)
+    V = graph.V
+    edgeTo = [None] * (V + 1)
+    distTo = [float('inf')] * (V + 1)
     distTo[start] = 0
-    
-    for _ in range(V-1):
-        for edge in graph.edges:
-            relax(edge.v, edge.w, edge.weight, distTo, edgeTo)
-            
-    for edge in graph.edges:
+
+    for _ in range(V - 1): # BellmanFord 에선 V - 1번 탐색 : 정점이 V개 있으면, 최단경로에서 지나가는 간선은 최대 V - 1개 -> 따라서 최단 거리 정보는 V-1번의 Relaxaion 수행
+        for edge in graph.edges: # 각 횟수마다 모든 간선을 한바퀴 다 돈다. 이걸 V - 1 번 반복
+            relax(edge.u, edge.v, edge.weight, distTo, edgeTo)
+
+    for edge in graph.edges: # 다시 한번 더 Relax 하는 이유 : 만약 위의 V - 1번 반복 이후에도 어떤 간선이 더 짧은 거리로 갱신될 수 있다면? -> "음수 사이클 존재"
         if relax(edge.u, edge.v, edge.weight, distTo, edgeTo):
             print("(-) Cycle")
             return None, None
-    
+
     return distTo, edgeTo
 
 def pathTo(edgeTo, v):
@@ -41,15 +48,15 @@ def pathTo(edgeTo, v):
 
 if __name__ == "__main__":
     g = Graph(5)
-    g.add_edge(1, 2, 6)
-    g.add_edge(1, 3, 7)
-    g.add_edge(2, 3, 8)
-    g.add_edge(2, 4, 5)
-    g.add_edge(2, 5, -4)
-    g.add_edge(3, 4, -3)
-    g.add_edge(3, 5, 9)
-    g.add_edge(4, 2, -2)
-    g.add_edge(5, 4, 7)
+    g.addEdge(1, 2, 6)
+    g.addEdge(1, 3, 7)
+    g.addEdge(2, 3, 8)
+    g.addEdge(2, 4, 5)
+    g.addEdge(2, 5, -4)
+    g.addEdge(3, 4, -3)
+    g.addEdge(3, 5, 9)
+    g.addEdge(4, 2, -2)
+    g.addEdge(5, 4, 7)
 
     start = 1
     distTo, edgeTo = bellman_ford(g, start)
