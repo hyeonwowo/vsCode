@@ -15,7 +15,7 @@ class Graph:
         self.edges.append(Edge(v, w, weight))
 
 def relax(v, w, weight, distTo, edgeTo):
-    if distTo[v] != float('inf') and distTo[v] + weight < distTo[w]:
+    if distTo[v] != float('inf') and distTo[v] + weight < distTo[w]: # 순회하는 위치의 노드를 방문한 적이 없다면 (distTo[v] != float('inf')) 스킵
         distTo[w] = distTo[v] + weight
         edgeTo[w] = v
         return True

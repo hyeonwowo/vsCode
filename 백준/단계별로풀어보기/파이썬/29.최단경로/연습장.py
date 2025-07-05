@@ -1,4 +1,5 @@
-import sys # Bellman-Ford 알고리즘 (시간초과)
+import sys
+import heapq
 
 class Edge:
     def __init__(self, v, w, weight):
@@ -9,32 +10,33 @@ class Edge:
 class Graph:
     def __init__(self, V):
         self.v = V  # 정점 개수
-        self.edges = []
+        self.adj = [[] for _ in range(V + 1)]  # 인접 리스트 사용 (1-indexed)
 
     def addEdge(self, v, w, weight):
-        self.edges.append(Edge(v, w, weight))
+        self.adj[v].append(Edge(v, w, weight))  # 방향 그래프
 
-def relax(v, w, weight, distTo, edgeTo):
-    if distTo[v] != float('inf') and distTo[v] + weight < distTo[w]:
+def relax(v, w, weight, distTo, edgeTo, pq):
+    if distTo[v] + weight < distTo[w]:
         distTo[w] = distTo[v] + weight
         edgeTo[w] = v
-        return True
-    return False
+        heapq.heappush(pq, (distTo[w], w))
 
-def bellman_ford(graph, start):
+def dijkstra(graph, start):
     V = graph.v
-    edgeTo = [None] * (V + 1)
     distTo = [float('inf')] * (V + 1)
+    edgeTo = [None] * (V + 1)
     distTo[start] = 0
 
-    for _ in range(V - 1):  # V - 1번 반복
-        for edge in graph.edges:  # 모든 간선에 대해 relax
-            relax(edge.v, edge.w, edge.weight, distTo, edgeTo)
+    pq = []
+    heapq.heappush(pq, (distTo[start], start))  # (거리, 정점)
 
-    for edge in graph.edges:  # 음수 사이클 확인
-        if relax(edge.v, edge.w, edge.weight, distTo, edgeTo):
-            print("(-) Cycle")
-            return None, None
+    while pq:
+        curr_dist, v = heapq.heappop(pq)
+        if curr_dist > distTo[v]:
+            continue  # 더 긴 거리라면 무시
+
+        for edge in graph.adj[v]:
+            relax(edge.v, edge.w, edge.weight, distTo, edgeTo, pq)
 
     return distTo, edgeTo
 
@@ -56,7 +58,7 @@ if __name__ == "__main__":
         v, w, weight = map(int, input().split())
         g.addEdge(v, w, weight)
 
-    distTo, edgeTo = bellman_ford(g, start)
+    distTo, edgeTo = dijkstra(g, start)
 
     if distTo is not None:
         for v in range(1, g.v + 1):
