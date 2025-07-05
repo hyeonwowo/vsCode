@@ -1,9 +1,9 @@
 import sys
 
 class Edge:
-    def __init__(self, u, v, weight):
-        self.u = u
-        self.v = v
+    def __init__(self, v, w, weight):
+        self.v = v  # from
+        self.w = w  # to
         self.weight = weight
 
 class Graph:
@@ -11,13 +11,13 @@ class Graph:
         self.V = V
         self.edges = []
 
-    def addEdge(self, u, v, weight):
-        self.edges.append(Edge(u, v, weight))
+    def addEdge(self, v, w, weight):
+        self.edges.append(Edge(v, w, weight))
 
-def relax(u, v, w, distTo, edgeTo):
-    if distTo[u] != float('inf') and distTo[u] + w < distTo[v]:
-        distTo[v] = distTo[u] + w
-        edgeTo[v] = u
+def relax(v, w, weight, distTo, edgeTo):
+    if distTo[v] != float('inf') and distTo[v] + weight < distTo[w]:
+        distTo[w] = distTo[v] + weight
+        edgeTo[w] = v
         return True
     return False
 
@@ -29,10 +29,10 @@ def bellman_ford(graph, start):
 
     for _ in range(V - 1): # BellmanFord 에선 V - 1번 탐색 : 정점이 V개 있으면, 최단경로에서 지나가는 간선은 최대 V - 1개 -> 따라서 최단 거리 정보는 V-1번의 Relaxaion 수행
         for edge in graph.edges: # 각 횟수마다 모든 간선을 한바퀴 다 돈다. 이걸 V - 1 번 반복
-            relax(edge.u, edge.v, edge.weight, distTo, edgeTo)
+            relax(edge.v, edge.w, edge.weight, distTo, edgeTo)
 
     for edge in graph.edges: # 다시 한번 더 Relax 하는 이유 : 만약 위의 V - 1번 반복 이후에도 어떤 간선이 더 짧은 거리로 갱신될 수 있다면? -> "음수 사이클 존재"
-        if relax(edge.u, edge.v, edge.weight, distTo, edgeTo):
+        if relax(edge.v, edge.w, edge.weight, distTo, edgeTo):
             print("(-) Cycle")
             return None, None
 
