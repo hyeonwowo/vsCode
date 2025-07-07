@@ -1,5 +1,16 @@
 import sys
 
+# 1. 시작 정점의 거리(distTo[start])를 0으로 초기화, 나머지는 ∞로 초기화
+# 2. (V - 1)번 반복:
+#     - 모든 간선 (v → w, weight)에 대해:
+#         - distTo[w] > distTo[v] + weight 만족 시:
+#             → distTo[w] = distTo[v] + weight 로 갱신
+# 3. 모든 간선 (v → w, weight)에 대해 한 번 더 검사:
+#     - 만약 distTo[w] > distTo[v] + weight 여전히 성립한다면
+#         → 음수 사이클 존재 → 실패 처리
+# 4. 성공적으로 종료 시, distTo 배열이 최단 거리
+
+
 class Edge:
     def __init__(self, v, w, weight):
         self.v = v  # from
@@ -15,6 +26,7 @@ class Graph:
         self.edges.append(Edge(v, w, weight))
 
 def relax(v, w, weight, distTo, edgeTo):
+    # 목적 : 출발점에서 v까지 도달한 적이 있는 경우에만 w갱신
     if distTo[v] != float('inf') and distTo[v] + weight < distTo[w]: # 순회하는 위치의 노드를 방문한 적이 없다면 (distTo[v] != float('inf')) 스킵
         distTo[w] = distTo[v] + weight
         edgeTo[w] = v

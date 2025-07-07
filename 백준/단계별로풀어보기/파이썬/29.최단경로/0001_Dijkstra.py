@@ -1,6 +1,14 @@
 import sys
 import heapq
 
+# 1. pq에서 (가장 가까운 정점 v)를 pop
+# 2. v를 이미 방문했다면 skip
+# 3. v와 연결된 간선 (v → w)들에 대해:
+#     - distTo[w] > distTo[v] + weight 라면
+#         → distTo[w] 갱신
+#         → pq에 (distTo[w], w) 삽입
+# 4. pq가 빌 때까지 반복
+
 class Edge:
     def __init__(self, u, v, weight):
         self.u = u

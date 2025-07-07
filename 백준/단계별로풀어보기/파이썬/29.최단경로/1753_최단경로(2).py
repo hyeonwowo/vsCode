@@ -23,12 +23,12 @@ def relax(v, w, weight, distTo, edgeTo, pq):
 
 def dijkstra(graph, start):
     V = graph.v
-    distTo = [float('inf')] * (V + 1)
-    edgeTo = [None] * (V + 1)
+    distTo = [float('inf')] * (graph.v + 1) # graph.v, V 모두 다 가능
+    edgeTo = [None] * (graph.v + 1)
     distTo[start] = 0
 
     pq = []
-    heapq.heappush(pq, (distTo[start], start))  # (거리, 정점)
+    heapq.heappush(pq, (0, start))  # (거리, 정점)
 
     while pq:
         curr_dist, v = heapq.heappop(pq)
