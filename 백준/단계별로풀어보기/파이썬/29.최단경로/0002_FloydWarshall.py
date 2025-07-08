@@ -1,4 +1,5 @@
-import sys
+import sys # 다익스트라, 벨만 - 한지점에서 모든지점
+           # 플로이드 - 모든지점에서 모든지점
 
 def floyd_warshall(V, adj):
     # 거리 배열 초기화
