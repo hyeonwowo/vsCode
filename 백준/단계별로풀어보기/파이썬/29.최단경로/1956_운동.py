@@ -5,46 +5,47 @@ class Edge:
         self.v = v
         self.w = w
         self.weight = weight
-
+        
 class Graph:
     def __init__(self, V):
         self.V = V
         self.adj = [[] for _ in range(self.V+1)]
         
     def addEdge(self, v, w, weight):
-        self.adj[v].append(Edge(v, w, weight))  # ✅ 괄호 한 쌍 제거
+        self.adj[v].append(Edge(v, w, weight)) 
 
-def floydWarshall(graph):
-    V = graph.V # V는 main안에서 정의되므로, 함수 안에서는 graph.V를 사용
+def floydWarshell(graph):
+    V = graph.V
     dist = [[float('inf')] * (V+1) for _ in range(V+1)]
     
     for i in range(1, V+1):
-        dist[i][i] = 0
-
-    for i in range(1, V+1):
         for edge in graph.adj[i]:
             dist[edge.v][edge.w] = min(dist[edge.v][edge.w], edge.weight)
-            
+    
     for k in range(1, V+1):
         for i in range(1, V+1):
             for j in range(1, V+1):
-                if dist[i][k] != float('inf') and dist[k][j] != float('inf'):
-                    dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
-    
-    return dist
+                dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
+
+    minval = float('inf')
+    for i in range(1, V+1):
+        if minval < dist[i][i]:
+            minval = dist[i][i]
+            
+    if minval == float('inf'):
+        minval = -1
+        
+    return minval
+        
 
 if __name__ == "__main__":
-    V = int(sys.stdin.readline())
-    E = int(sys.stdin.readline())
-    
+    V, E = map(int, sys.stdin.readline().split())
     g = Graph(V)
+    
     for _ in range(E):
         v, w, weight = map(int, sys.stdin.readline().split())
         g.addEdge(v, w, weight)
     
-    dist = floydWarshall(g)
+    dist = floydWarshell(g)
+    print(dist)
     
-    for i in range(1, V+1):
-        for j in range(1, V+1):
-            print(0 if dist[i][j] == float('inf') else dist[i][j], end=" ")  # ✅ 보기 좋게 0 출력
-        print()

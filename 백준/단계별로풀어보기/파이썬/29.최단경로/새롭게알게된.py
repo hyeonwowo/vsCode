@@ -24,7 +24,7 @@ graph = Graph(V)
 dist = [[float('inf')] * (V+1) for _ in range(V+1)]
 
 for i in range(1, V+1):
-    for edge in graph.adj[i]:
-        dist[edge.v][edge.w] = min(dist[edge.v][edge.w], edge.weight)
+    for edge in graph.adj[i]: # 클래스를 하나씩 순회한다
+        dist[edge.v][edge.w] = min(dist[edge.v][edge.w], edge.weight) # 해당클래스에서 요소를 . 연산자를 통해 빼낸다
         
         
