@@ -36,7 +36,6 @@ def floydWarshell(graph):
         minval = -1
         
     return minval
-        
 
 if __name__ == "__main__":
     V, E = map(int, sys.stdin.readline().split())
