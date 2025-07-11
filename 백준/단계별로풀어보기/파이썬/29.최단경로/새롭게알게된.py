@@ -2,3 +2,29 @@
 
 # 특별한 제약 조건 X -> 다익스트라
 # 음수간선 -> 벨만포드
+
+
+# 클래스 요소 빼내기
+class Edge:
+    def __init__(self, v, w, weight):
+        self.v = v
+        self.w = w
+        self.weight = weight
+
+class Graph:
+    def __init__(self, V):
+        self.V = V
+        self.adj = [[] for _ in range(V+1)]
+    
+    def addEdge(self, v, w, weight):
+        self.adj[v].append(Edge(v, w, weight))
+        
+V = 5
+graph = Graph(V)
+dist = [[float('inf')] * (V+1) for _ in range(V+1)]
+
+for i in range(1, V+1):
+    for edge in graph.adj[i]:
+        dist[edge.v][edge.w] = min(dist[edge.v][edge.w], edge.weight)
+        
+        
