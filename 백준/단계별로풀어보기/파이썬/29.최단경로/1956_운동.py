@@ -29,7 +29,7 @@ def floydWarshell(graph):
 
     minval = float('inf')
     for i in range(1, V+1):
-        if minval < dist[i][i]:
+        if minval > dist[i][i]:
             minval = dist[i][i]
             
     if minval == float('inf'):
