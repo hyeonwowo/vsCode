@@ -1,17 +1,15 @@
 import sys
+sys.setrecursionlimit(10**6)
 
-def cantoa(n):
-    length = len(n)
+def cantoa(st):
+    length = len(st)
     if length == 1:
-        return n
+        return st
     else:
-        left = cantoa(n[:length//3])
-        right = cantoa(n[2*length//3:])
-        return left + ' ' * (length//3) + right
+        return cantoa(st[:length//3]) + " " * (length // 3) + cantoa(st[2*length//3:])
 
 if __name__ == "__main__":
     for line in sys.stdin:
         n = int(line)
-        st = '-' * (3 ** n) # 기본 세팅을 하고, 날리는 방식으로 집합 생성
+        st = '-' * (3 ** n)
         print(cantoa(st))
-
