@@ -1,14 +1,14 @@
 import sys
 sys.setrecursionlimit(10**6)
 
-def fibonaci(n):
+def recur(n):
     if n == 0:
-        return 0
+        return 1
     if n == 1:
         return 1
     else:
-        return fibonaci(n-1) + fibonaci(n-2)
+        return n * recur(n-1)
 
 if __name__ == "__main__":
     n = int(sys.stdin.readline())
-    print(fibonaci(n))
+    print(recur(n))
