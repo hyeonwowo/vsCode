@@ -1,2 +1,3 @@
-lst = [[1,2],[3,4]]
-print(len(lst))
+import sys
+
+print(list(map(int, sys.stdin.readline().strip())))
