@@ -1,38 +1,58 @@
 import sys
+sys.setrecursionlimit(10**6)
 
-result = {'-1':0,'0':0,'1':0}
+numcount = {-1:0, 0:0, 1:0}
 
-def paper(n, lst):
-    val = number(lst)
-    if val is not None:
-        result[str(val)] += 1
+def isColor(n, lst):
+    color = lst[0][0]
+    for i in range(n):
+        for j in range(n):
+            if lst[i][j] != color:
+                return False
+    return True
+
+def paperCount(n, lst):
+    if isColor(n, lst):
+        color = lst[0][0]
+        numcount[color] += 1
         return
+    else:
+        third = n // 3
         
-    third = n // 3
-    paper(third,[row[:third] for row in lst[:third]])
-    paper(third,[row[third:third*2] for row in lst[:third]])
-    paper(third,[row[third*2:] for row in lst[:third]])
+        # 1 2 3
+        lst1 = [row[:third] for row in lst[:third]]
+        lst2 = [row[third:2*third] for row in lst[:third]]
+        lst3 = [row[2*third:] for row in lst[:third]]
+        
+        # 4 5 6
+        lst4 = [row[:third] for row in lst[third:2*third]]
+        lst5 = [row[third:2*third] for row in lst[third:2*third]]
+        lst6 = [row[2*third:] for row in lst[third:2*third]]
+        
+        # 7 8 9
+        lst7 = [row[:third] for row in lst[2*third:]]
+        lst8 = [row[third:2*third] for row in lst[2*third:]]
+        lst9 = [row[2*third:] for row in lst[2*third:]]
     
-    paper(third,[row[:third] for row in lst[third:third*2]])
-    paper(third,[row[third:third*2] for row in lst[third:third*2]])
-    paper(third,[row[third*2:] for row in lst[third:third*2]])
-    
-    paper(third,[row[:third] for row in lst[third*2:]])
-    paper(third,[row[third:third*2] for row in lst[third*2:]])
-    paper(third,[row[third*2:] for row in lst[third*2:]])
-    
-    
-def number(lst):
-    start = lst[0][0]
-    for row in lst:
-        for element in row:
-            if element != start:
-                return None
-    return start
+        paperCount(third, lst1)
+        paperCount(third, lst2)
+        paperCount(third, lst3)
+        
+        paperCount(third, lst4)
+        paperCount(third, lst5)
+        paperCount(third, lst6)
+        
+        paperCount(third, lst7)
+        paperCount(third, lst8)
+        paperCount(third, lst9)
+        
 
 if __name__ == "__main__":
     n = int(sys.stdin.readline())
     lst = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
-    paper(n,lst)
-    for element in result.values():
-        print(element)
+    
+    paperCount(n, lst)
+    print(numcount[-1])
+    print(numcount[0])
+    print(numcount[1])
+    

@@ -1,28 +1,28 @@
 import sys
+sys.setrecursionlimit(10**6)
 
-def linear(lin):
-    n = len(lin)
-    c = [[0] * n for _ in range(n)]
-    
-    for i in range(n):
-        for j in range(n):
-            for k in range(n):
-                c[i][j] += lin[i][k] * lin[k][j]
+def linear(alin, blin):
+    c = [[0] * T for _ in range(T)]
+    for i in range(T):
+        for j in range(T):
+            for k in range(T):
+                c[i][j] += alin[i][k] * blin[k][j]
+                c[i][j] %= 1000
     return c
 
-def power(a, n):
+def power(lst, n):
     if n == 0:
-        return 1
+        return [[1 if i == j else 0 for j in range(T)] for i in range(T)] # 항등행렬 초기화 (대각선 1, 나머지 0) 어떤 행렬과 곱해도 그 행렬 유지
     
-    half = power(a, n // 2)
-    if half % 2 == 0:
-        power(half * half, n // 2)
+    half = power(lst, n // 2)
+    if n % 2 == 0:
+        return linear(half, half)
     else:
-        power(half * half * a, n // 2)
+        return linear(linear(half, half), lst)
 
 if __name__ == "__main__":
-    n, b = map(int, sys.stdin.readline().split())
-    lin = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
-    result = power(linear(lin, b),n)
-    for row in result:
+    T, N = map(int, sys.stdin.readline().split())
+    lst = [list(map(int, sys.stdin.readline().split())) for _ in range(T)]
+    res = power(lst, N)
+    for row in res:
         print(*row)

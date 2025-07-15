@@ -14,19 +14,22 @@ def isColor(n, lst):
 def paper(n, lst):
     if isColor(n, lst):
         color = lst[0][0]
-        res.append("(")
+        
         res.append(color)
-        res.append(")")
+        
         return
     else:
         half = n // 2
+        
         onelst = [row[:half] for row in lst[:half]]
         twolst = [row[half:] for row in lst[:half]]
-        threelst = [row[:half] for row in lst[:half]]
-        fourlst = [row[half:] for row in lst[:half]]
+        threelst = [row[:half] for row in lst[half:]]
+        fourlst = [row[half:] for row in lst[half:]]
         
+        res.append('(')
         for l in [onelst, twolst, threelst, fourlst]:
             paper(half, l)        
+        res.append(')') 
 
 if __name__ == "__main__":
     n = int(sys.stdin.readline())
@@ -34,4 +37,4 @@ if __name__ == "__main__":
     
     res = []
     paper(n, lst)
-    print(res)
+    print(*res, sep='')
