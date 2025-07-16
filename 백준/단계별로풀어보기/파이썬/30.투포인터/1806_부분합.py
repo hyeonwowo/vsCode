@@ -1,17 +1,25 @@
 import sys
 
-# 합이 S 이상이면, 길이를 기록하고 start를 증가시켜 구간을 줄여보고
-# 합이 S 미만이면, end를 증가시켜 구간을 늘려보자
-
-def twoPointer(S, lst):
+def twoPointer(N, S, lst):
     left = 0
     right = 0
-    count = 0
-    
-    while left < right:
-        
+    total = 0
+    minlen = float('inf')
+
+    while True:
+        if total >= S:
+            minlen = min(minlen, right - left)
+            total -= lst[left]
+            left += 1
+        elif right == N:
+            break
+        else:
+            total += lst[right]
+            right += 1
+
+    return 0 if minlen == float('inf') else minlen
 
 if __name__ == "__main__":
     N, S = map(int, sys.stdin.readline().split())
     lst = list(map(int, sys.stdin.readline().split()))
-    print(twoPointer(S, lst))
+    print(twoPointer(N, S, lst))
