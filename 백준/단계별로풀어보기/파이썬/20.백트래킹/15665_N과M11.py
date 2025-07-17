@@ -1,24 +1,22 @@
 import sys
 
-def backtracking(start):
+def backtracking():
     if len(path) == m:
         print(*path)
-        return
+        return 
     else:
         prev = 0
-        for i in range(start, n):
-            if not visited[i] and lst[i] != prev:
+        for i in range(n):
+            if prev != lst[i]:
                 prev = lst[i]
-                visited[i] = True
                 path.append(lst[i])
-                backtracking(i)
+                backtracking()
                 path.pop()
-                visited[i] = False
 
 if __name__ == "__main__":
     n, m = map(int, sys.stdin.readline().split())
     lst = sorted(list(map(int, sys.stdin.readline().split())))
     
-    visited = [False] * n
     path = []
-    backtracking(0)
+    backtracking()
+    

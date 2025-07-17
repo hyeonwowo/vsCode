@@ -4,6 +4,7 @@ import sys
 
 def backtracking(start):
     if len(path) == m:
+        # set에 추가시 .add + 리스트 형태 추가시 반드시 튜플형태 ! / list에 추가시 .append()
         res.add(tuple(path)) # append(path) : path의 원본 [] 이 저장되어 [[] [] []] 이와 같은 출력값이 나옴. 
                                # append(path[:]), append(list(path)) : path의 복사본 [a, b] 가 저장되어 [[a b] [a c] [b c]] 이와 같은 원하는 출력 값이 나옴.
         return

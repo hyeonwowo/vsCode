@@ -52,3 +52,41 @@ st.discard(6) # 오류 발생하지 않음
 # 왠만하면 예약어와 같은 이름의 변수 사용을 하지 말자.
 min = a[0] # 오류발생 !
 min(1,2) # min()이 아닌 min = a[0] 변수로 받아들이게 됨
+
+
+# set() 연산
+st = set() # 선언
+st.add(1) # 요소 추가
+st.add(1)
+st.add(2)
+
+st.add(tuple([1,2,3])) # 리스트를 set에 넣을 땐 tuple()
+
+
+# sorted() sort()
+lst = [1,3,2,0]
+lst.sort() # lst 자체를 정렬
+newlst = sorted(lst) # 새로운 리스트 반환
+
+
+# global 변수 : 함수 내부에서, 함수 밖에서 선언한 변수를 나눠쓰고 싶을 때 사용
+# 예제1)
+count = 0  # 전역 변수
+
+def increase():
+    global count  # 전역 변수임을 선언
+    count += 1
+
+increase()
+increase()
+print(count)  # 출력: 2
+
+
+# 예제2)
+count = 0
+
+def increase():
+    count += 1  # 에러 발생!
+    # UnboundLocalError: local variable 'count' referenced before assignment
+
+increase()
