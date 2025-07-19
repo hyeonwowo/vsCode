@@ -90,3 +90,8 @@ def increase():
     # UnboundLocalError: local variable 'count' referenced before assignment
 
 increase()
+
+
+# 백트래킹에서 리턴은 언제 할까?
+# 목표가 특정 조건을 만족하는 순간 탐색을 종료해야 할 때
+# 예: “첫 해답만 찾고 끝내기”, “최단거리 경로 리턴”, “사전 순 정답 하나만 리턴”

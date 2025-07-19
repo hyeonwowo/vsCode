@@ -7,10 +7,10 @@ def alpabet(cnt, x, y):
         max = cnt
 
     for dx, dy in directions:
-        if 0 <= x+dx < n and 0 <= y+dy < m:
-            if board[x+dx][y+dy] not in load:
-                load.append(board[x+dx][y+dy])
-                alpabet(cnt+1, x+dx, y+dy)
+        if 0 <= dx < n and 0 <= dy < m:
+            if board[dx][dy] not in load:
+                load.append(board[x][y])
+                alpabet(cnt+1, x, y)
                 load.pop()
             else:
                 return
