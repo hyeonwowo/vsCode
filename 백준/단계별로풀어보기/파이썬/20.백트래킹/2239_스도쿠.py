@@ -1,4 +1,4 @@
-import sys
+import sys # 기존 제출 3796ms -> 3028ms
 
 def numCand(x, y):
     numst = set()
@@ -13,7 +13,7 @@ def numCand(x, y):
             numst.add(board[tx + i][ty + j])
     
     stst = set([1,2,3,4,5,6,7,8,9])
-    return stst - numst
+    return sorted(stst - numst)
 
 def sudoku(currcnt):
     if currcnt == zerocnt:
@@ -31,7 +31,7 @@ def sudoku(currcnt):
     return None            
 
 if __name__ == "__main__":
-    board = [list(map(int, sys.stdin.readline().split())) for _ in range(9)]
+    board = [list(map(int, sys.stdin.readline().strip())) for _ in range(9)]
     zeropoint = []
     zerocnt = 0
     
@@ -43,6 +43,5 @@ if __name__ == "__main__":
                 
     res = sudoku(0)
     
-    print()
     for row in res:
-        print(*row)
+        print(*row, sep='')
