@@ -3,8 +3,7 @@ sys.setrecursionlimit(10**6) # 시간초과 발생
 
 def alpabet(cnt, x, y):
     global max
-    if cnt > max:
-        max = cnt
+    max = max(max, cnt)
 
     for dx, dy in directions:
         nx, ny = x + dx, y + dy
@@ -21,7 +20,6 @@ if __name__ == "__main__":
     directions = [(-1,0),(1,0),(0,-1),(0,1)]
     
     max = 0
-    load = set()
-    load.add(board[0][0])
+    load = set(board[0][0])
     alpabet(1, 0, 0)
     print(max)
