@@ -1,5 +1,5 @@
 import sys
-
+        
 def dfs(index, expression):
     if index == N:
         if eval(expression.replace(' ','')) == 0:
