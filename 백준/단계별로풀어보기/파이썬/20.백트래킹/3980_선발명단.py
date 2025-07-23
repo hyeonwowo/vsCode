@@ -1,25 +1,19 @@
-import sys # 안겹치게 각 포지션별 선수 선택
-           # 시간복잡도가 너무 오래걸림..
-           # 오버롤이 있는 좌표를 저장해서 하나씩 돌아볼까?
-def makeTeam(start):
+import sys 
+
+def makeTeam(i):
     global maxval
-    if start == 11:
+    if i == 11:
         total = 0
-        for i in range(11):
-            for j in range(11):
-                if grid[i][j] == 0:
-                    return
-                total += grid[i][j]
+        for i, j in path:
+            total += grid[i][j]
         maxval = max(maxval, total)
         return
     else:
-        for i in range(start, 11):
-            if not visited[i]:
-                visited[i] = True
-                path.append(i)
+        for j in range(11):
+            if not visited[i] and grid[i][j] != 0:
+                path.append((i, j))
                 makeTeam(i+1)
                 path.pop()
-                visited[i] = False
 
 if __name__ == "__main__":
     t = int(sys.stdin.readline())
