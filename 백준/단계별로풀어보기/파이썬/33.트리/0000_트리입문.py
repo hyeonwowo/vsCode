@@ -10,9 +10,9 @@ class BST:
 
     # ✅ insert(key)
     def insert(self, key):
-        def _insert(node, key):
+        def _insert(node, key): # 반환값 node
             if node is None:
-                return Node(key)
+                return Node(key) # 새로운 노드를 삽입한 결과를 부모 노드의 자식 포인터에 다시 저장
             if key < node.key:
                 node.left = _insert(node.left, key)
             elif key > node.key:
@@ -55,7 +55,7 @@ class BST:
                     return node.right
                 elif node.right is None:
                     return node.left
-                temp = _min_value_node(node.right)
+                temp = _min_value_node(node.right) # 자식이 두개일때, 오른쪽 서브트리의 최소 노드를 삭제한 자리에 삽입
                 node.key = temp.key
                 node.right = _delete(node.right, temp.key)
             return node
