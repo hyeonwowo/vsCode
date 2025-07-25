@@ -1,7 +1,7 @@
-class Node:
+class Node: # 이진트리는 pop하는게 아니라, 빠른 탐색을 위해 사용
     def __init__(self, key, value=None):
         self.key = key # 노드를 정렬하고 탐색하는 기준값 (ex) 학번, 아이디, 이름)
-        self.value = value if value is not None else key # 노드에 저장된 실제 데이터 (ex) 학생정보, 주소, 점수)
+        self.value = value if value is not None else key # 만약 value가 주어졌다면 그 값을 쓰고, 아니면 key를 그대로 value로 저장
         self.left = None
         self.right = None
 
@@ -10,7 +10,7 @@ class BST:
         self.root = None
 
     # ✅ insert(key, value)
-    def insert(self, key, value=None):
+    def insert(self, key, value=None): # 새로운 노드 BST에 삽입
         def _insert(node, key, value):
             if node is None:
                 return Node(key, value)
@@ -25,7 +25,7 @@ class BST:
         self.root = _insert(self.root, key, value)
 
     # ✅ search(key) → bool
-    def search(self, key):
+    def search(self, key): 
         def _search(node, key):
             if node is None:
                 return False
@@ -79,7 +79,7 @@ class BST:
         self.root = _delete(self.root, key)
 
     # ✅ inorder() → 리스트로 반환
-    def inorder(self):
+    def inorder(self): # 이진탐색트리의 내용을 중위순회, 정렬된 리스트로 반환
         result = []
         def _inorder(node):
             if node:
