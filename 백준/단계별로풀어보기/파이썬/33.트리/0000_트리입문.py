@@ -52,7 +52,7 @@ class BST:
         def _delete(node, key):
             # 삭제 노드 위치 탐색
             if node is None:
-                return None
+                return
             if key < node.key:
                 node.left = _delete(node.left, key)
             elif key > node.key:
