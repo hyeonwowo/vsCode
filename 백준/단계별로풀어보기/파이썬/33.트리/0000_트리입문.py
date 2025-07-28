@@ -36,9 +36,9 @@ class BST:
             if key == node.key:
                 return True
             elif key < node.key:
-                return _search(node.left, key)
+                return _search(node.left, key) # 서치 결과의 True, False 결과를 위로 올려서 최종적으로 반환하게 해야함
             else:
-                return _search(node.right, key)
+                return _search(node.right, key) #                       ""      
         return _search(self.root, key)
 
     # ✅ delete(key)
@@ -69,7 +69,7 @@ class BST:
                     temp = _min_value_node(node.right) 
                     node.key = temp.key # 오른쪽 서브트리 최소노드를 현재 자리에 삽입 (기존노드는 자연스럽게 지워짐)
                     node.root = _delete(node.right, temp.key) # 오른쪽 서브트리 최소노드는 지워진 자리에 가있으므로, 기존 오른쪽 서브트리 최소노드 제거 (제거 안하면 중복됨)
-            return node
+                    return node
 
         self.root = _delete(self.root, key)
 
@@ -90,9 +90,32 @@ if __name__ == "__main__":
     for k in [50, 30, 70, 20, 40, 60, 80]:
         bst.insert(k)
 
+    # ✅ 초기 트리 출력
+    print("초기 트리 (Inorder):", bst.inorder())
+
+    # ✅ search 테스트
     print("Search 40:", bst.search(40))  # True
     print("Search 90:", bst.search(90))  # False
-    print("Inorder:", bst.inorder())     # [20, 30, 40, 50, 60, 70, 80]
 
-    bst.delete(70)
-    print("Inorder after deleting 70:", bst.inorder())  # [20, 30, 40, 50, 60, 80]
+    # ✅ delete 테스트: 리프 노드
+    print("\n🗑️ delete(20) 실행")
+    bst.delete(20)
+    print("Inorder after deleting 20:", bst.inorder())
+    print("Search 20:", bst.search(20))  # False
+
+    # ✅ delete 테스트: 자식 1개
+    print("\n🗑️ delete(30) 실행")
+    bst.delete(30)
+    print("Inorder after deleting 30:", bst.inorder())
+    print("Search 30:", bst.search(30))  # False
+
+    # ✅ delete 테스트: 자식 2개
+    print("\n🗑️ delete(50) 실행")
+    bst.delete(50)
+    print("Inorder after deleting 50:", bst.inorder())
+    print("Search 50:", bst.search(50))  # False
+
+    # ✅ delete 테스트: 없는 값
+    print("\n🗑️ delete(999) 실행 (없는 값)")
+    bst.delete(999)
+    print("Inorder after deleting 999 (should be unchanged):", bst.inorder())
