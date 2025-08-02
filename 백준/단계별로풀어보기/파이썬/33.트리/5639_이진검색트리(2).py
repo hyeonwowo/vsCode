@@ -1,6 +1,5 @@
 import sys
 sys.setrecursionlimit(10**6)
-input = sys.stdin.readline
 
 def solution(start, end):
     if start >= end:
@@ -21,7 +20,7 @@ if __name__ == "__main__":
     arr = []
     while True:
         try:
-            x = int(input())
+            x = int(sys.stdin.readline())
             arr.append(x)
         except:
             break
