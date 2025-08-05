@@ -32,7 +32,7 @@ if __name__ == "__main__":
         idx = 1
         
         for _ in range(m):
-            p1, p2 = map(int, sys.stdin.readline().split())
+            p1, p2 = sys.stdin.readline().split()
             
             if p1 not in nametoid:
                 nametoid[p1] = idx
@@ -46,7 +46,8 @@ if __name__ == "__main__":
                 size[idx] = 1
                 idx += 1
                 
-            union(nametoid[p1], nametoid[p2])
-            res.append(max)
+            res.append(union(nametoid[p1], nametoid[p2]))
             
-    print(res)
+            
+    for ele in res:
+        print(ele)
