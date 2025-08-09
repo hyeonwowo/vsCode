@@ -1,3 +1,5 @@
+import sys
+
 class UnionFind:
     def __init__(self, n):
         self.parent = list(range(n))
@@ -19,28 +21,28 @@ class UnionFind:
 def kruskal(V, edges):
     edges.sort()
     uf = UnionFind(V)
+    
     mst = []
     total_weight = 0
 
-    for weight, u, v in edges:
-        if uf.union(u, v):
-            mst.append((u, v, weight))
+    for weight, v, w in edges:
+        if uf.union(v, w):
+            mst.append((v, w, weight))
             total_weight += weight
 
     return total_weight, mst
 
 if __name__ == "__main__":
-    import sys
-    input = sys.stdin.readline
-
-    V, E = map(int, input().split())
+    V, E = map(int, sys.stdin.readline().split())
+    
     edges = []
     for _ in range(E):
-        u, v, w = map(int, input().split())
-        edges.append((w, u, v))  # (가중치, 정점1, 정점2)
+        v, w, weight = map(int, input().split())
+        edges.append((weight, v, w))  # (가중치, 정점1, 정점2)
+
 
     total_weight, mst = kruskal(V, edges)
 
+    for v, w, weight in mst:
+        print(v, w, weight)
     print(total_weight)
-    for u, v, w in mst:
-        print(u, v, w)
