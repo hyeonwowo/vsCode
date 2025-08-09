@@ -28,3 +28,19 @@ def kruskal(V, edges):
             total_weight += weight
 
     return total_weight, mst
+
+if __name__ == "__main__":
+    import sys
+    input = sys.stdin.readline
+
+    V, E = map(int, input().split())
+    edges = []
+    for _ in range(E):
+        u, v, w = map(int, input().split())
+        edges.append((w, u, v))  # (가중치, 정점1, 정점2)
+
+    total_weight, mst = kruskal(V, edges)
+
+    print(total_weight)
+    for u, v, w in mst:
+        print(u, v, w)
