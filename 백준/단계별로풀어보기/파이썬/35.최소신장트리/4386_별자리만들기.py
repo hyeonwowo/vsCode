@@ -21,6 +21,7 @@ class UF:
         else:
             self.parent[rootb] = roota
             self.size[roota] += self.size[rootb]
+        return True
 
 def kruskal(V, edges):
     edges.sort()
@@ -50,8 +51,9 @@ if __name__ == "__main__":
     for i in range(V):
         for j in range(i+1, V):
             weight = distance(vertexPoint[i][0], vertexPoint[i][1], vertexPoint[j][0], vertexPoint[j][1])
-            edges.append((weight, i, j))
             
+            edges.append((weight, i, j))
+
     total_weight = kruskal(V, edges)
-    print(total_weight)
+    print(f"{total_weight:.2f}")
         
