@@ -21,7 +21,7 @@ def prim_eager(V, adj):
 
         total_weight += key
         if parent[v] != -1: # 시작 정점은 부모가 없으니 제외, 그 외에는 방금 선택된 간선을 MST에 기록
-            mst.append((parent[v], v, key))  # (v, w, weight) 순서로 출력할 예정
+            mst.append((parent[v], v, key))  # parent[v], v = mst에 속한 정점, mst 바깥에 속한 정점
 
         # v의 이웃을 살피며 dist 갱신 (decrease-key 효과)
         for w, weight in adj[v]:
