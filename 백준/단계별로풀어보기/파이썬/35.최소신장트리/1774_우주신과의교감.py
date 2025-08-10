@@ -1,5 +1,5 @@
-import sys # Kruskal
-import math
+import sys # Kruskal 1240ms
+import math # 간선이 많으면 프림, 적으면 크루스칼
 
 class UF:
     def __init__(self, V):

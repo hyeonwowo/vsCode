@@ -1,4 +1,4 @@
-import sys # prim
+import sys # prim 728ms
 import math
 import heapq
 
