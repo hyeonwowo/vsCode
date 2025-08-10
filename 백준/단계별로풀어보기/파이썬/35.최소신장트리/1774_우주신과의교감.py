@@ -1,4 +1,4 @@
-import sys
+import sys # Kruskal
 import math
 
 class UF:
@@ -23,16 +23,10 @@ class UF:
             self.size[roota] += self.size[rootb]
         return True
     
-def kruskal(N, edges, linkedPoint):
+def kruskal(edges, uf):
     edges.sort()
-    uf = UF(N)
-    
     total_weight = 0
     
-    for weight, v, w, in linkedPoint:
-        if uf.union(v, w):
-            total_weight += weight
-            
     for weight, v, w in edges:
         if uf.union(v, w):
             total_weight += weight
@@ -47,22 +41,22 @@ def distance(x1, y1, x2, y2):
 if __name__ == "__main__":
     N, M = map(int, sys.stdin.readline().split())
     edges = []
+    total_weight = 0
+    uf = UF(N)
     
     vertexPoint = []
     for _ in range(N):
         x, y = map(int, sys.stdin.readline().split())
-        vertexPoint.append((x, y))
+        vertexPoint.append((x, y))           
         
-    linkedPoint = []
     for _ in range(M):
         x, y = map(int, sys.stdin.readline().split())
-        linkedPoint.append((x, y))
+        uf.union(x-1, y-1)                     
     
-    print()
     for i in range(N):
         for j in range(i+1, N):
-            print(i, j)
             weight = distance(vertexPoint[i][0], vertexPoint[i][1], vertexPoint[j][0], vertexPoint[j][1])
             edges.append((weight, i, j))
     
-    print(edges)
+    total_weight = kruskal(edges, uf)
+    print(f"{total_weight:.2f}")
