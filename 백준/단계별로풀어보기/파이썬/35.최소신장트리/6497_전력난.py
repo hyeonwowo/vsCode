@@ -1,4 +1,4 @@
-import sys  # kruskal
+import sys  # kruskal 1984ms
 
 class UF:
     def __init__(self, V):
