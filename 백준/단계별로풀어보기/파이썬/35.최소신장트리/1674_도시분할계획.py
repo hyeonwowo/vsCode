@@ -8,6 +8,7 @@ def primEager(V, adj):
 
     dist[1] = 0
     total_weight = 0
+    edges = []
     while heap:
         key, v = heapq.heappop(heap)
         
@@ -15,13 +16,14 @@ def primEager(V, adj):
             continue
         visited[v] = True
         
+        edges.append(key)
         total_weight += key
         for w, weight in adj[v]:
             if not visited[w] and weight < dist[w]:
                 dist[w] = weight
                 heapq.heappush(heap, (weight, w))
         
-    return total_weight
+    return total_weight - max(edges)
 
 if __name__ == "__main__":
     V, E = map(int, sys.stdin.readline().split())
