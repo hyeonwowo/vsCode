@@ -4,3 +4,4 @@ print(f"{value:.2f}")  # 3.14
 
 
 # 간선이 많으면 프림, 적으면 크루스칼
+# E ~= V*V : prim, E ~= V : kruskal
