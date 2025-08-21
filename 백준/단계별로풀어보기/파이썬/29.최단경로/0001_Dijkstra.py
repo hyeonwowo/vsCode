@@ -1,7 +1,7 @@
-import sys
+import sys # 0이상의 가중치 모음 - Dijkstra
 import heapq
 
-# 1. pq에서 (가장 가까운 정점 v)를 pop
+# 1. pq에서 (가장 가까운 정점 v)를 pop, pq는 이미 방문한 visited에서 "갈 수 있는" 정점 후보
 # 2. v를 이미 방문했다면 skip
 # 3. v와 연결된 간선 (v → w)들에 대해:
 #     - distTo[w] > distTo[v] + weight 라면
@@ -27,7 +27,7 @@ def relax(u, v, weight, distTo, edgeTo, pq):
     if distTo[u] + weight < distTo[v]:
         distTo[v] = distTo[u] + weight
         edgeTo[v] = u
-        heapq.heappush(pq, (distTo[v], v))
+        heapq.heappush(pq, (distTo[v], v)) # heapq 삽입 발생
 
 def dijkstra(graph, start):
     V = graph.V
@@ -40,8 +40,8 @@ def dijkstra(graph, start):
 
     while pq:
         curr_dist, u = heapq.heappop(pq)
-        if curr_dist > distTo[u]:
-            continue
+        if curr_dist > distTo[u]: # 다익스트라 우선순위큐에는 어떤 정점이 여러번 들어갈 수 있음. 해당 사항 방지
+            continue # relax()에서 걸러지기에 없어도 되긴 함. 그러나, 불필요한 연산방지를 위해 해당 코드 작성
 
         for edge in graph.adj[u]:
             relax(edge.u, edge.v, edge.weight, distTo, edgeTo, pq)

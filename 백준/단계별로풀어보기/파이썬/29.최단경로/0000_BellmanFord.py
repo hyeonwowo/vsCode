@@ -1,4 +1,4 @@
-import sys
+import sys # 음수가중치 존재시 - bellmanFord
 
 # 1. 시작 정점의 거리(distTo[start])를 0으로 초기화, 나머지는 ∞로 초기화
 # 2. (V - 1)번 반복:
