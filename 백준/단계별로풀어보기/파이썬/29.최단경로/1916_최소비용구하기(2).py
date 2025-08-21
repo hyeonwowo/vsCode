@@ -13,13 +13,13 @@ class Graph:
         self.adj = [[] for _ in range(V+1)]
         
     def addEdge(self, v, w, weight):
-        self.adj[v].append(Edge(v, w, weight))
+        self.adj[v].append(Edge(v, w, weight)) # 양방향 -> 단방향 처리
         
 def relax(v, w, weight, edgeTo, distTo, heap):
     if distTo[v] != float('inf') and distTo[v] + weight < distTo[w]:
         distTo[w] = distTo[v] + weight
         edgeTo[w] = v
-        heapq.heappush(heap, (distTo[w], w))
+        heapq.heappush(heap, (distTo[w], w)) # 필수 !
 
 def dijkstra(start, graph):
     V = graph.V
