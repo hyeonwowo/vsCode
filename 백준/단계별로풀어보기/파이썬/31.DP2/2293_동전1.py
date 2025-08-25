@@ -5,7 +5,7 @@ def findcoin(coins):
     dp[0] = 1
     
     for coin in coins:
-        for i in range(coin,k+1):
+        for i in range(coin, k+1): # i >= coin 조건을 for i in range(coin, k+1)로 변경
             dp[i] += dp[i-coin]
     return dp[-1]
 
@@ -17,3 +17,4 @@ if __name__ == "__main__":
         coins.append(int(sys.stdin.readline()))
         
     print(findcoin(coins))
+    
