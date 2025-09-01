@@ -1,4 +1,4 @@
-import sys
+import sys # dp - 시간초과 (이분탐색으로 풀어야함)
 
 def electronicLine(n, lst):
     dp = [1] * n
