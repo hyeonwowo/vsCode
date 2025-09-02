@@ -1,3 +1,3 @@
-lst = [(0,1,2)]
-a, b, c = lst[0]
-print(a, b, c)
+for i in range(5):
+    for j in range(i+1, 5):
+        print(i, j)
