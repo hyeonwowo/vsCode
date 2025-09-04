@@ -1,6 +1,4 @@
-node = 3
-nodek = int(str(node) + "1")
-print(node)
-print(nodek)
-if isinstance(nodek, int):
-    print("asdf")
+lst = [0,0,0]
+
+if not lst[0]:
+    print("T")
