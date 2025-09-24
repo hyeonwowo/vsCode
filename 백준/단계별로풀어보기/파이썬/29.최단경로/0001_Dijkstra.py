@@ -1,5 +1,5 @@
 import sys # 0이상의 가중치 모음 - Dijkstra
-import heapq
+import heapq # 특별한 제약 조건이 없으면 dijkstra 사용
 
 # 1. pq에서 (가장 가까운 정점 v)를 pop, pq는 이미 방문한 visited에서 "갈 수 있는" 정점 후보
 # 2. v를 이미 방문했다면 skip

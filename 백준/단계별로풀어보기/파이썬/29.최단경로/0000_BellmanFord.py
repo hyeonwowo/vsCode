@@ -10,7 +10,6 @@ import sys # 음수가중치 존재시 - bellmanFord
 #         → 음수 사이클 존재 → 실패 처리
 # 4. 성공적으로 종료 시, distTo 배열이 최단 거리
 
-
 class Edge:
     def __init__(self, v, w, weight):
         self.v = v  # from
