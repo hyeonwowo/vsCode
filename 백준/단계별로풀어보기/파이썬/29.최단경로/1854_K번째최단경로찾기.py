@@ -15,41 +15,46 @@ class Graph:
     def addEdge(self, v, w, weight):
         self.adj[v].append(Edge(v, w, weight))
         
-def relax(v, w, weight, distTo, edgeTo, pq):
-    if distTo[v] + weight < distTo[w]:
-        distTo[w] = distTo[v] + weight
-        edgeTo[w] = v
-        heapq.heappush(pq, (distTo[w], w))
-        
-def dijkstra(start, graph):
+def relax(v, w, weight, distTo, pq, k):
+    new_dist = v + weight
+    if len(distTo[w]) < k:
+        heapq.heappush(distTo[w], -new_dist)
+        heapq.heappush(pq, (new_dist, w))
+    else:
+        if -distTo[w][0] > new_dist:
+            heapq.heappop(distTo[w])
+            heapq.heappush(distTo[w], -new_dist)
+            heapq.heappush(pq, (new_dist, w))
+
+def dijkstra(start, graph, k):
     V = graph.V
-    distTo = [float('inf')] * (V+1)
-    edgeTo = [None] * (V+1)
+    distTo = [[] for _ in range(V+1)]
     pq = []
     
-    distTo[start] = 0
+    heapq.heappush(distTo[start], 0)
     heapq.heappush(pq, (0, start))
+    
     while pq:
         curr_dist, v = heapq.heappop(pq)
-        if distTo[v] < curr_dist:
-            continue
         
         for edge in graph.adj[v]:
-            relax(edge.v, edge.w, edge.weight, distTo, edgeTo, pq)
+            relax(curr_dist, edge.w, edge.weight, distTo, pq, k)
             
-    return distTo, edgeTo
+    return distTo
 
 if __name__ == "__main__":
-    n, m, k = map(int, sys.stdin.readline().split())
+    input = sys.stdin.readline
+    n, m, k = map(int, input().split())
     
     g = Graph(n)
     for _ in range(m):
-        v, w, weight = map(int, sys.stdin.readline().split())
+        v, w, weight = map(int, input().split())
         g.addEdge(v, w, weight)
         
-    distTo, edgeTo = dijkstra(1, g)
+    distTo = dijkstra(1, g, k)
+    
     for i in range(1, n+1):
-        if distTo[i] >= float('inf'):
+        if len(distTo[i]) < k:
             print(-1)
         else:
-            print(distTo[i])
+            print(-distTo[i][0])  # k번째 최단경로
