@@ -11,14 +11,14 @@ class Graph:
     def __init__(self, V):
         self.V = V
         self.adj = [[] for _ in range(V+1)]
-        
+    
     def addEdge(self, v, w, weight):
         self.adj[v].append(Edge(v, w, weight))
         
-def relax(v, w, weight, distTo, pq, k):
-    new_dist = v + weight
+def relax(curr_dist, w, weight, distTo, pq ,k):
+    new_dist = curr_dist + weight
     if len(distTo[w]) < k:
-        heapq.heappush(distTo[w], -new_dist)
+        heapq.heappush(distTo[w], -new_dist)  # 최대힙 구현
         heapq.heappush(pq, (new_dist, w))
     else:
         if -distTo[w][0] > new_dist:
@@ -39,18 +39,18 @@ def dijkstra(start, graph, k):
         
         for edge in graph.adj[v]:
             relax(curr_dist, edge.w, edge.weight, distTo, pq, k)
-            
+    
     return distTo
 
 if __name__ == "__main__":
     input = sys.stdin.readline
     n, m, k = map(int, input().split())
-    
     g = Graph(n)
+    
     for _ in range(m):
         v, w, weight = map(int, input().split())
         g.addEdge(v, w, weight)
-        
+    
     distTo = dijkstra(1, g, k)
     
     for i in range(1, n+1):
