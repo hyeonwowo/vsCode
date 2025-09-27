@@ -45,8 +45,13 @@ def dijkstra(start, graph):
             
     return edgeTo, distTo
 
-def pathTo(start, g):
-    
+def pathTo(edgeTo, v):
+    path = []
+    while v is not None:
+        path.append((v, edgeTo[v]))
+        v = edgeTo[v]
+    path.reverse()
+    return path
 
 if __name__ == "__main__":
     res = []
