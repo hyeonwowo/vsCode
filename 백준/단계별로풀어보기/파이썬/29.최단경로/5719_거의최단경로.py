@@ -1,10 +1,6 @@
 import sys
 import heapq
-
-# 최단경로 구하기
-# 최단경로 엣지를 graph에서 지우기
-# graph에서 다시 최단경로 구하기
-# 끝.
+from collections import deque
 
 class Edge:
     def __init__(self, v, w, weight):
@@ -19,19 +15,13 @@ class Graph:
     
     def addEdge(self, v, w, weight):
         self.adj[v].append(Edge(v, w, weight))
-        
-def relax(v, w, weight, edgeTo, distTo, pq):
-    if distTo[v] + weight < distTo[w]:
-        distTo[w] = distTo[v] + weight
-        edgeTo[w] = v
-        heapq.heappush(pq, (distTo[w], w))
 
 def dijkstra(start, graph):
     V = graph.V
-    edgeTo = [None] * V
     distTo = [float('inf')] * V
-    pq = []
+    prev = [[] for _ in range(V)]   # 여러 부모 저장
     
+    pq = []
     distTo[start] = 0
     heapq.heappush(pq, (0, start))
     
@@ -39,41 +29,53 @@ def dijkstra(start, graph):
         curr_dist, v = heapq.heappop(pq)
         if distTo[v] < curr_dist:
             continue
-        
         for edge in graph.adj[v]:
-            relax(edge.v, edge.w, edge.weight, edgeTo, distTo, pq)
-            
-    return edgeTo, distTo
+            w = edge.w
+            if distTo[w] > distTo[v] + edge.weight:
+                distTo[w] = distTo[v] + edge.weight
+                prev[w] = [v]
+                heapq.heappush(pq, (distTo[w], w))
+            elif distTo[w] == distTo[v] + edge.weight:
+                prev[w].append(v)
+    return distTo, prev
 
-def pathTo(edgeTo, v):
-    path = []
-    while v is not None:
-        path.append((v, edgeTo[v]))
-        v = edgeTo[v]
-    path.reverse()
-    return path
+def remove_shortest_paths(graph, prev, start, end):
+    q = deque([end])
+    visited = [False] * graph.V
+    while q:
+        v = q.popleft()
+        if v == start: 
+            continue
+        for u in prev[v]:
+            # 간선 u->v 제거
+            graph.adj[u] = [edge for edge in graph.adj[u] if edge.w != v]
+            if not visited[u]:
+                visited[u] = True
+                q.append(u)
 
 if __name__ == "__main__":
+    input = sys.stdin.readline
     res = []
     while True:
-        n, m = map(int, sys.stdin.readline().split())
+        n, m = map(int, input().split())
         if n == 0 and m == 0:
             break
         
-        start, end = map(int, sys.stdin.readline().split())
+        start, end = map(int, input().split())
         g = Graph(n)
         for _ in range(m):
-            v, w, weight = map(int, sys.stdin.readline().split())
+            v, w, weight = map(int, input().split())
             g.addEdge(v, w, weight)
-            
-        edgeTo, _ = dijkstra(start, g)
-        path = pathTo(edgeTo, end)
         
-        for v, w in path:
-            g.adj[v].remove(w)
-          
-        _, distTo = dijkstra(start, g)  
-        res.append(distTo[end])
+        # 1. 최단 거리
+        distTo, prev = dijkstra(start, g)
         
+        # 2. 최단 경로 간선 제거
+        remove_shortest_paths(g, prev, start, end)
+        
+        # 3. 다시 다익스트라
+        distTo2, _ = dijkstra(start, g)
+        res.append(-1 if distTo2[end] == float('inf') else distTo2[end])
+    
     for ele in res:
         print(ele)
