@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# macOS
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Dataset
+AI/CUB_200_2011/images/
+AI/CUB_200_2011/parts/
+AI/CUB_200_2011/attributes/
+
+
+.vscode/settings.json
+
+
