@@ -1,26 +1,28 @@
 import sys
+# 전체 구조화 -> 세부 구조화 -> 각 블록별 문장으로 절차 적기 -> 코드로 옮겨적기
 
 class ArrayBST:
     def __init__(self):
         self.tree = [None]
-        
+    
     def _ensure_size(self, idx):
         if idx >= len(self.tree):
-            self.tree.extend([None] * (idx-len(self.tree)+1))
-            
+            self.tree.extend([None] * (idx - len(self.tree)+1))
+    
     def insert(self, key):
         idx = 1
         while True:
             self._ensure_size(idx)
-        
+            
             if self.tree[idx] is None:
                 self.tree[idx] = key
+                return
             
             if key < self.tree[idx]:
                 idx = idx * 2
             else:
                 idx = idx * 2 + 1
-                
+    
     def search(self, key):
         idx = 1
         while idx < len(self.tree) and self.tree[idx] is not None:
@@ -31,7 +33,7 @@ class ArrayBST:
             else:
                 idx = idx * 2 + 1
         return False
-        
+    
     def inorder(self):
         result = []
         
@@ -40,10 +42,10 @@ class ArrayBST:
                 return
             _inorder(idx * 2)
             result.append(self.tree[idx])
+            _inorder(idx * 2 + 1)
             
         _inorder(1)
         return result
-        
 
 if __name__ == "__main__":
     bst = ArrayBST()
