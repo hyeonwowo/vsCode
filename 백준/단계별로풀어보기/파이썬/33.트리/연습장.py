@@ -1,56 +1,54 @@
 import sys
+sys.setrecursionlimit(10**6)
+LENGTH = 21
 
-class ArrayBST:
-    def __init__(self):
-        self.tree = [None]
+def dfs(v, depth):
+    visited[v] = True
+    d[v] = depth
     
-    def _ensure_size(self, idx):
-        if idx >= len(self.len):
-            self.tree.extend([None] * (idx-len(self.tree)+1))
+    for w in graph[v]:
+        if visited[w]:
+            continue
+        parent[w][0] = v
+        dfs(w, depth+1)
+
+def set_parent():
+    dfs(1, 0)
+    for i in range(1, LENGTH):
+        for j in range(1, n+1):
+            parent[j][i] = parent[parent[j][i-1]][i-1]
+
+def lca(a, b):
+    if d[a] > d[b]:
+        a, b = b, a
     
-    def insert(self, key):
-        idx = 1
-        while True:
-            self._ensure_size(idx)
+    for i in range(LENGTH-1,-1,-1):
+        if d[b] - d[a] >= 2**i:
+            b = parent[b][i]    
             
-            if self.tree[idx] is None:
-                self.tree[idx] = key
-                return
-            
-            if key < self.tree[idx]:
-                idx = idx * 2
-            else:
-                idx = idx * 2 + 1
+    if a == b:
+        return a
     
-    def search(self, key):
-        idx = 1
-        while idx < len(self.tree) and self.tree[idx] is not None:
-            if self.tree[idx] == key:
-                return True
-            elif key < self.tree[idx]:
-                idx = idx * 2
-            else:
-                idx = idx * 2 + 1
-        return False
-    
-    def inorder(self):
-        result = []
-        
-        def _inorder(idx):
-            if idx >= len(self.tree) or self.tree[idx] is None:
-                return
-            _inorder(idx * 2)
-            result.append(self.tree[idx])
-            _inorder(idx * 2 + 1)
-        _inorder(1)
-        return result
+    for i in range(LENGTH-1, -1, -1):
+        if parent[a][i] != parent[b][i]:
+            a = parent[a][i]
+            b = parent[b][i]
 
 if __name__ == "__main__":
-    bst = ArrayBST()
+    n = int(input())
+    parent = [[0] * LENGTH for _ in range(n+1)]
+    visited = [False] * (n+1)
+    d = [0] * (n+1)
+    graph = [[] for _ in range(n+1)]
     
-    for x in [50,30,70,20,40,60,80]:
-        bst.insert(x)
+    for _ in range(n-1):
+        a, b = map(int, sys.stdin.readline().split())
+        graph[a].append(b)
+        graph[b].append(a)
+        
+    set_parent()
+    m = int(sys.stdin.readline())
     
-    print("Search 40:", bst.search(40))
-    print("Search 100:", bst.search(100))
-    print("Inorder:", bst.inorder())
+    for _ in range(m):
+        a, b = map(int, sys.stdin.readline().split())
+        print(lca(a, b))
